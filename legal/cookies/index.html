@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Использование cookie · Галифанов, Мальков и Партнёры</title>
+  <meta name="description" content="Какие cookie-файлы и счётчики веб-аналитики использует сайт 1-tm.ru. Как ими управлять и как отказаться.">
+
+  <!-- :og:start -->
+  <link rel="canonical" href="https://1-tm.ru/legal/cookies/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Галифанов, Мальков и Партнёры">
+  <meta property="og:title" content="Использование cookie · Галифанов, Мальков и Партнёры">
+  <meta property="og:description" content="Какие cookie-файлы и счётчики веб-аналитики использует сайт 1-tm.ru. Как ими управлять и как отказаться.">
+  <meta property="og:url" content="https://1-tm.ru/legal/cookies/">
+  <meta property="og:image" content="https://1-tm.ru/assets/images/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Использование cookie · Галифанов, Мальков и Партнёры">
+  <meta name="twitter:description" content="Какие cookie-файлы и счётчики веб-аналитики использует сайт 1-tm.ru. Как ими управлять и как отказаться.">
+  <meta name="twitter:image" content="https://1-tm.ru/assets/images/og-default.png">
+  <!-- :og:end -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/utils.css">
+  <link rel="stylesheet" href="/assets/css/header.css">
+  <link rel="stylesheet" href="/assets/css/mobile-menu.css">
+  <link rel="stylesheet" href="/assets/css/footer.css">
+  <link rel="stylesheet" href="/assets/css/sections.css">
+  <link rel="stylesheet" href="/assets/css/modal.css">
+  <link rel="stylesheet" href="/assets/css/pages/legal.css">
+  <!-- :ld:start -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Главная",
+      "item": "https://1-tm.ru/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Документы",
+      "item": "https://1-tm.ru/legal/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Использование cookie",
+      "item": "https://1-tm.ru/legal/cookies/"
+    }
+  ]
+}
+  </script>
+  <!-- :ld:end -->
+</head>
+<body class="page-body-light">
+<header class="site-header site-header--always-solid" id="siteHeader" data-state="solid" data-extra="">
+
+    <!-- 1-я линия: телефоны городов + email -->
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <div class="topbar__locations text-meta">
+          <span class="topbar__loc"><strong>Москва</strong> · <a href="tel:+74951518282" class="link copy-trigger" data-copy-label="Скопировать номер" data-copy-toast="Номер телефона скопирован">+7&nbsp;(495)&nbsp;151-82-82</a></span>
+          <span class="topbar__loc"><strong>Тюмень</strong> · <a href="tel:+73452492557" class="link copy-trigger" data-copy-label="Скопировать номер" data-copy-toast="Номер телефона скопирован">+7&nbsp;(345)&nbsp;249-25-57</a></span>
+        </div>
+        <div class="topbar__email text-meta">
+          <strong>Email</strong> · <a href="mailto:law@1-tm.ru" class="link copy-trigger" data-copy-label="Скопировать адрес" data-copy-toast="Адрес электронной почты скопирован">law@1-tm.ru</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2-я линия: логотип + навигация + CTA -->
+    <div class="header-main-wrap">
+      <div class="container header-main">
+        <a href="/" class="brand link" aria-label="Галифанов, Мальков и Партнёры — на главную">
+          <span class="brand__name">Галифанов, Мальков и&nbsp;Партнёры</span>
+          <span class="brand__sub">Юридическая фирма · с&nbsp;2014&nbsp;года</span>
+        </a>
+
+        <div class="header-nav">
+          <button type="button" class="btn-search" id="searchToggle" aria-label="Поиск" aria-expanded="false">
+            <svg class="icon icon--lg" aria-hidden="true"><use href="/assets/icons/sprite.svg#search"/></svg>
+          </button>
+          <nav class="primary-nav" aria-label="Главное меню">
+            <button type="button" class="nav-link nav-link--services" id="servicesToggle" aria-expanded="false" aria-controls="megaMenu">
+              <span>Услуги</span>
+              <svg class="icon nav-link__chevron" aria-hidden="true"><use href="/assets/icons/sprite.svg#chevron-down"/></svg>
+            </button>
+            <a href="/o-byuro/" class="nav-link">О&nbsp;бюро</a>
+            <a href="/zhurnal/" class="nav-link">Журнал</a>
+            <a href="/dela/" class="nav-link">Дела</a>
+            <a href="/kontakty/" class="nav-link">Контакты</a>
+          </nav>
+        </div>
+
+        <a href="#" class="btn btn--glass btn--w-220 btn-consult-hide-mobile js-open-consult">
+          Заявка на&nbsp;консультацию
+        </a>
+
+        <!-- Mobile-only accent-button: открывает модалку заявки. Рядом с бургером. -->
+        <button type="button" class="btn-consult-mobile js-open-consult" aria-label="Заявка на консультацию">
+          <svg class="icon icon--lg" aria-hidden="true"><use href="/assets/icons/sprite.svg#send"/></svg>
+        </button>
+
+        <button type="button" class="nav-toggle" id="mobileToggle" aria-label="Меню" aria-expanded="false">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 3-я линия: мегаменю или поиск (один контейнер с CSS-анимацией высоты) -->
+    <div class="header-extra" id="headerExtra" aria-hidden="true">
+      <div class="header-extra__inner">
+
+        <!-- Мегаменю — ровно по 6 услуг в каждом направлении -->
+        <div class="mega" id="megaMenu">
+          <div class="container">
+            <div class="mega__grid">
+              <div>
+                <h6 class="mega__col-title">Интеллектуальная собственность</h6>
+                <ul class="mega__list">
+                  <li><a href="/uslugi/intellektualnaya-sobstvennost/#tovarnye-znaki" class="link">Товарные знаки</a></li>
+                  <li><a href="/uslugi/intellektualnaya-sobstvennost/#patenty" class="link">Патенты</a></li>
+                  <li><a href="/uslugi/intellektualnaya-sobstvennost/#avtorskoe-pravo" class="link">Авторское право</a></li>
+                  <li><a href="/uslugi/intellektualnaya-sobstvennost/#po-bazy-dannyh" class="link">ПО и&nbsp;базы данных</a></li>
+                  <li><a href="/uslugi/intellektualnaya-sobstvennost/#geograficheskie-ukazaniya" class="link">Географические указания</a></li>
+                  <li><a href="/uslugi/intellektualnaya-sobstvennost/#franshiza" class="link">Франшиза</a></li>
+                </ul>
+                <a href="/uslugi/intellektualnaya-sobstvennost/" class="mega__more">
+                  <span>Все услуги направления</span>
+                  <svg class="icon icon--arrow" aria-hidden="true"><use href="/assets/icons/sprite.svg#arrow-right"/></svg>
+                </a>
+              </div>
+              <div>
+                <h6 class="mega__col-title">Договоры и&nbsp;сделки</h6>
+                <ul class="mega__list">
+                  <li><a href="/uslugi/dogovory-i-sdelki/#litsenzii" class="link">Лицензионные договоры</a></li>
+                  <li><a href="/uslugi/dogovory-i-sdelki/#otchuzhdenie" class="link">Договоры отчуждения</a></li>
+                  <li><a href="/uslugi/dogovory-i-sdelki/#zalog" class="link">Договоры залога</a></li>
+                  <li><a href="/uslugi/dogovory-i-sdelki/#nda" class="link">NDA и&nbsp;коммерческая тайна</a></li>
+                  <li><a href="/uslugi/dogovory-i-sdelki/#avtorskij-zakaz" class="link">Авторский заказ</a></li>
+                  <li><a href="/uslugi/dogovory-i-sdelki/#razrabotka-po" class="link">Договоры на&nbsp;разработку ПО</a></li>
+                </ul>
+                <a href="/uslugi/dogovory-i-sdelki/" class="mega__more">
+                  <span>Все услуги направления</span>
+                  <svg class="icon icon--arrow" aria-hidden="true"><use href="/assets/icons/sprite.svg#arrow-right"/></svg>
+                </a>
+              </div>
+              <div>
+                <h6 class="mega__col-title">Судебная практика</h6>
+                <ul class="mega__list">
+                  <li><a href="/uslugi/spory-i-zashchita/#arbitrazh" class="link">Арбитражные споры</a></li>
+                  <li><a href="/uslugi/spory-i-zashchita/#korporativnye" class="link">Корпоративные споры</a></li>
+                  <li><a href="/uslugi/spory-i-zashchita/#nalogovye" class="link">Налоговые споры</a></li>
+                  <li><a href="/uslugi/spory-i-zashchita/#fas" class="link">Защита в&nbsp;ФАС</a></li>
+                  <li><a href="/uslugi/spory-i-zashchita/#bankrotstvo" class="link">Банкротство</a></li>
+                  <li><a href="/uslugi/spory-i-zashchita/#kontrafakt" class="link">Борьба с&nbsp;контрафактом</a></li>
+                </ul>
+                <a href="/uslugi/spory-i-zashchita/" class="mega__more">
+                  <span>Все услуги направления</span>
+                  <svg class="icon icon--arrow" aria-hidden="true"><use href="/assets/icons/sprite.svg#arrow-right"/></svg>
+                </a>
+              </div>
+              <div>
+                <h6 class="mega__col-title">Сопровождение бизнеса</h6>
+                <ul class="mega__list">
+                  <li><a href="/uslugi/soprovozhdenie-biznesa/#yur-soprovozhdenie" class="link">Юридическое сопровождение</a></li>
+                  <li><a href="/uslugi/soprovozhdenie-biznesa/#goszakupki" class="link">Госзакупки 44/223-ФЗ</a></li>
+                  <li><a href="/uslugi/soprovozhdenie-biznesa/#autsorsing" class="link">Бизнес-аутсорсинг</a></li>
+                  <li><a href="/uslugi/soprovozhdenie-biznesa/#zashchita" class="link">Защита бизнеса</a></li>
+                  <li><a href="/uslugi/soprovozhdenie-biznesa/#kommercheskaya-tayna" class="link">Коммерческая тайна</a></li>
+                  <li><a href="/uslugi/soprovozhdenie-biznesa/#dogovornaya-rabota" class="link">Договорная работа</a></li>
+                </ul>
+                <a href="/uslugi/soprovozhdenie-biznesa/" class="mega__more">
+                  <span>Все услуги направления</span>
+                  <svg class="icon icon--arrow" aria-hidden="true"><use href="/assets/icons/sprite.svg#arrow-right"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <!--
+              Полоса «Специализация» — две оси узких практик: отрасли патентов + инстанции.
+              Каждый тег ведёт на отдельную страницу-услугу под low-frequency SEO-запрос.
+            -->
+            <div class="mega__rail">
+              <div class="mega__rail-eyebrow">Специализация</div>
+              <div class="mega__rail-grid">
+                <div class="mega__rail-block">
+                  <h6 class="mega__col-title">Патенты по&nbsp;отраслям</h6>
+                  <ul class="mega__tags">
+                    <li><a href="/uslugi/patenty-v-selskom-khozyaystve/" class="link">Сельское хозяйство</a></li>
+                    <li><a href="/uslugi/patenty-v-meditsine/" class="link">Медицина</a></li>
+                    <li><a href="/uslugi/patenty-v-farmacevtike/" class="link">Фармацевтика</a></li>
+                    <li><a href="/uslugi/patenty-v-neftegaze/" class="link">Нефтегаз</a></li>
+                    <li><a href="/uslugi/patenty-v-promyshlennosti/" class="link">Промышленное оборудование</a></li>
+                  </ul>
+                </div>
+                <div class="mega__rail-block">
+                  <h6 class="mega__col-title">Представительство в&nbsp;судах</h6>
+                  <ul class="mega__tags">
+                    <li><a href="/uslugi/predstavitelstvo-v-sip/" class="link">СИП</a></li>
+                    <li><a href="/uslugi/spory-v-arbitrazhnom-sude/" class="link">Арбитражный суд</a></li>
+                    <li><a href="/uslugi/spory-v-fas/" class="link">ФАС</a></li>
+                    <li><a href="/uslugi/spory-v-palate-po-patentnym-sporam/" class="link">Палата по&nbsp;патентным спорам</a></li>
+                    <li><a href="/uslugi/spory-v-verhovnom-sude/" class="link">Верховный Суд&nbsp;РФ</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--
+          Поиск — с динамическим dropdown.
+          • При фокусе на пустом поле показываем chips популярных запросов
+          • При вводе — группированный dropdown результатов с sticky-кнопкой «Все результаты»
+          • Иконка очистки (backspace) появляется только когда есть текст — отдельно от X-закрытия
+        -->
+        <div class="search-row" id="searchRow">
+          <div class="container">
+            <form class="search-row__form" role="search" action="/poisk/" method="get">
+              <svg class="search-row__icon icon icon--lg" aria-hidden="true"><use href="/assets/icons/sprite.svg#search"/></svg>
+              <input type="search" name="q" class="search-row__input" id="searchInput" placeholder="Услуги, дела, статьи, классы МКТУ…" autocomplete="off">
+              <button type="button" class="search-row__clear" id="searchClear" aria-label="Очистить поле" hidden>
+                <svg class="icon icon--md" aria-hidden="true"><use href="/assets/icons/sprite.svg#backspace"/></svg>
+              </button>
+              <span class="search-row__hint">Esc&nbsp;— закрыть</span>
+              <button type="button" class="search-row__close" id="searchClose" aria-label="Закрыть поиск">
+                <svg class="icon icon--md" aria-hidden="true"><use href="/assets/icons/sprite.svg#close"/></svg>
+              </button>
+            </form>
+
+            <!-- Dropdown с результатами; JS наполняет, скрыт по умолчанию -->
+            <div class="search-suggest" id="searchSuggest" aria-live="polite" hidden></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<main class="page legal-page">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <a href="/" class="breadcrumbs__item">Главная</a>
+      <span class="breadcrumbs__sep">/</span>
+      <span class="breadcrumbs__item is-current">Использование cookie</span>
+    </nav>
+
+    <section class="page-hero">
+      <div class="page-hero__grid">
+        <div class="page-hero__head">
+          <span class="eyebrow">Документ&nbsp;№&nbsp;3 из&nbsp;5</span>
+          <h1 class="page-hero__title">Использование <em>cookie</em></h1>
+        </div>
+        <p class="page-hero__lead">Редакция от&nbsp;10&nbsp;мая&nbsp;2026&nbsp;года.</p>
+      </div>
+    </section>
+
+    <div class="legal-page__layout">
+      <article class="legal-page__content">
+
+        <h2 id="what">1. Что такое cookie</h2>
+        <p>
+          Cookie&nbsp;— это небольшие текстовые файлы, которые сайт сохраняет в&nbsp;браузере Пользователя для&nbsp;того, чтобы корректно работали его функции, запоминались настройки и&nbsp;собиралась обезличенная статистика посещений.
+        </p>
+        <p>
+          Сайт <a href="https://1-tm.ru/">1-tm.ru</a> использует cookie в&nbsp;соответствии с&nbsp;настоящим документом и&nbsp;<a href="/legal/privacy/">Политикой конфиденциальности</a>.
+        </p>
+
+        <h2 id="types">2. Какие cookie мы используем</h2>
+
+        <h3>2.1. Технические (необходимые)</h3>
+        <p>
+          Обеспечивают базовую работу Сайта: сохранение состояния поиска, открытых разделов мегаменю, ранее заполненных полей формы. Без этих cookie Сайт не&nbsp;может функционировать корректно. Эти cookie не&nbsp;собирают информацию для&nbsp;маркетинга и&nbsp;не&nbsp;могут быть отключены отдельно.
+        </p>
+
+        <h3>2.2. Аналитические</h3>
+        <p>
+          Используются для&nbsp;понимания того, какие страницы и&nbsp;разделы Сайта пользуются спросом. Помогают улучшать структуру и&nbsp;содержание материалов. Источником данных служат счётчики Яндекс.Метрики; данные обрабатываются в&nbsp;агрегированной обезличенной форме.
+        </p>
+
+        <h3>2.3. Функциональные</h3>
+        <p>
+          Позволяют запомнить параметры, которые повышают удобство (например, ранее посещённые разделы каталога услуг). Не&nbsp;используются для&nbsp;идентификации Пользователя.
+        </p>
+
+        <p>
+          Сайт не&nbsp;использует рекламные cookie третьих лиц.
+        </p>
+
+        <h2 id="manage">3. Как управлять cookie</h2>
+        <p>На&nbsp;Сайте действует баннер согласия, который появляется при&nbsp;первом посещении и&nbsp;позволяет выбрать набор разрешённых категорий. Технические cookie сохраняются всегда (необходимы для&nbsp;работы Сайта); аналитические&nbsp;— только при&nbsp;явном согласии Пользователя.</p>
+        <p>
+          <button type="button" class="text-link" onclick="window.cookieConsentReset && window.cookieConsentReset()">Открыть настройки cookie на&nbsp;этом сайте&nbsp;→</button>
+        </p>
+        <p>Помимо&nbsp;этого, Пользователь может в&nbsp;любой момент изменить настройки cookie в&nbsp;своём браузере:</p>
+        <ul>
+          <li>удалить уже сохранённые cookie с&nbsp;Сайта;</li>
+          <li>заблокировать сохранение новых cookie с&nbsp;Сайта;</li>
+          <li>включить режим инкогнито/приватный, в&nbsp;котором cookie не&nbsp;сохраняются после завершения сессии.</li>
+        </ul>
+        <p>
+          Инструкции для&nbsp;популярных браузеров доступны в&nbsp;их&nbsp;официальных справочных разделах: Google Chrome, Mozilla Firefox, Apple Safari, Microsoft Edge, Yandex Browser.
+        </p>
+
+        <div class="legal-note">
+          <span class="legal-note__label">Важно</span>
+          Отключение технических cookie может привести к&nbsp;частичной потере функциональности Сайта&nbsp;— например, формы могут перестать сохранять состояние, а&nbsp;некоторые элементы навигации&nbsp;— работать не&nbsp;полностью.
+        </div>
+
+        <h2 id="consent">4. Согласие на использование cookie</h2>
+        <p>
+          Согласие на&nbsp;использование cookie выражается через cookie-баннер при&nbsp;первом посещении Сайта. До&nbsp;получения такого согласия аналитические cookie не&nbsp;устанавливаются; работают только технические cookie, необходимые для&nbsp;функционирования Сайта.
+        </p>
+        <p>
+          Пользователь имеет право в&nbsp;любой момент отозвать согласие либо изменить выбор категорий, нажав «Открыть настройки cookie» в&nbsp;разделе&nbsp;3 выше.
+        </p>
+
+        <h2 id="changes">5. Изменения документа</h2>
+        <p>
+          Состав и&nbsp;цели использования cookie могут уточняться. Актуальная редакция документа размещается по&nbsp;адресу <a href="/legal/cookies/">/legal/cookies/</a>; дата последней редакции указана в&nbsp;шапке.
+        </p>
+
+      </article>
+
+      <aside class="legal-toc" id="legalToc">
+        <h6 class="legal-toc__title">Содержание</h6>
+        <ol class="legal-toc__list">
+          <li><a href="#what">Что такое cookie</a></li>
+          <li><a href="#types">Какие используем</a></li>
+          <li><a href="#manage">Как управлять</a></li>
+          <li><a href="#consent">Согласие</a></li>
+          <li><a href="#changes">Изменения</a></li>
+        </ol>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+
+    <div class="footer__cols">
+      <!-- Колонка 1: бренд + краткое описание + канал в Telegram.
+           Внутренний враппер .footer__col-inner — чтобы на мобиле через display:contents
+           вынести канал в самый низ (order:1), но сохранить нативные margin'ы между
+           brand/sub/about (они остаются одним grid-item'ом). -->
+      <div class="footer__col footer__col--brand">
+        <div class="footer__col-inner">
+          <div class="footer__brand">Галифанов, Мальков и&nbsp;Партнёры</div>
+          <div class="footer__brand-sub">Юридическая фирма · с&nbsp;2014&nbsp;года</div>
+          <p class="footer__about">
+            Юристы для&nbsp;бизнеса полного цикла: интеллектуальная собственность, договоры, судебная практика и&nbsp;сопровождение компаний. Москва и&nbsp;Тюмень. 1&nbsp;300+&nbsp;ТЗ, 90,4%&nbsp;выигранных дел.
+          </p>
+        </div>
+        <a href="https://t.me/urberau" target="_blank" rel="noopener" class="footer__channel">
+          <svg class="footer__channel-icon" aria-hidden="true"><use href="/assets/icons/sprite.svg#telegram"/></svg>
+          <span class="footer__channel-text">
+            <span class="footer__channel-label">Канал в&nbsp;Telegram</span>
+            <span class="footer__channel-title">«Заметки юристов» · <span class="footer__channel-handle">@urberau</span></span>
+          </span>
+        </a>
+      </div>
+
+      <!-- Колонка 2: услуги -->
+      <div class="footer__col">
+        <h4 class="footer__col-title">Направления</h4>
+        <ul class="footer__list">
+          <li><a href="/uslugi/intellektualnaya-sobstvennost/">Интеллектуальная собственность</a></li>
+          <li><a href="/uslugi/dogovory-i-sdelki/">Договоры и&nbsp;сделки</a></li>
+          <li><a href="/uslugi/spory-i-zashchita/">Судебная практика</a></li>
+          <li><a href="/uslugi/soprovozhdenie-biznesa/">Сопровождение бизнеса</a></li>
+          <li><a href="/mktu/">Классы&nbsp;МКТУ — справочник</a></li>
+        </ul>
+      </div>
+
+      <!-- Колонка 3: специализация (узкие срезы практики — те же 10 ссылок, что в мегаменю) -->
+      <div class="footer__col">
+        <h4 class="footer__col-title">Специализация</h4>
+        <div class="footer__subhead">Патенты по&nbsp;отраслям</div>
+        <ul class="footer__list">
+          <li><a href="/uslugi/patenty-v-selskom-khozyaystve/">Сельское хозяйство</a></li>
+          <li><a href="/uslugi/patenty-v-meditsine/">Медицина</a></li>
+          <li><a href="/uslugi/patenty-v-farmacevtike/">Фармацевтика</a></li>
+          <li><a href="/uslugi/patenty-v-neftegaze/">Нефтегаз</a></li>
+          <li><a href="/uslugi/patenty-v-promyshlennosti/">Промышленное оборудование</a></li>
+        </ul>
+        <div class="footer__subhead">Представительство в&nbsp;судах</div>
+        <ul class="footer__list">
+          <li><a href="/uslugi/predstavitelstvo-v-sip/">СИП</a></li>
+          <li><a href="/uslugi/spory-v-arbitrazhnom-sude/">Арбитражный суд</a></li>
+          <li><a href="/uslugi/spory-v-fas/">ФАС</a></li>
+          <li><a href="/uslugi/spory-v-palate-po-patentnym-sporam/">Палата по&nbsp;патентным спорам</a></li>
+          <li><a href="/uslugi/spory-v-verhovnom-sude/">Верховный Суд&nbsp;РФ</a></li>
+        </ul>
+      </div>
+
+      <!-- Колонка 4: бюро -->
+      <div class="footer__col">
+        <h4 class="footer__col-title">Бюро</h4>
+        <ul class="footer__list">
+          <li><a href="/o-byuro/">О&nbsp;бюро</a></li>
+          <li><a href="/o-byuro/#team">Команда</a></li>
+          <li><a href="/dela/">Дела</a></li>
+          <li><a href="/zhurnal/">Журнал</a></li>
+          <li><a href="/kontakty/">Контакты</a></li>
+          <li><a href="/poisk/">Поиск по&nbsp;сайту</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Контактная плашка: 4 равных блока горизонтально — Москва, Тюмень, Email, Мессенджеры -->
+    <div class="footer__contact-rail">
+      <div class="footer__contact-block">
+        <strong>Москва</strong>
+        <a href="tel:+74951518282" class="copy-trigger copy-trigger--above" data-copy-label="Скопировать номер" data-copy-toast="Номер телефона скопирован">+7&nbsp;(495)&nbsp;151-82-82</a>
+        <a href="https://yandex.ru/maps/?text=Россия%2C+Москва%2C+ул.+Ленинская+слобода%2C+19" target="_blank" rel="noopener" class="footer__address copy-trigger copy-trigger--above" data-copy-label="Открыть на&nbsp;Яндекс&nbsp;Картах"><svg class="footer__address-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M8 14s5-4.4 5-8.5a5 5 0 0 0-10 0C3 9.6 8 14 8 14Z"/><circle cx="8" cy="6" r="1.8"/></svg><span>ул.&nbsp;Ленинская&nbsp;слобода,&nbsp;19<br>БЦ&nbsp;«Омега-плаза» · м.&nbsp;Автозаводская</span></a>
+      </div>
+      <div class="footer__contact-block">
+        <strong>Тюмень</strong>
+        <a href="tel:+73452492557" class="copy-trigger copy-trigger--above" data-copy-label="Скопировать номер" data-copy-toast="Номер телефона скопирован">+7&nbsp;(345)&nbsp;249-25-57</a>
+        <a href="https://yandex.ru/maps/?text=Россия%2C+Тюмень%2C+ул.+Республики%2C+145" target="_blank" rel="noopener" class="footer__address copy-trigger copy-trigger--above" data-copy-label="Открыть на&nbsp;Яндекс&nbsp;Картах"><svg class="footer__address-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M8 14s5-4.4 5-8.5a5 5 0 0 0-10 0C3 9.6 8 14 8 14Z"/><circle cx="8" cy="6" r="1.8"/></svg><span>ул.&nbsp;Республики, 145, оф.&nbsp;408<br>БЦ&nbsp;«Аврора»</span></a>
+      </div>
+      <div class="footer__contact-block">
+        <strong>Email</strong>
+        <a href="mailto:law@1-tm.ru" class="copy-trigger copy-trigger--above" data-copy-label="Скопировать адрес" data-copy-toast="Адрес электронной почты скопирован">law@1-tm.ru</a>
+      </div>
+      <div class="footer__contact-block">
+        <strong>Мессенджеры</strong>
+        <div class="footer__messengers">
+          <a href="https://wa.me/79258963188" target="_blank" rel="noopener" class="footer__messenger" aria-label="Написать в WhatsApp">
+            <svg aria-hidden="true"><use href="/assets/icons/sprite.svg#whatsapp"/></svg>
+          </a>
+          <a href="https://t.me/gmip_23" target="_blank" rel="noopener" class="footer__messenger" aria-label="Написать в Telegram">
+            <svg aria-hidden="true"><use href="/assets/icons/sprite.svg#telegram"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom: copyright + юридические ссылки -->
+    <div class="footer__bottom">
+      <div>
+        © 2014–2026 «Галифанов, Мальков и&nbsp;Партнёры». Все права защищены.
+      </div>
+      <nav class="footer__legal" aria-label="Юридическая информация">
+        <a href="/legal/privacy/">Политика конфиденциальности</a>
+        <a href="/legal/personal-data/">Обработка персональных данных</a>
+        <a href="/legal/cookies/">Использование cookie</a>
+        <a href="/legal/oferta/">Договор оферты</a>
+        <a href="/legal/rekvizity/">Реквизиты</a>
+      </nav>
+    </div>
+
+    <!-- Disclaimer: материалы сайта = информация, не оферта/консультация -->
+    <p class="footer__disclaimer">
+      Информация на&nbsp;сайте носит ознакомительный характер и&nbsp;не&nbsp;является публичной офертой по&nbsp;смыслу ст.&nbsp;437 ГК&nbsp;РФ или индивидуальной юридической консультацией.
+    </p>
+
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal" id="consultModal" role="dialog" aria-modal="true" aria-labelledby="consultTitle" aria-hidden="true">
+  <div class="modal__backdrop" data-modal-close></div>
+  <div class="modal__dialog">
+
+    <!-- Левая колонка: фото + контакты городов.
+         3 блока: Москва (адрес+тел), Тюмень (адрес+тел), Email (одна почта).
+         Адреса ведут на Яндекс.Карты, телефоны/почта — copy-trigger. -->
+    <div class="modal__photo" style="background-image:url('https://images.pexels.com/photos/9597177/pexels-photo-9597177.jpeg?auto=compress&cs=tinysrgb&w=900')">
+      <p class="modal__photo-heading">Защищаем клиентов<br>по&nbsp;всей <em>России</em></p>
+      <div class="modal__photo-contacts">
+        <div>
+          <p class="modal__photo-city">Москва</p>
+          <a class="modal__photo-contact" href="https://yandex.ru/maps/?text=Россия%2C+Москва%2C+ул.+Ленинская+слобода%2C+19" target="_blank" rel="noopener">ул.&nbsp;Ленинская&nbsp;слобода,&nbsp;19</a>
+          <a class="modal__photo-contact copy-trigger" href="tel:+74951518282" data-copy-label="Скопировать номер" data-copy-toast="Номер телефона скопирован">+7&nbsp;(495)&nbsp;151-82-82</a>
+        </div>
+        <div>
+          <p class="modal__photo-city">Тюмень</p>
+          <a class="modal__photo-contact" href="https://yandex.ru/maps/?text=Россия%2C+Тюмень%2C+ул.+Республики%2C+145" target="_blank" rel="noopener">ул.&nbsp;Республики,&nbsp;145</a>
+          <a class="modal__photo-contact copy-trigger" href="tel:+73452492557" data-copy-label="Скопировать номер" data-copy-toast="Номер телефона скопирован">+7&nbsp;(345)&nbsp;249-25-57</a>
+        </div>
+        <div>
+          <p class="modal__photo-city">Email</p>
+          <a class="modal__photo-contact copy-trigger" href="mailto:law@1-tm.ru" data-copy-label="Скопировать адрес" data-copy-toast="Адрес электронной почты скопирован">law@1-tm.ru</a>
+        </div>
+        <div>
+          <p class="modal__photo-city">Мессенджеры</p>
+          <div class="modal__photo-messengers">
+            <a href="https://wa.me/79258963188" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg aria-hidden="true"><use href="/assets/icons/sprite.svg#whatsapp"/></svg>
+            </a>
+            <a href="https://t.me/gmip_23" target="_blank" rel="noopener" aria-label="Telegram">
+              <svg aria-hidden="true"><use href="/assets/icons/sprite.svg#telegram"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Правая колонка: форма -->
+    <div class="modal__body">
+      <button type="button" class="modal__close" aria-label="Закрыть" data-modal-close>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="m4 4 12 12M16 4 4 16"/>
+        </svg>
+      </button>
+
+      <div>
+        <h2 class="modal__title" id="consultTitle">Заявка <em>на&nbsp;консультацию</em></h2>
+        <p class="modal__lead">Юрист профильного направления свяжется с&nbsp;вами в&nbsp;течение рабочего дня.</p>
+      </div>
+
+      <form class="consult-form" id="consultForm" novalidate
+            data-files-max="3"
+            data-files-size-each="10485760"
+            data-files-size-total="26214400"
+            data-files-accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.zip,.rar,.7z">
+        <div class="consult-form__grid">
+          <div class="field">
+            <label class="field__label" for="cf-name">ФИО<span class="req">&nbsp;*</span></label>
+            <input class="field__input" type="text" id="cf-name" name="name" required minlength="2"
+                   placeholder="Иванов Иван Иванович" autocomplete="name"
+                   data-error="Укажите имя — минимум 2 символа">
+            <p class="field__error" data-for="cf-name"></p>
+          </div>
+
+          <div class="field field--select">
+            <label class="field__label" for="cf-channel">Способ связи<span class="req">&nbsp;*</span></label>
+            <select class="field__select" id="cf-channel" name="channel" required
+                    data-error="Выберите способ связи">
+              <option value="" disabled selected>Выберите канал</option>
+              <option value="phone">Звонок по&nbsp;телефону</option>
+              <option value="whatsapp">WhatsApp</option>
+              <option value="telegram">Telegram</option>
+              <option value="email">Электронная почта</option>
+              <option value="yandex-meet">Яндекс Телемост</option>
+              <option value="google-meet">Google Meet</option>
+            </select>
+            <p class="field__error" data-for="cf-channel"></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="cf-phone">Телефон<span class="req">&nbsp;*</span></label>
+            <input class="field__input" type="tel" id="cf-phone" name="phone" required
+                   placeholder="+7" autocomplete="tel"
+                   inputmode="tel" maxlength="16"
+                   pattern="\+7\s\d{3}\s\d{3}\s\d{2}\s\d{2}"
+                   data-mask="phone"
+                   data-error="Введите номер в формате +7 XXX XXX XX XX">
+            <p class="field__error" data-for="cf-phone"></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="cf-email">Электронная почта<span class="req">&nbsp;*</span></label>
+            <input class="field__input" type="email" id="cf-email" name="email" required
+                   placeholder="name@company.ru" autocomplete="email"
+                   inputmode="email"
+                   pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}"
+                   data-error="Укажите корректный email — например, name@company.ru">
+            <p class="field__error" data-for="cf-email"></p>
+          </div>
+
+          <!-- Telegram-юзернейм: показывается, когда в Способе связи выбран Telegram.
+               В этот момент Название компании теряет --full и становится в пару справа. -->
+          <div class="field" id="cf-telegram-wrap" hidden>
+            <label class="field__label" for="cf-telegram">Юзернейм в&nbsp;Telegram<span class="req">&nbsp;*</span></label>
+            <input class="field__input" type="text" id="cf-telegram" name="telegram"
+                   placeholder="@username" autocomplete="off"
+                   pattern="@[a-zA-Z0-9_]{5,}"
+                   data-mask="username"
+                   data-error="Укажите юзернейм Telegram через @ (5+ символов)">
+            <p class="field__error" data-for="cf-telegram"></p>
+          </div>
+
+          <div class="field field--full" id="cf-company-wrap">
+            <label class="field__label" for="cf-company">Название компании</label>
+            <input class="field__input" type="text" id="cf-company" name="company"
+                   placeholder="ООО «Компания»" autocomplete="organization">
+          </div>
+
+          <div class="field field--full">
+            <label class="field__label" for="cf-message">Опишите вопрос<span class="req">&nbsp;*</span></label>
+            <textarea class="field__textarea" id="cf-message" name="message" required minlength="10"
+                      placeholder="Кратко: о чём задача, какие сроки и ограничения"
+                      data-error="Опишите вопрос — минимум 10 символов"></textarea>
+            <p class="field__error" data-for="cf-message"></p>
+          </div>
+
+          <div class="field field--full field--files">
+            <label class="field__label">Документы</label>
+            <input type="file" id="cf-files" name="files" class="field__file" multiple
+                   accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.zip,.rar,.7z">
+            <label class="field__file-trigger" for="cf-files">
+              <svg class="icon" aria-hidden="true"><use href="/assets/icons/sprite.svg#paperclip"/></svg>
+              <span>Прикрепить файлы</span>
+            </label>
+            <p class="field__file-hint">
+              До&nbsp;3 файлов, до&nbsp;10&nbsp;МБ каждый и&nbsp;25&nbsp;МБ суммарно.
+              Форматы: PDF, DOC/DOCX, XLS/XLSX, JPG, PNG, ZIP/RAR/7Z.
+              Если файлов больше&nbsp;— приложите архивом.
+            </p>
+            <ul class="field__file-list" id="cf-file-list"></ul>
+            <p class="field__error" data-for="cf-files"></p>
+          </div>
+        </div>
+
+        <label class="checkbox">
+          <input type="checkbox" class="checkbox__input" id="cf-agree" name="agree" required
+                 data-error="Необходимо согласие на обработку персональных данных">
+          <span class="checkbox__box">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2 6.5 5 9.5 10 3"/>
+            </svg>
+          </span>
+          <span>Согласен с&nbsp;<a href="/legal/privacy/" target="_blank">политикой конфиденциальности</a> и&nbsp;даю согласие на&nbsp;<a href="/legal/personal-data/" target="_blank">обработку персональных данных</a>. С&nbsp;<a href="/legal/oferta/" target="_blank">офертой</a> ознакомлен.</span>
+        </label>
+
+        <button type="submit" class="btn btn--primary btn--block">Отправить заявку</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/search.js"></script>
+  <script src="/assets/js/copy-tooltip.js" defer></script>
+<aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu__head">
+    <span class="mobile-menu__brand">Галифанов, Мальков и&nbsp;Партнёры</span>
+    <button type="button" class="mobile-menu__close" id="mobileClose" aria-label="Закрыть меню">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path d="m4 4 12 12M16 4 4 16"/>
+      </svg>
+    </button>
+  </div>
+  <!-- Уровень 0: корневое меню -->
+  <div class="mobile-menu__panel is-active" data-level="0">
+
+    <!-- Стилизованное поле поиска: submit ведёт на /poisk/?q=… -->
+    <form class="mobile-menu__search" role="search" action="/poisk/" method="get">
+      <svg class="icon icon--lg" aria-hidden="true"><use href="/assets/icons/sprite.svg#search"/></svg>
+      <input type="search" name="q" class="mobile-menu__search-input" placeholder="Услуги, дела, статьи, классы МКТУ…" autocomplete="off">
+    </form>
+
+    <ul class="mobile-menu__nav">
+      <li>
+        <button type="button" data-go="1">Услуги</button>
+      </li>
+      <li><a href="/o-byuro/">О&nbsp;бюро</a></li>
+      <li><a href="/zhurnal/">Журнал</a></li>
+      <li><a href="/dela/">Дела</a></li>
+      <li><a href="/kontakty/">Контакты</a></li>
+    </ul>
+
+    <div class="mobile-menu__bottom">
+      <a href="#" class="btn btn--primary btn--block mobile-menu__cta js-open-consult">
+        Заявка на&nbsp;консультацию
+      </a>
+
+      <ul class="mobile-menu__contacts">
+        <li>
+          <span class="mobile-menu__contacts-city">Москва</span>
+          <a href="tel:+74951518282">+7&nbsp;(495)&nbsp;151-82-82</a>
+        </li>
+        <li>
+          <span class="mobile-menu__contacts-city">Тюмень</span>
+          <a href="tel:+73452492557">+7&nbsp;(345)&nbsp;249-25-57</a>
+        </li>
+        <li>
+          <span class="mobile-menu__contacts-city">Email</span>
+          <a href="mailto:law@1-tm.ru">law@1-tm.ru</a>
+        </li>
+        <li class="mobile-menu__messengers-row">
+          <span class="mobile-menu__contacts-city">Мессенджеры</span>
+          <span class="mobile-menu__messengers">
+            <a href="https://wa.me/79258963188" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg aria-hidden="true"><use href="/assets/icons/sprite.svg#whatsapp"/></svg>
+            </a>
+            <a href="https://t.me/gmip_23" target="_blank" rel="noopener" aria-label="Telegram">
+              <svg aria-hidden="true"><use href="/assets/icons/sprite.svg#telegram"/></svg>
+            </a>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Уровень 1: список направлений -->
+  <div class="mobile-menu__panel" data-level="1">
+    <button type="button" class="mobile-menu__back" data-go="0">
+      <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" aria-hidden="true">
+        <path d="M16 6 H1"/>
+        <path d="M5 2 L1 6 L5 10"/>
+      </svg>
+      Назад
+    </button>
+    <h3 class="mobile-menu__level-title">Услуги</h3>
+    <p class="mobile-menu__level-lead">Четыре направления&nbsp;— выберите интересующее, чтобы увидеть разделы.</p>
+    <ul class="mobile-menu__nav">
+      <li><button type="button" data-go="2-ip">Интеллектуальная собственность</button></li>
+      <li><button type="button" data-go="2-ds">Договоры и&nbsp;сделки</button></li>
+      <li><button type="button" data-go="2-sz">Судебная практика</button></li>
+      <li><button type="button" data-go="2-sb">Сопровождение бизнеса</button></li>
+    </ul>
+
+    <div class="mobile-menu__section-eyebrow">Специализация</div>
+    <ul class="mobile-menu__nav">
+      <li><button type="button" data-go="2-otrasli">Патенты по&nbsp;отраслям</button></li>
+      <li><button type="button" data-go="2-sudy">Представительство в&nbsp;судах</button></li>
+    </ul>
+  </div>
+
+  <!-- Уровень 2: разделы внутри направления -->
+  <div class="mobile-menu__panel" data-level="2-ip">
+    <button type="button" class="mobile-menu__back" data-go="1">
+      <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" aria-hidden="true">
+        <path d="M16 6 H1"/>
+        <path d="M5 2 L1 6 L5 10"/>
+      </svg>
+      Услуги
+    </button>
+    <h3 class="mobile-menu__level-title">Интеллектуальная собственность</h3>
+    <ul class="mobile-menu__nav">
+      <li><a href="/uslugi/intellektualnaya-sobstvennost/#tovarnye-znaki">Товарные знаки</a></li>
+      <li><a href="/uslugi/intellektualnaya-sobstvennost/#patenty">Патенты</a></li>
+      <li><a href="/uslugi/intellektualnaya-sobstvennost/#avtorskoe-pravo">Авторское право</a></li>
+      <li><a href="/uslugi/intellektualnaya-sobstvennost/#po-bazy-dannyh">ПО и&nbsp;базы данных</a></li>
+      <li><a href="/uslugi/intellektualnaya-sobstvennost/#geograficheskie-ukazaniya">Географические указания</a></li>
+      <li><a href="/uslugi/intellektualnaya-sobstvennost/#franshiza">Франшиза</a></li>
+    </ul>
+  </div>
+
+  <div class="mobile-menu__panel" data-level="2-ds">
+    <button type="button" class="mobile-menu__back" data-go="1">
+      <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" aria-hidden="true">
+        <path d="M16 6 H1"/>
+        <path d="M5 2 L1 6 L5 10"/>
+      </svg>
+      Услуги
+    </button>
+    <h3 class="mobile-menu__level-title">Договоры и&nbsp;сделки</h3>
+    <ul class="mobile-menu__nav">
+      <li><a href="/uslugi/dogovory-i-sdelki/#litsenzii">Лицензионные договоры</a></li>
+      <li><a href="/uslugi/dogovory-i-sdelki/#otchuzhdenie">Договоры отчуждения</a></li>
+      <li><a href="/uslugi/dogovory-i-sdelki/#zalog">Договоры залога</a></li>
+      <li><a href="/uslugi/dogovory-i-sdelki/#nda">NDA и&nbsp;коммерческая тайна</a></li>
+      <li><a href="/uslugi/dogovory-i-sdelki/#avtorskij-zakaz">Авторский заказ</a></li>
+    </ul>
+  </div>
+
+  <div class="mobile-menu__panel" data-level="2-sz">
+    <button type="button" class="mobile-menu__back" data-go="1">
+      <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" aria-hidden="true">
+        <path d="M16 6 H1"/>
+        <path d="M5 2 L1 6 L5 10"/>
+      </svg>
+      Услуги
+    </button>
+    <h3 class="mobile-menu__level-title">Судебная практика</h3>
+    <ul class="mobile-menu__nav">
+      <li><a href="/uslugi/spory-i-zashchita/#arbitrazh">Арбитражные споры</a></li>
+      <li><a href="/uslugi/spory-i-zashchita/#korporativnye">Корпоративные споры</a></li>
+      <li><a href="/uslugi/spory-i-zashchita/#nalogovye">Налоговые споры</a></li>
+      <li><a href="/uslugi/spory-i-zashchita/#fas">Защита в&nbsp;ФАС</a></li>
+      <li><a href="/uslugi/spory-i-zashchita/#bankrotstvo">Банкротство</a></li>
+      <li><a href="/uslugi/spory-i-zashchita/#kontrafakt">Борьба с&nbsp;контрафактом</a></li>
+    </ul>
+  </div>
+
+  <div class="mobile-menu__panel" data-level="2-sb">
+    <button type="button" class="mobile-menu__back" data-go="1">
+      <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" aria-hidden="true">
+        <path d="M16 6 H1"/>
+        <path d="M5 2 L1 6 L5 10"/>
+      </svg>
+      Услуги
+    </button>
+    <h3 class="mobile-menu__level-title">Сопровождение бизнеса</h3>
+    <ul class="mobile-menu__nav">
+      <li><a href="/uslugi/soprovozhdenie-biznesa/#yur-soprovozhdenie">Юридическое сопровождение</a></li>
+      <li><a href="/uslugi/soprovozhdenie-biznesa/#goszakupki">Госзакупки 44/223-ФЗ</a></li>
+      <li><a href="/uslugi/soprovozhdenie-biznesa/#autsorsing">Бизнес-аутсорсинг</a></li>
+      <li><a href="/uslugi/soprovozhdenie-biznesa/#zashchita">Защита бизнеса</a></li>
+      <li><a href="/uslugi/soprovozhdenie-biznesa/#kommercheskaya-tayna">Коммерческая тайна</a></li>
+    </ul>
+  </div>
+
+  <div class="mobile-menu__panel" data-level="2-otrasli">
+    <button type="button" class="mobile-menu__back" data-go="1">
+      <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" aria-hidden="true">
+        <path d="M16 6 H1"/>
+        <path d="M5 2 L1 6 L5 10"/>
+      </svg>
+      Услуги
+    </button>
+    <h3 class="mobile-menu__level-title">Патенты по&nbsp;отраслям</h3>
+    <ul class="mobile-menu__nav">
+      <li><a href="/uslugi/patenty-v-selskom-khozyaystve/">Сельское хозяйство</a></li>
+      <li><a href="/uslugi/patenty-v-meditsine/">Медицина</a></li>
+      <li><a href="/uslugi/patenty-v-farmacevtike/">Фармацевтика</a></li>
+      <li><a href="/uslugi/patenty-v-neftegaze/">Нефтегаз</a></li>
+      <li><a href="/uslugi/patenty-v-promyshlennosti/">Промышленное оборудование</a></li>
+    </ul>
+  </div>
+
+  <div class="mobile-menu__panel" data-level="2-sudy">
+    <button type="button" class="mobile-menu__back" data-go="1">
+      <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" aria-hidden="true">
+        <path d="M16 6 H1"/>
+        <path d="M5 2 L1 6 L5 10"/>
+      </svg>
+      Услуги
+    </button>
+    <h3 class="mobile-menu__level-title">Представительство в&nbsp;судах</h3>
+    <ul class="mobile-menu__nav">
+      <li><a href="/uslugi/predstavitelstvo-v-sip/">СИП</a></li>
+      <li><a href="/uslugi/spory-v-arbitrazhnom-sude/">Арбитражный суд</a></li>
+      <li><a href="/uslugi/spory-v-fas/">ФАС</a></li>
+      <li><a href="/uslugi/spory-v-palate-po-patentnym-sporam/">Палата по&nbsp;патентным спорам</a></li>
+      <li><a href="/uslugi/spory-v-verhovnom-sude/">Верховный Суд&nbsp;РФ</a></li>
+    </ul>
+  </div>
+
+</aside>
+<aside class="cookie-banner" id="cookieBanner" role="region" aria-label="Уведомление об использовании cookie" hidden>
+  <div class="container cookie-banner__inner">
+    <div class="cookie-banner__body">
+      <p class="cookie-banner__text">
+        Сайт использует <strong>cookie-файлы</strong> для&nbsp;корректной работы и&nbsp;анализа посещаемости. Продолжая просмотр, вы&nbsp;соглашаетесь с&nbsp;<a href="/legal/cookies/" class="link">политикой использования cookie</a>. Категорию «Аналитика» можно отключить.
+      </p>
+    </div>
+    <div class="cookie-banner__actions">
+      <button type="button" class="cookie-banner__btn cookie-banner__btn--ghost" data-cookie-action="essential">
+        Только необходимые
+      </button>
+      <button type="button" class="cookie-banner__btn cookie-banner__btn--primary" data-cookie-action="all">
+        Принять все
+      </button>
+    </div>
+  </div>
+</aside>
+</body>
+</html>

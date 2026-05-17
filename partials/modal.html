@@ -1,0 +1,169 @@
+<!--
+  MODAL — заявка на консультацию (split-layout).
+  Открывается на любом элементе с классом .js-open-consult.
+  Закрывается: крестик, клик по backdrop, клавиша Escape.
+
+  На mobile (≤640px) фото скрывается, форма на всю ширину.
+-->
+<div class="modal" id="consultModal" role="dialog" aria-modal="true" aria-labelledby="consultTitle" aria-hidden="true">
+  <div class="modal__backdrop" data-modal-close></div>
+  <div class="modal__dialog">
+
+    <!-- Левая колонка: фото + контакты городов.
+         3 блока: Москва (адрес+тел), Тюмень (адрес+тел), Email (одна почта).
+         Адреса ведут на Яндекс.Карты, телефоны/почта — copy-trigger. -->
+    <div class="modal__photo" style="background-image:url('https://images.pexels.com/photos/9597177/pexels-photo-9597177.jpeg?auto=compress&cs=tinysrgb&w=900')">
+      <p class="modal__photo-heading">Защищаем клиентов<br>по&nbsp;всей <em>России</em></p>
+      <div class="modal__photo-contacts">
+        <div>
+          <p class="modal__photo-city">Москва</p>
+          <a class="modal__photo-contact" href="https://yandex.ru/maps/?text=Россия%2C+Москва%2C+ул.+Ленинская+слобода%2C+19" target="_blank" rel="noopener">ул.&nbsp;Ленинская&nbsp;слобода,&nbsp;19</a>
+          <a class="modal__photo-contact copy-trigger" href="tel:+74951518282" data-copy-label="Скопировать номер" data-copy-toast="Номер телефона скопирован">+7&nbsp;(495)&nbsp;151-82-82</a>
+        </div>
+        <div>
+          <p class="modal__photo-city">Тюмень</p>
+          <a class="modal__photo-contact" href="https://yandex.ru/maps/?text=Россия%2C+Тюмень%2C+ул.+Республики%2C+145" target="_blank" rel="noopener">ул.&nbsp;Республики,&nbsp;145</a>
+          <a class="modal__photo-contact copy-trigger" href="tel:+73452492557" data-copy-label="Скопировать номер" data-copy-toast="Номер телефона скопирован">+7&nbsp;(345)&nbsp;249-25-57</a>
+        </div>
+        <div>
+          <p class="modal__photo-city">Email</p>
+          <a class="modal__photo-contact copy-trigger" href="mailto:law@1-tm.ru" data-copy-label="Скопировать адрес" data-copy-toast="Адрес электронной почты скопирован">law@1-tm.ru</a>
+        </div>
+        <div>
+          <p class="modal__photo-city">Мессенджеры</p>
+          <div class="modal__photo-messengers">
+            <a href="https://wa.me/79258963188" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg aria-hidden="true"><use href="/assets/icons/sprite.svg#whatsapp"/></svg>
+            </a>
+            <a href="https://t.me/gmip_23" target="_blank" rel="noopener" aria-label="Telegram">
+              <svg aria-hidden="true"><use href="/assets/icons/sprite.svg#telegram"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Правая колонка: форма -->
+    <div class="modal__body">
+      <button type="button" class="modal__close" aria-label="Закрыть" data-modal-close>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="m4 4 12 12M16 4 4 16"/>
+        </svg>
+      </button>
+
+      <div>
+        <h2 class="modal__title" id="consultTitle">Заявка <em>на&nbsp;консультацию</em></h2>
+        <p class="modal__lead">Юрист профильного направления свяжется с&nbsp;вами в&nbsp;течение рабочего дня.</p>
+      </div>
+
+      <form class="consult-form" id="consultForm" novalidate
+            data-files-max="3"
+            data-files-size-each="10485760"
+            data-files-size-total="26214400"
+            data-files-accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.zip,.rar,.7z">
+        <div class="consult-form__grid">
+          <div class="field">
+            <label class="field__label" for="cf-name">ФИО<span class="req">&nbsp;*</span></label>
+            <input class="field__input" type="text" id="cf-name" name="name" required minlength="2"
+                   placeholder="Иванов Иван Иванович" autocomplete="name"
+                   data-error="Укажите имя — минимум 2 символа">
+            <p class="field__error" data-for="cf-name"></p>
+          </div>
+
+          <div class="field field--select">
+            <label class="field__label" for="cf-channel">Способ связи<span class="req">&nbsp;*</span></label>
+            <select class="field__select" id="cf-channel" name="channel" required
+                    data-error="Выберите способ связи">
+              <option value="" disabled selected>Выберите канал</option>
+              <option value="phone">Звонок по&nbsp;телефону</option>
+              <option value="whatsapp">WhatsApp</option>
+              <option value="telegram">Telegram</option>
+              <option value="email">Электронная почта</option>
+              <option value="yandex-meet">Яндекс Телемост</option>
+              <option value="google-meet">Google Meet</option>
+            </select>
+            <p class="field__error" data-for="cf-channel"></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="cf-phone">Телефон<span class="req">&nbsp;*</span></label>
+            <input class="field__input" type="tel" id="cf-phone" name="phone" required
+                   placeholder="+7" autocomplete="tel"
+                   inputmode="tel" maxlength="16"
+                   pattern="\+7\s\d{3}\s\d{3}\s\d{2}\s\d{2}"
+                   data-mask="phone"
+                   data-error="Введите номер в формате +7 XXX XXX XX XX">
+            <p class="field__error" data-for="cf-phone"></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="cf-email">Электронная почта<span class="req">&nbsp;*</span></label>
+            <input class="field__input" type="email" id="cf-email" name="email" required
+                   placeholder="name@company.ru" autocomplete="email"
+                   inputmode="email"
+                   pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}"
+                   data-error="Укажите корректный email — например, name@company.ru">
+            <p class="field__error" data-for="cf-email"></p>
+          </div>
+
+          <!-- Telegram-юзернейм: показывается, когда в Способе связи выбран Telegram.
+               В этот момент Название компании теряет --full и становится в пару справа. -->
+          <div class="field" id="cf-telegram-wrap" hidden>
+            <label class="field__label" for="cf-telegram">Юзернейм в&nbsp;Telegram<span class="req">&nbsp;*</span></label>
+            <input class="field__input" type="text" id="cf-telegram" name="telegram"
+                   placeholder="@username" autocomplete="off"
+                   pattern="@[a-zA-Z0-9_]{5,}"
+                   data-mask="username"
+                   data-error="Укажите юзернейм Telegram через @ (5+ символов)">
+            <p class="field__error" data-for="cf-telegram"></p>
+          </div>
+
+          <div class="field field--full" id="cf-company-wrap">
+            <label class="field__label" for="cf-company">Название компании</label>
+            <input class="field__input" type="text" id="cf-company" name="company"
+                   placeholder="ООО «Компания»" autocomplete="organization">
+          </div>
+
+          <div class="field field--full">
+            <label class="field__label" for="cf-message">Опишите вопрос<span class="req">&nbsp;*</span></label>
+            <textarea class="field__textarea" id="cf-message" name="message" required minlength="10"
+                      placeholder="Кратко: о чём задача, какие сроки и ограничения"
+                      data-error="Опишите вопрос — минимум 10 символов"></textarea>
+            <p class="field__error" data-for="cf-message"></p>
+          </div>
+
+          <div class="field field--full field--files">
+            <label class="field__label">Документы</label>
+            <input type="file" id="cf-files" name="files" class="field__file" multiple
+                   accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.zip,.rar,.7z">
+            <label class="field__file-trigger" for="cf-files">
+              <svg class="icon" aria-hidden="true"><use href="/assets/icons/sprite.svg#paperclip"/></svg>
+              <span>Прикрепить файлы</span>
+            </label>
+            <p class="field__file-hint">
+              До&nbsp;3 файлов, до&nbsp;10&nbsp;МБ каждый и&nbsp;25&nbsp;МБ суммарно.
+              Форматы: PDF, DOC/DOCX, XLS/XLSX, JPG, PNG, ZIP/RAR/7Z.
+              Если файлов больше&nbsp;— приложите архивом.
+            </p>
+            <ul class="field__file-list" id="cf-file-list"></ul>
+            <p class="field__error" data-for="cf-files"></p>
+          </div>
+        </div>
+
+        <label class="checkbox">
+          <input type="checkbox" class="checkbox__input" id="cf-agree" name="agree" required
+                 data-error="Необходимо согласие на обработку персональных данных">
+          <span class="checkbox__box">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2 6.5 5 9.5 10 3"/>
+            </svg>
+          </span>
+          <span>Согласен с&nbsp;<a href="/legal/privacy/" target="_blank">политикой конфиденциальности</a> и&nbsp;даю согласие на&nbsp;<a href="/legal/personal-data/" target="_blank">обработку персональных данных</a>. С&nbsp;<a href="/legal/oferta/" target="_blank">офертой</a> ознакомлен.</span>
+        </label>
+
+        <button type="submit" class="btn btn--primary btn--block">Отправить заявку</button>
+      </form>
+    </div>
+
+  </div>
+</div>

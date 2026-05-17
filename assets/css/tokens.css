@@ -1,0 +1,136 @@
+/* ============================================================
+   FPB DESIGN TOKENS — источник истины
+   Galifanov, Malkov & Partners
+   ============================================================ */
+:root {
+  /* — Цвета: нейтральная палитра (чёрный, белый, серые) — */
+  --color-ink:           #0a0a0a;   /* основной тёмный текст */
+  --color-ink-2:         #1f1f1f;   /* hover/active тёмного */
+  --color-paper:         #ffffff;   /* основная поверхность */
+  --color-paper-2:       #f5f5f5;   /* вторичная поверхность */
+  --color-rule:          #e5e5e5;   /* разделители на белом */
+  --color-rule-strong:   #cfcfcf;
+  --color-mute:          #717171;   /* приглушённый текст */
+  --color-mute-2:        #9d9d9d;   /* ещё более приглушённый */
+
+  /* — Фирменный акцентный цвет — */
+  /* Премиальный коричневый, шаг 2: насыщеннее и чуть теплее предыдущего #453125. */
+  --color-brand:         #5a3b25;
+  --color-brand-2:       #6e4a30;   /* hover/lighter step */
+  --color-brand-soft:    rgba(90, 59, 37, 0.10);  /* hover-фон, бэйджи, мягкие поверхности */
+  --color-brand-tint:    rgba(90, 59, 37, 0.06);  /* очень светлый тёплый тинт для крупных поверхностей */
+  --color-brand-rule:    rgba(90, 59, 37, 0.22);  /* border на hover */
+  --color-brand-selection: rgba(90, 59, 37, 0.30); /* фон ::selection — фирменный вместо системного синего */
+  --color-accent:        var(--color-brand);
+  --color-accent-fg:     var(--color-paper); /* текст на коричневом фоне */
+
+  /* Цвета на тёмном фоне (фото hero) */
+  --color-on-photo:        #f4f4f4;
+  --color-on-photo-mute:   #cfcfcf;
+  --color-on-photo-mute-2: #aeaeae;
+  --color-on-photo-rule:   rgba(245, 245, 245, 0.10);
+
+  /* Полу-прозрачные для glass-кнопок и hover на тёмном */
+  --color-glass:           rgba(255, 255, 255, 0.20);
+  --color-glass-hover:     rgba(255, 255, 255, 0.30);
+
+  /* Семантические алиасы — меняются в зависимости от состояния шапки */
+  --header-fg:        var(--color-on-photo);
+  --header-fg-mute:   var(--color-on-photo-mute);
+  --header-fg-mute-2: var(--color-on-photo-mute-2);
+  --header-bg:        transparent;
+  --header-rule:      var(--color-on-photo-rule);
+  --header-cta-bg:        var(--color-glass);
+  --header-cta-bg-hover:  var(--color-glass-hover);
+  --header-cta-fg:        var(--color-on-photo);
+
+  /* Шрифты */
+  --font-display: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+  --font-body:    'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  --font-mono:    'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  /* Текстовые роли */
+  --text-meta-size:    12px;
+  --text-meta-tracking: -0.02em;
+
+  --text-nav-size:    14px;
+  --text-nav-tracking: -0.02em;
+
+  --text-btn-size:    14px;
+  --text-btn-tracking: -0.02em;
+
+  --text-h1-size:     74px;
+  --text-h1-tracking: -0.03em;
+  --text-h1-leading:  0.95;
+
+  --text-h2-size:     56px;
+  --text-h2-tracking: -0.02em;
+  --text-h2-leading:  1.0;
+
+  --text-h3-size:     32px;
+  --text-h3-tracking: -0.02em;
+  --text-h3-leading:  1.05;
+
+  --text-body-size:   16px;
+  --text-body-leading: 1.45;
+
+  /* Отступы (4-ка как база) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* Layout */
+  --container: 1180px;
+  --gutter: 32px;
+
+  /* Reading-column widths — единые для editorial-страниц (кейс, статья, legal):
+     narrow для intro-блока (head, cover), wide для body-секций с aside или меткой. */
+  --reading-narrow: 820px;
+  --reading-wide:   1080px;
+
+  /* Высота элементов */
+  --control-h:        40px;   /* стандартная высота контролов (кнопок-иконок) */
+  --btn-h:            40px;   /* высота кнопок-CTA в шапке (ужата с 44 → 40) */
+
+  /* Скорости */
+  --dur-fast: 150ms;
+  --dur:      250ms;
+  --dur-slow: 400ms;
+  --ease:     cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* Шапка (используется в base.css для .page padding-top) */
+  --header-h:        108px;  /* топбар(38) + main(68) с границами */
+  --header-h-mobile:  64px;  /* без топбара */
+
+  /* z-index слоёв */
+  --z-header:   100;
+  --z-overlay:   90;
+  --z-mobile:   200;
+
+  /* Focus ring (для доступности) */
+  --focus-ring: 0 0 0 2px rgba(255, 255, 255, 0.6);
+  --focus-ring-dark: 0 0 0 2px rgba(10, 10, 10, 0.6);
+}
+
+/* Белая шапка (все страницы кроме главной) — переопределяет семантические алиасы.
+   Состояния hover для CTA — задаются в header.css через [data-state="solid"]. */
+.site-header--always-solid {
+  --header-fg:        var(--color-ink);
+  --header-fg-mute:   var(--color-mute);
+  --header-fg-mute-2: var(--color-mute-2);
+  --header-bg:        var(--color-paper);
+  --header-rule:      var(--color-rule);
+  --header-cta-bg:        var(--color-ink);
+  --header-cta-bg-hover:  var(--color-accent);
+  --header-cta-fg:        var(--color-paper);
+  box-shadow: none !important;
+}

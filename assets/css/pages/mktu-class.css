@@ -1,0 +1,113 @@
+/* ============================================================
+   MKTU CLASS PAGE — /mktu/klass-N/ (страница одного класса МКТУ)
+   ============================================================ */
+
+.mktu-class-hero {
+  padding: var(--space-10) 0 var(--space-12);
+  border-bottom: 1px solid var(--color-rule);
+}
+.mktu-class-hero__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  margin-bottom: var(--space-8);
+  transition: color var(--dur-fast) var(--ease);
+}
+.mktu-class-hero__back:hover { color: var(--color-accent); }
+.mktu-class-hero__back svg { flex-shrink: 0; }
+
+.mktu-class-hero__num {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 var(--space-4);
+}
+.mktu-class-hero__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-h1-size);
+  line-height: var(--text-h1-leading);
+  letter-spacing: var(--text-h1-tracking);
+  color: var(--color-ink);
+  margin: 0 0 var(--space-8);
+}
+.mktu-class-hero__title em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+.mktu-class-hero__desc {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--color-mute);
+  max-width: 720px;
+  margin: 0;
+}
+
+/* Terms block */
+.mktu-terms {
+  padding: var(--space-12) 0 var(--space-24);
+}
+.mktu-terms__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  margin: 0 0 var(--space-6);
+}
+.mktu-terms__box {
+  background: var(--color-paper-2);
+  padding: var(--space-8) var(--space-8) var(--space-6);
+  max-width: 860px;
+}
+.mktu-terms__text {
+  font-family: var(--font-body);
+  font-size: var(--text-body-size);
+  line-height: 1.7;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-6);
+}
+.mktu-terms__text--collapsed {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.mktu-terms__toggle {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: color var(--dur-fast) var(--ease);
+}
+.mktu-terms__toggle:hover { color: var(--color-accent); }
+.mktu-terms__toggle-icon {
+  display: inline-block;
+  transition: transform var(--dur) var(--ease);
+}
+.mktu-terms__toggle.is-open .mktu-terms__toggle-icon {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 1024px) {
+  .mktu-class-hero__title { font-size: 56px; }
+}
+@media (max-width: 640px) {
+  .mktu-class-hero__title { font-size: 40px; }
+}

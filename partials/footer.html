@@ -1,0 +1,123 @@
+<!-- FOOTER — site-footer partial. Тёмный, всегда внизу страницы. -->
+<footer class="site-footer">
+  <div class="container">
+
+    <div class="footer__cols">
+      <!-- Колонка 1: бренд + краткое описание + канал в Telegram.
+           Внутренний враппер .footer__col-inner — чтобы на мобиле через display:contents
+           вынести канал в самый низ (order:1), но сохранить нативные margin'ы между
+           brand/sub/about (они остаются одним grid-item'ом). -->
+      <div class="footer__col footer__col--brand">
+        <div class="footer__col-inner">
+          <div class="footer__brand">Галифанов, Мальков и&nbsp;Партнёры</div>
+          <div class="footer__brand-sub">Юридическая фирма · с&nbsp;2014&nbsp;года</div>
+          <p class="footer__about">
+            Юристы для&nbsp;бизнеса полного цикла: интеллектуальная собственность, договоры, судебная практика и&nbsp;сопровождение компаний. Москва и&nbsp;Тюмень. 1&nbsp;300+&nbsp;ТЗ, 90,4%&nbsp;выигранных дел.
+          </p>
+        </div>
+        <a href="https://t.me/urberau" target="_blank" rel="noopener" class="footer__channel">
+          <svg class="footer__channel-icon" aria-hidden="true"><use href="/assets/icons/sprite.svg#telegram"/></svg>
+          <span class="footer__channel-text">
+            <span class="footer__channel-label">Канал в&nbsp;Telegram</span>
+            <span class="footer__channel-title">«Заметки юристов» · <span class="footer__channel-handle">@urberau</span></span>
+          </span>
+        </a>
+      </div>
+
+      <!-- Колонка 2: услуги -->
+      <div class="footer__col">
+        <h4 class="footer__col-title">Направления</h4>
+        <ul class="footer__list">
+          <li><a href="/uslugi/intellektualnaya-sobstvennost/">Интеллектуальная собственность</a></li>
+          <li><a href="/uslugi/dogovory-i-sdelki/">Договоры и&nbsp;сделки</a></li>
+          <li><a href="/uslugi/spory-i-zashchita/">Судебная практика</a></li>
+          <li><a href="/uslugi/soprovozhdenie-biznesa/">Сопровождение бизнеса</a></li>
+          <li><a href="/mktu/">Классы&nbsp;МКТУ — справочник</a></li>
+        </ul>
+      </div>
+
+      <!-- Колонка 3: специализация (узкие срезы практики — те же 10 ссылок, что в мегаменю) -->
+      <div class="footer__col">
+        <h4 class="footer__col-title">Специализация</h4>
+        <div class="footer__subhead">Патенты по&nbsp;отраслям</div>
+        <ul class="footer__list">
+          <li><a href="/uslugi/patenty-v-selskom-khozyaystve/">Сельское хозяйство</a></li>
+          <li><a href="/uslugi/patenty-v-meditsine/">Медицина</a></li>
+          <li><a href="/uslugi/patenty-v-farmacevtike/">Фармацевтика</a></li>
+          <li><a href="/uslugi/patenty-v-neftegaze/">Нефтегаз</a></li>
+          <li><a href="/uslugi/patenty-v-promyshlennosti/">Промышленное оборудование</a></li>
+        </ul>
+        <div class="footer__subhead">Представительство в&nbsp;судах</div>
+        <ul class="footer__list">
+          <li><a href="/uslugi/predstavitelstvo-v-sip/">СИП</a></li>
+          <li><a href="/uslugi/spory-v-arbitrazhnom-sude/">Арбитражный суд</a></li>
+          <li><a href="/uslugi/spory-v-fas/">ФАС</a></li>
+          <li><a href="/uslugi/spory-v-palate-po-patentnym-sporam/">Палата по&nbsp;патентным спорам</a></li>
+          <li><a href="/uslugi/spory-v-verhovnom-sude/">Верховный Суд&nbsp;РФ</a></li>
+        </ul>
+      </div>
+
+      <!-- Колонка 4: бюро -->
+      <div class="footer__col">
+        <h4 class="footer__col-title">Бюро</h4>
+        <ul class="footer__list">
+          <li><a href="/o-byuro/">О&nbsp;бюро</a></li>
+          <li><a href="/o-byuro/#team">Команда</a></li>
+          <li><a href="/dela/">Дела</a></li>
+          <li><a href="/zhurnal/">Журнал</a></li>
+          <li><a href="/kontakty/">Контакты</a></li>
+          <li><a href="/poisk/">Поиск по&nbsp;сайту</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Контактная плашка: 4 равных блока горизонтально — Москва, Тюмень, Email, Мессенджеры -->
+    <div class="footer__contact-rail">
+      <div class="footer__contact-block">
+        <strong>Москва</strong>
+        <a href="tel:+74951518282" class="copy-trigger copy-trigger--above" data-copy-label="Скопировать номер" data-copy-toast="Номер телефона скопирован">+7&nbsp;(495)&nbsp;151-82-82</a>
+        <a href="https://yandex.ru/maps/?text=Россия%2C+Москва%2C+ул.+Ленинская+слобода%2C+19" target="_blank" rel="noopener" class="footer__address copy-trigger copy-trigger--above" data-copy-label="Открыть на&nbsp;Яндекс&nbsp;Картах"><svg class="footer__address-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M8 14s5-4.4 5-8.5a5 5 0 0 0-10 0C3 9.6 8 14 8 14Z"/><circle cx="8" cy="6" r="1.8"/></svg><span>ул.&nbsp;Ленинская&nbsp;слобода,&nbsp;19<br>БЦ&nbsp;«Омега-плаза» · м.&nbsp;Автозаводская</span></a>
+      </div>
+      <div class="footer__contact-block">
+        <strong>Тюмень</strong>
+        <a href="tel:+73452492557" class="copy-trigger copy-trigger--above" data-copy-label="Скопировать номер" data-copy-toast="Номер телефона скопирован">+7&nbsp;(345)&nbsp;249-25-57</a>
+        <a href="https://yandex.ru/maps/?text=Россия%2C+Тюмень%2C+ул.+Республики%2C+145" target="_blank" rel="noopener" class="footer__address copy-trigger copy-trigger--above" data-copy-label="Открыть на&nbsp;Яндекс&nbsp;Картах"><svg class="footer__address-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M8 14s5-4.4 5-8.5a5 5 0 0 0-10 0C3 9.6 8 14 8 14Z"/><circle cx="8" cy="6" r="1.8"/></svg><span>ул.&nbsp;Республики, 145, оф.&nbsp;408<br>БЦ&nbsp;«Аврора»</span></a>
+      </div>
+      <div class="footer__contact-block">
+        <strong>Email</strong>
+        <a href="mailto:law@1-tm.ru" class="copy-trigger copy-trigger--above" data-copy-label="Скопировать адрес" data-copy-toast="Адрес электронной почты скопирован">law@1-tm.ru</a>
+      </div>
+      <div class="footer__contact-block">
+        <strong>Мессенджеры</strong>
+        <div class="footer__messengers">
+          <a href="https://wa.me/79258963188" target="_blank" rel="noopener" class="footer__messenger" aria-label="Написать в WhatsApp">
+            <svg aria-hidden="true"><use href="/assets/icons/sprite.svg#whatsapp"/></svg>
+          </a>
+          <a href="https://t.me/gmip_23" target="_blank" rel="noopener" class="footer__messenger" aria-label="Написать в Telegram">
+            <svg aria-hidden="true"><use href="/assets/icons/sprite.svg#telegram"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom: copyright + юридические ссылки -->
+    <div class="footer__bottom">
+      <div>
+        © 2014–2026 «Галифанов, Мальков и&nbsp;Партнёры». Все права защищены.
+      </div>
+      <nav class="footer__legal" aria-label="Юридическая информация">
+        <a href="/legal/privacy/">Политика конфиденциальности</a>
+        <a href="/legal/personal-data/">Обработка персональных данных</a>
+        <a href="/legal/cookies/">Использование cookie</a>
+        <a href="/legal/oferta/">Договор оферты</a>
+        <a href="/legal/rekvizity/">Реквизиты</a>
+      </nav>
+    </div>
+
+    <!-- Disclaimer: материалы сайта = информация, не оферта/консультация -->
+    <p class="footer__disclaimer">
+      Информация на&nbsp;сайте носит ознакомительный характер и&nbsp;не&nbsp;является публичной офертой по&nbsp;смыслу ст.&nbsp;437 ГК&nbsp;РФ или индивидуальной юридической консультацией.
+    </p>
+
+  </div>
+</footer>

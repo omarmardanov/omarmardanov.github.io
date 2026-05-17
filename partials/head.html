@@ -1,0 +1,45 @@
+<!--
+  HEAD — общий блок <head> для всех страниц.
+
+  В каждой странице:
+  • заменить <title> и <meta name="description">
+  • подключить ТОЛЬКО нужные page-specific CSS из assets/css/pages/
+  • для главной — НЕ добавлять class="page-body-light" на body и НЕ
+    подключать direction.css/service.css/mktu*.css
+  • при использовании главной (transparent header) НЕ подключать base.css
+    напрямую — она уже импортирует --header-h, но проверьте, что class="page"
+    не используется (см. base.css)
+
+  OG / Twitter / canonical вставляются автоматически скриптом scripts/add-meta.py
+  между маркерами <!-- :og:start --> ... <!-- :og:end --> после <meta description>.
+  Запускать после изменения title/description, после создания новой страницы,
+  и после обновления og:image. См. блок в любой существующей странице как пример.
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>СТРАНИЦА · Galifanov, Malkov &amp; Partners</title>
+<meta name="description" content="Описание страницы для поисковиков (~150 символов)">
+
+<!-- :og:start / :og:end — генерируется scripts/add-meta.py, см. комментарий выше -->
+
+<!-- Шрифты -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<!-- Общие стили (порядок важен) -->
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/header.css">
+<link rel="stylesheet" href="/assets/css/mobile-menu.css">
+<link rel="stylesheet" href="/assets/css/footer.css">
+<link rel="stylesheet" href="/assets/css/sections.css">
+<link rel="stylesheet" href="/assets/css/modal.css">
+
+<!-- Page-specific (подключать только нужное) -->
+<!-- <link rel="stylesheet" href="/assets/css/pages/home.css"> -->
+<!-- <link rel="stylesheet" href="/assets/css/pages/direction.css"> -->
+<!-- <link rel="stylesheet" href="/assets/css/pages/service.css"> -->
+<!-- <link rel="stylesheet" href="/assets/css/pages/mktu.css"> -->
+<!-- <link rel="stylesheet" href="/assets/css/pages/mktu-class.css"> -->

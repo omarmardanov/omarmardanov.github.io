@@ -1,0 +1,207 @@
+/* ============================================================
+   SEARCH PAGE — /poisk/
+   Полная страница поиска с фильтром по типу сущности и empty state.
+   Заголовочный блок использует общий компонент .page-hero (components.css).
+   ============================================================ */
+
+/* На /poisk/ нижнюю границу page-hero выключаем — её роль играет
+   подчёркивающая линия .search-input-row (избегаем двух близких rule'ов). */
+.page-search .page-hero { border-bottom: 0; }
+
+/* Большой инпут поиска — внутри .page-hero под grid'ом.
+   Стиль аналогичен .mktu-search: Cormorant italic + подчёркивающая линия. */
+.search-input-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-10);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-rule-strong);
+  transition: border-color var(--dur-fast) var(--ease);
+}
+.search-input-row:focus-within { border-bottom-color: var(--color-ink); }
+.search-input-row__icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  color: var(--color-mute);
+}
+.search-input-row__input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(24px, 3.2vw, 36px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  outline: none;
+  padding: 0;
+}
+.search-input-row__input::placeholder { color: var(--color-mute-2); }
+/* Гасим нативный webkit-крестик очистки — используем кастомную кнопку */
+.search-input-row__input::-webkit-search-cancel-button,
+.search-input-row__input::-webkit-search-decoration,
+.search-input-row__input::-webkit-search-results-button,
+.search-input-row__input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+/* Кастомная кнопка очистки — backspace из спрайта, как в шапочном поиске */
+.search-input-row__clear {
+  width: var(--control-h);
+  height: var(--control-h);
+  display: grid;
+  place-items: center;
+  color: var(--color-mute-2);
+  border: 0;
+  background: transparent;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease);
+}
+.search-input-row__clear:hover { color: var(--color-accent); }
+.search-input-row__clear[hidden] { display: none; }
+.search-input-row__hint {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+
+/* FILTER — общий компонент filter-chip в components.css.
+   Без border-bottom: нижнюю линию даёт border-top первого результата
+   (см. .mktu-hero — тот же принцип «две линии подряд избыточны»). */
+.search-filter {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  padding: var(--space-6) 0;
+}
+
+/* RESULTS — паттерн hover-row общий с service-list (direction.css):
+   brand-soft фон + slide через padding, title и стрелка → accent. */
+.search-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.search-result { margin: 0; }
+.search-result__link {
+  display: grid;
+  grid-template-columns: 1fr 32px;
+  gap: var(--space-6);
+  align-items: center;
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--color-rule);
+  text-decoration: none;
+  color: var(--color-ink);
+  transition: padding var(--dur) var(--ease),
+              background-color var(--dur-fast) var(--ease),
+              border-color var(--dur-fast) var(--ease),
+              box-shadow var(--dur-fast) var(--ease);
+}
+.search-results > li:first-child .search-result__link {
+  border-top: 1px solid var(--color-rule);
+}
+.search-result__link:hover {
+  padding-left: var(--space-5);
+  padding-right: var(--space-5);
+  background: var(--color-brand-soft);
+  border-bottom-color: var(--color-brand-rule);
+  box-shadow: 0 -1px 0 var(--color-brand-rule);
+}
+.search-results > li:first-child .search-result__link:hover {
+  border-top-color: var(--color-brand-rule);
+  box-shadow: none;
+}
+.search-result__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+.search-result__type {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+.search-result__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  margin: 0;
+  color: var(--color-ink);
+  transition: color var(--dur-fast) var(--ease);
+}
+.search-result__link:hover .search-result__title { color: var(--color-accent); }
+.search-result__excerpt {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-mute);
+  margin: 0;
+  max-width: 80ch;
+}
+.search-result__arrow {
+  color: var(--color-mute-2);
+  transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
+  justify-self: end;
+}
+.search-result__link:hover .search-result__arrow {
+  color: var(--color-accent);
+  transform: translateX(4px);
+}
+
+/* EMPTY STATE */
+.search-empty {
+  padding: var(--space-16) 0;
+  border-bottom: 1px solid var(--color-rule);
+  text-align: center;
+}
+.search-empty__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-4);
+}
+.search-empty__hint {
+  font-size: 15px;
+  color: var(--color-mute);
+  margin: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .search-result__link { grid-template-columns: 1fr; }
+  .search-result__arrow { display: none; }
+  .search-result__title { font-size: 20px; }
+}
+
+@media (max-width: 640px) {
+  .search-input-row { margin-top: var(--space-6); }
+  .search-input-row__hint { display: none; }
+  .search-input-row__input { font-size: 20px; }
+  .search-input-row__icon { width: 20px; height: 20px; }
+  .search-empty__title { font-size: 24px; }
+  /* На touch гасим shift и shadow — оставляем только цветовой отклик */
+  .search-result__link:hover {
+    padding: var(--space-6) 0;
+    box-shadow: none;
+  }
+}

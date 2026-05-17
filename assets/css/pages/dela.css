@@ -1,0 +1,431 @@
+/* ============================================================
+   DELA — каталог дел и страница кейса
+   ============================================================ */
+
+/* ---------- Фильтры — общий компонент filter-chip в components.css ---------- */
+.dela-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-8);
+}
+
+/* ---------- Сетка дел ---------- */
+.dela-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+/* Карточка дела (текстовая, монохромная) */
+.dela-card {
+  position: relative;
+  background: var(--color-paper-2);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-height: 240px;
+  text-decoration: none;
+  color: inherit;
+  transition: background var(--dur) var(--ease);
+}
+.dela-card:hover { background: var(--color-brand-soft); }
+.dela-card:hover .dela-card__title { color: var(--color-accent); }
+.dela-card:hover .dela-card__arrow {
+  transform: translateX(4px);
+  color: var(--color-accent);
+}
+
+.dela-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  letter-spacing: var(--text-meta-tracking);
+  line-height: 1;
+}
+.dela-card__meta-id { color: var(--color-ink); }
+.dela-card__meta-place { color: var(--color-mute); }
+
+.dela-card__category {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  margin-top: -8px;
+}
+
+.dela-card__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin: 0;
+  flex: 1;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.dela-card__result {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: auto;
+}
+.dela-card__result-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+.dela-card__result-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  line-height: 1;
+}
+.dela-card__result-value {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+.dela-card__result-value--empty {
+  color: var(--color-mute-2);
+}
+.dela-card__arrow {
+  flex-shrink: 0;
+  width: 28px;
+  height: 10px;
+  color: var(--color-ink);
+  transition: transform var(--dur) var(--ease),
+              color var(--dur-fast) var(--ease);
+}
+
+@media (max-width: 1024px) {
+  .dela-grid { grid-template-columns: repeat(2, 1fr); }
+  .dela-card { min-height: 200px; padding: var(--space-5); }
+  .dela-card__title { font-size: 20px; }
+  .dela-card__result-value { font-size: 24px; }
+}
+
+@media (max-width: 640px) {
+  .dela-grid { grid-template-columns: 1fr; }
+  .dela-card { min-height: 0; }
+}
+
+/* ---------- Пагинация (как в journal) ---------- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-16);
+  padding-top: var(--space-10);
+  border-top: 1px solid var(--color-rule);
+}
+.pagination__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-rule);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.pagination__item:hover { border-color: var(--color-ink); }
+.pagination__item.is-active {
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+  border-color: var(--color-accent);
+  cursor: default;
+}
+.pagination__item.is-disabled { opacity: 0.4; pointer-events: none; }
+.pagination__ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  color: var(--color-mute);
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   СТРАНИЦА КЕЙСА
+   ============================================================ */
+
+/* Шапка кейса — narrow reading-column, прижата к левому краю контейнера. */
+.case-head {
+  max-width: var(--reading-narrow);
+  margin: 0;
+}
+.case-head__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--color-mute);
+  margin-bottom: var(--space-5);
+}
+.case-head__meta .category {
+  font-weight: 500;
+  color: var(--color-ink);
+}
+.case-head__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-leading);
+  letter-spacing: var(--text-h2-tracking);
+  color: var(--color-ink);
+  margin: 0 0 var(--space-8);
+}
+.case-head__title em { font-style: italic; font-weight: 500; }
+
+/* Большой результат на шапке — без обёрточных линий,
+   зазор сверху создаёт визуальное отделение от заголовка. */
+.case-headline {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: var(--space-10);
+  align-items: end;
+  padding: 0;
+}
+.case-headline__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  margin-bottom: var(--space-3);
+}
+.case-headline__value {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 88px;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+}
+.case-headline__value em { font-style: italic; font-weight: 400; }
+.case-headline__desc {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.45;
+  color: var(--color-ink-2);
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .case-head__title { font-size: 40px; }
+  .case-headline {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+  .case-headline__value { font-size: 64px; }
+}
+
+@media (max-width: 640px) {
+  .case-head__title { font-size: 30px; }
+  .case-headline__value { font-size: 48px; }
+  .case-headline__desc { font-size: 18px; }
+}
+
+/* Этапы кейса (Задача / Решение / Результат) — wide body, как article-layout. */
+.case-stages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  max-width: var(--reading-wide);
+  margin: 0 auto;
+}
+.case-stage {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: var(--space-10);
+  align-items: start;
+}
+.case-stage__label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  position: sticky;
+  top: calc(var(--header-h) + var(--space-8));
+}
+.case-stage__num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+.case-stage__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin: 0;
+}
+.case-stage__title em { font-style: italic; font-weight: 400; }
+
+.case-stage__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 720px;
+}
+.case-stage__body p {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  letter-spacing: -0.005em;
+  color: var(--color-ink);
+  margin: 0;
+}
+.case-stage__body strong { font-weight: 500; }
+
+/* Изображение внутри этапа — паттерн зеркален .article-prose figure. */
+.case-stage__body figure {
+  margin: var(--space-3) 0 0;
+}
+.case-stage__body figure img,
+.case-stage__body figure .figure-placeholder {
+  width: 100%;
+  display: block;
+}
+.case-stage__body figure .figure-placeholder {
+  aspect-ratio: 16 / 9;
+  background: var(--color-paper-2);
+  background-size: cover;
+  background-position: center;
+}
+.case-stage__body figcaption {
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--color-mute);
+}
+
+.case-stage__list {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.case-stage__list li {
+  position: relative;
+  padding: var(--space-4) 0 var(--space-4) var(--space-8);
+  border-bottom: 1px solid var(--color-rule);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-ink);
+}
+.case-stage__list li:first-child { border-top: 1px solid var(--color-rule); }
+.case-stage__list li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  top: var(--space-4);
+  color: var(--color-mute-2);
+  font-family: var(--font-mono);
+}
+
+/* Метрики результата (большие числа в ряд) */
+.case-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-8);
+  margin-top: var(--space-6);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-rule);
+}
+.case-metric__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  margin-bottom: var(--space-3);
+}
+.case-metric__value {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+@media (max-width: 1024px) {
+  .case-stage {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+  .case-stage__label { position: static; }
+  .case-stage__title { font-size: 28px; }
+  .case-metrics { grid-template-columns: repeat(2, 1fr); gap: var(--space-6); }
+  .case-metric__value { font-size: 32px; }
+}
+
+@media (max-width: 640px) {
+  .case-stages { gap: var(--space-12); }
+  .case-stage__title { font-size: 24px; }
+  .case-metrics { grid-template-columns: 1fr; }
+}
+
+/* Похожие дела — выровнено по ширине с .case-stages. */
+.case-related {
+  max-width: var(--reading-wide);
+  margin: var(--space-20) auto 0;
+  padding-top: var(--space-12);
+  border-top: 1px solid var(--color-rule);
+}
+.case-related__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-leading);
+  letter-spacing: var(--text-h3-tracking);
+  color: var(--color-ink);
+  margin: 0 0 var(--space-10);
+}
+.case-related__title em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-accent);
+}
+
+@media (max-width: 1024px) {
+  .case-related__title { font-size: 28px; }
+}

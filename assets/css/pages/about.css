@@ -1,0 +1,265 @@
+/* ============================================================
+   ABOUT PAGE — /o-byuro/ (включая раздел «Команда»)
+   intro с drop-cap, stats band, principles, timeline, team grid,
+   stats-band и team-grid
+   ============================================================ */
+
+/* ABOUT INTRO — 2 колонки: title слева, текст справа с буквицей */
+.about-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-20);
+  padding: var(--space-20) 0;
+  align-items: start;
+}
+.about-intro__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-leading);
+  letter-spacing: var(--text-h2-tracking);
+  color: var(--color-ink);
+  margin: 0;
+}
+.about-intro__title em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+.about-intro__text {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-ink);
+}
+.about-intro__text p { margin: 0 0 var(--space-4); }
+.about-intro__text p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  font-size: 80px;
+  font-weight: 500;
+  float: left;
+  line-height: 0.9;
+  margin: 6px 12px 0 0;
+  color: var(--color-accent);
+}
+
+/* STATS BAND — 4 цифры внутри тёплой тинт-полосы, без внутренних обводок.
+   Тинт даёт секции визуальный якорь вместо «рамки из линий». */
+.stats-band {
+  background: var(--color-brand-tint);
+  padding: var(--space-16) 0;
+}
+.stats-band__inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-8);
+}
+.stats-band__cell {
+  padding: 0;
+}
+.stats-band__num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-3);
+  color: var(--color-ink);
+}
+.stats-band__num em {
+  color: var(--color-accent);
+  font-style: italic;
+}
+.stats-band__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+
+/* PRINCIPLES — 3 колонки без обводок, разделены только воздухом. */
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-10);
+  margin-top: var(--space-16);
+}
+.principle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.principle__num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+}
+.principle__title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+.principle__title em { font-style: italic; color: var(--color-accent); }
+.principle__text {
+  font-size: var(--text-nav-size);
+  line-height: 1.6;
+  color: var(--color-mute);
+  margin: 0;
+}
+
+/* TIMELINE — список годов с тонкой линией-разделителем между записями.
+   Линии — функциональные сепараторы между братьями (не «коробка»). */
+.timeline {
+  padding-top: var(--space-16);
+}
+.timeline__year {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--space-16);
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--color-rule);
+  align-items: start;
+}
+.timeline__year:last-child { border-bottom: 0; }
+.timeline__y {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--color-accent);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.timeline__title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0 0 var(--space-2);
+}
+.timeline__desc {
+  font-size: 15px;
+  color: var(--color-mute);
+  line-height: 1.6;
+  max-width: 60ch;
+  margin: 0;
+}
+
+/* TEAM GRID — квадратное фото на светло-сером, текст ниже, разделитель
+   снизу под каждой карточкой. Линия читается как функциональный
+   сепаратор в списке, не как «недокарточка-обводка». */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-10) var(--space-8);
+  padding-bottom: var(--space-24);
+}
+.member {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-rule);
+}
+.member__portrait {
+  aspect-ratio: 1 / 1;
+  background: var(--color-paper-2);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: var(--space-2);
+}
+.member__portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.member__portrait[data-initials]::after {
+  content: attr(data-initials);
+  position: absolute;
+  bottom: var(--space-6); left: var(--space-6);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 48px;
+  color: var(--color-mute-2);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.member__name {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+.member__role {
+  font-size: 14px;
+  color: var(--color-mute);
+  line-height: 1.5;
+  margin: 0;
+}
+.member__role strong {
+  color: var(--color-ink);
+  font-weight: 500;
+}
+.member__creds {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-mute);
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+}
+.member__creds strong {
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .about-intro {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    padding: var(--space-12) 0;
+  }
+  .about-intro__title { font-size: 36px; line-height: 1.05; }
+  .principles {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+  .stats-band {
+    padding: var(--space-12) 0;
+  }
+  .stats-band__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8) var(--space-6);
+  }
+  .team-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-10) var(--space-6);
+  }
+}
+
+@media (max-width: 640px) {
+  .timeline { padding-top: var(--space-12); }
+  .timeline__year {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+    padding: var(--space-6) 0;
+  }
+  .timeline__y { font-size: 36px; }
+  .stats-band { padding: var(--space-10) 0; }
+  .stats-band__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6) var(--space-5);
+  }
+  .stats-band__num { font-size: 40px; }
+  .team-grid { grid-template-columns: 1fr; }
+}

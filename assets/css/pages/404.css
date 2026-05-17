@@ -1,0 +1,100 @@
+/* ============================================================
+   /404 — страница не найдена
+   ------------------------------------------------------------
+   Hero-стиль главной: тёмный photo-фон, центрированная типографика.
+   Фон-картинку переиспользуем у .cta-final__bg (уже в sections.css)
+   через композицию классов на .page-404__bg в HTML — не дублируем
+   ~300 КБ base64.
+   ============================================================ */
+
+.page-404 {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-24) 0;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--color-on-photo);
+  background: var(--color-ink); /* fallback, пока bg-картинка грузится */
+}
+
+/* .page-404__bg сам берёт background-image из .cta-final__bg (композиция в HTML).
+   .page-404__overlay аналогично — наследует затемнение от .cta-final__overlay. */
+
+.page-404__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+  gap: var(--space-6);
+}
+
+.page-404__eyebrow {
+  margin-bottom: var(--space-2);
+}
+
+.page-404__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(52px, 7vw, 88px);
+  line-height: 1.0;
+  letter-spacing: var(--text-h1-tracking);
+  margin: 0;
+  color: var(--color-on-photo);
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.25);
+}
+.page-404__title em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-on-photo-mute);
+}
+
+.page-404__lead {
+  font-family: var(--font-body);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  font-weight: 400;
+  color: var(--color-on-photo);
+  max-width: 560px;
+  margin: 0;
+  text-shadow: 0 1px 20px rgba(0, 0, 0, 0.2);
+}
+
+.page-404__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: center;
+  margin-top: var(--space-4);
+}
+
+/* Унифицируем габариты обеих кнопок — иначе .btn--cta-light (280×52) и
+   .btn--ghost-light (auto×40) визуально разные. Селектор `.page-404__actions .btn`
+   имеет специфичность 2-1-0, перекрывает 0-1-0 у .btn--cta-light. */
+.page-404__actions .btn {
+  width: 280px;
+  height: 52px;
+}
+
+@media (max-width: 1024px) {
+  .page-404 { padding: var(--space-20) 0; }
+  .page-404__title { font-size: clamp(44px, 9vw, 64px); }
+}
+
+@media (max-width: 640px) {
+  .page-404 { padding: var(--space-16) 0; }
+  .page-404__title { font-size: clamp(36px, 11vw, 48px); }
+  .page-404__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 320px;
+  }
+  .page-404__actions .btn { width: 100%; }
+}

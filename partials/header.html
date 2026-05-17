@@ -1,0 +1,202 @@
+<!--
+  HEADER — site-header partial.
+  Два режима через классы и атрибуты на корневом <header>:
+
+  • Главная (прозрачная → белая при скролле):
+      <header class="site-header" id="siteHeader" data-state="transparent" data-extra="">
+    JS добавит data-scrolled="true" после 300px скролла.
+
+  • Внутренние (всегда белая):
+      <header class="site-header site-header--always-solid" id="siteHeader" data-state="solid" data-extra="">
+
+  Контакты (телефоны, email) — единые, см. BRIEF.md.
+  В шапке нет ссылки на «Классы МКТУ» — справочник доступен через футер и поиск.
+
+  Атрибуты для меню «is-current» расставляются на каждой странице вручную
+  (синхронизация через scripts/sync-header.py перезатирает блок, кроме is-current/aria-current).
+-->
+<header class="site-header site-header--always-solid" id="siteHeader" data-state="solid" data-extra="">
+
+    <!-- 1-я линия: телефоны городов + email -->
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <div class="topbar__locations text-meta">
+          <span class="topbar__loc"><strong>Москва</strong> · <a href="tel:+74951518282" class="link copy-trigger" data-copy-label="Скопировать номер" data-copy-toast="Номер телефона скопирован">+7&nbsp;(495)&nbsp;151-82-82</a></span>
+          <span class="topbar__loc"><strong>Тюмень</strong> · <a href="tel:+73452492557" class="link copy-trigger" data-copy-label="Скопировать номер" data-copy-toast="Номер телефона скопирован">+7&nbsp;(345)&nbsp;249-25-57</a></span>
+        </div>
+        <div class="topbar__email text-meta">
+          <strong>Email</strong> · <a href="mailto:law@1-tm.ru" class="link copy-trigger" data-copy-label="Скопировать адрес" data-copy-toast="Адрес электронной почты скопирован">law@1-tm.ru</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2-я линия: логотип + навигация + CTA -->
+    <div class="header-main-wrap">
+      <div class="container header-main">
+        <a href="/" class="brand link" aria-label="Галифанов, Мальков и Партнёры — на главную">
+          <span class="brand__name">Галифанов, Мальков и&nbsp;Партнёры</span>
+          <span class="brand__sub">Юридическая фирма · с&nbsp;2014&nbsp;года</span>
+        </a>
+
+        <div class="header-nav">
+          <button type="button" class="btn-search" id="searchToggle" aria-label="Поиск" aria-expanded="false">
+            <svg class="icon icon--lg" aria-hidden="true"><use href="/assets/icons/sprite.svg#search"/></svg>
+          </button>
+          <nav class="primary-nav" aria-label="Главное меню">
+            <button type="button" class="nav-link nav-link--services" id="servicesToggle" aria-expanded="false" aria-controls="megaMenu">
+              <span>Услуги</span>
+              <svg class="icon nav-link__chevron" aria-hidden="true"><use href="/assets/icons/sprite.svg#chevron-down"/></svg>
+            </button>
+            <a href="/o-byuro/" class="nav-link">О&nbsp;бюро</a>
+            <a href="/zhurnal/" class="nav-link">Журнал</a>
+            <a href="/dela/" class="nav-link">Дела</a>
+            <a href="/kontakty/" class="nav-link">Контакты</a>
+          </nav>
+        </div>
+
+        <a href="#" class="btn btn--glass btn--w-220 btn-consult-hide-mobile js-open-consult">
+          Заявка на&nbsp;консультацию
+        </a>
+
+        <!-- Mobile-only accent-button: открывает модалку заявки. Рядом с бургером. -->
+        <button type="button" class="btn-consult-mobile js-open-consult" aria-label="Заявка на консультацию">
+          <svg class="icon icon--lg" aria-hidden="true"><use href="/assets/icons/sprite.svg#send"/></svg>
+        </button>
+
+        <button type="button" class="nav-toggle" id="mobileToggle" aria-label="Меню" aria-expanded="false">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 3-я линия: мегаменю или поиск (один контейнер с CSS-анимацией высоты) -->
+    <div class="header-extra" id="headerExtra" aria-hidden="true">
+      <div class="header-extra__inner">
+
+        <!-- Мегаменю — ровно по 6 услуг в каждом направлении -->
+        <div class="mega" id="megaMenu">
+          <div class="container">
+            <div class="mega__grid">
+              <div>
+                <h6 class="mega__col-title">Интеллектуальная собственность</h6>
+                <ul class="mega__list">
+                  <li><a href="/uslugi/intellektualnaya-sobstvennost/#tovarnye-znaki" class="link">Товарные знаки</a></li>
+                  <li><a href="/uslugi/intellektualnaya-sobstvennost/#patenty" class="link">Патенты</a></li>
+                  <li><a href="/uslugi/intellektualnaya-sobstvennost/#avtorskoe-pravo" class="link">Авторское право</a></li>
+                  <li><a href="/uslugi/intellektualnaya-sobstvennost/#po-bazy-dannyh" class="link">ПО и&nbsp;базы данных</a></li>
+                  <li><a href="/uslugi/intellektualnaya-sobstvennost/#geograficheskie-ukazaniya" class="link">Географические указания</a></li>
+                  <li><a href="/uslugi/intellektualnaya-sobstvennost/#franshiza" class="link">Франшиза</a></li>
+                </ul>
+                <a href="/uslugi/intellektualnaya-sobstvennost/" class="mega__more">
+                  <span>Все услуги направления</span>
+                  <svg class="icon icon--arrow" aria-hidden="true"><use href="/assets/icons/sprite.svg#arrow-right"/></svg>
+                </a>
+              </div>
+              <div>
+                <h6 class="mega__col-title">Договоры и&nbsp;сделки</h6>
+                <ul class="mega__list">
+                  <li><a href="/uslugi/dogovory-i-sdelki/#litsenzii" class="link">Лицензионные договоры</a></li>
+                  <li><a href="/uslugi/dogovory-i-sdelki/#otchuzhdenie" class="link">Договоры отчуждения</a></li>
+                  <li><a href="/uslugi/dogovory-i-sdelki/#zalog" class="link">Договоры залога</a></li>
+                  <li><a href="/uslugi/dogovory-i-sdelki/#nda" class="link">NDA и&nbsp;коммерческая тайна</a></li>
+                  <li><a href="/uslugi/dogovory-i-sdelki/#avtorskij-zakaz" class="link">Авторский заказ</a></li>
+                  <li><a href="/uslugi/dogovory-i-sdelki/#razrabotka-po" class="link">Договоры на&nbsp;разработку ПО</a></li>
+                </ul>
+                <a href="/uslugi/dogovory-i-sdelki/" class="mega__more">
+                  <span>Все услуги направления</span>
+                  <svg class="icon icon--arrow" aria-hidden="true"><use href="/assets/icons/sprite.svg#arrow-right"/></svg>
+                </a>
+              </div>
+              <div>
+                <h6 class="mega__col-title">Судебная практика</h6>
+                <ul class="mega__list">
+                  <li><a href="/uslugi/spory-i-zashchita/#arbitrazh" class="link">Арбитражные споры</a></li>
+                  <li><a href="/uslugi/spory-i-zashchita/#korporativnye" class="link">Корпоративные споры</a></li>
+                  <li><a href="/uslugi/spory-i-zashchita/#nalogovye" class="link">Налоговые споры</a></li>
+                  <li><a href="/uslugi/spory-i-zashchita/#fas" class="link">Защита в&nbsp;ФАС</a></li>
+                  <li><a href="/uslugi/spory-i-zashchita/#bankrotstvo" class="link">Банкротство</a></li>
+                  <li><a href="/uslugi/spory-i-zashchita/#kontrafakt" class="link">Борьба с&nbsp;контрафактом</a></li>
+                </ul>
+                <a href="/uslugi/spory-i-zashchita/" class="mega__more">
+                  <span>Все услуги направления</span>
+                  <svg class="icon icon--arrow" aria-hidden="true"><use href="/assets/icons/sprite.svg#arrow-right"/></svg>
+                </a>
+              </div>
+              <div>
+                <h6 class="mega__col-title">Сопровождение бизнеса</h6>
+                <ul class="mega__list">
+                  <li><a href="/uslugi/soprovozhdenie-biznesa/#yur-soprovozhdenie" class="link">Юридическое сопровождение</a></li>
+                  <li><a href="/uslugi/soprovozhdenie-biznesa/#goszakupki" class="link">Госзакупки 44/223-ФЗ</a></li>
+                  <li><a href="/uslugi/soprovozhdenie-biznesa/#autsorsing" class="link">Бизнес-аутсорсинг</a></li>
+                  <li><a href="/uslugi/soprovozhdenie-biznesa/#zashchita" class="link">Защита бизнеса</a></li>
+                  <li><a href="/uslugi/soprovozhdenie-biznesa/#kommercheskaya-tayna" class="link">Коммерческая тайна</a></li>
+                  <li><a href="/uslugi/soprovozhdenie-biznesa/#dogovornaya-rabota" class="link">Договорная работа</a></li>
+                </ul>
+                <a href="/uslugi/soprovozhdenie-biznesa/" class="mega__more">
+                  <span>Все услуги направления</span>
+                  <svg class="icon icon--arrow" aria-hidden="true"><use href="/assets/icons/sprite.svg#arrow-right"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <!--
+              Полоса «Специализация» — две оси узких практик: отрасли патентов + инстанции.
+              Каждый тег ведёт на отдельную страницу-услугу под low-frequency SEO-запрос.
+            -->
+            <div class="mega__rail">
+              <div class="mega__rail-eyebrow">Специализация</div>
+              <div class="mega__rail-grid">
+                <div class="mega__rail-block">
+                  <h6 class="mega__col-title">Патенты по&nbsp;отраслям</h6>
+                  <ul class="mega__tags">
+                    <li><a href="/uslugi/patenty-v-selskom-khozyaystve/" class="link">Сельское хозяйство</a></li>
+                    <li><a href="/uslugi/patenty-v-meditsine/" class="link">Медицина</a></li>
+                    <li><a href="/uslugi/patenty-v-farmacevtike/" class="link">Фармацевтика</a></li>
+                    <li><a href="/uslugi/patenty-v-neftegaze/" class="link">Нефтегаз</a></li>
+                    <li><a href="/uslugi/patenty-v-promyshlennosti/" class="link">Промышленное оборудование</a></li>
+                  </ul>
+                </div>
+                <div class="mega__rail-block">
+                  <h6 class="mega__col-title">Представительство в&nbsp;судах</h6>
+                  <ul class="mega__tags">
+                    <li><a href="/uslugi/predstavitelstvo-v-sip/" class="link">СИП</a></li>
+                    <li><a href="/uslugi/spory-v-arbitrazhnom-sude/" class="link">Арбитражный суд</a></li>
+                    <li><a href="/uslugi/spory-v-fas/" class="link">ФАС</a></li>
+                    <li><a href="/uslugi/spory-v-palate-po-patentnym-sporam/" class="link">Палата по&nbsp;патентным спорам</a></li>
+                    <li><a href="/uslugi/spory-v-verhovnom-sude/" class="link">Верховный Суд&nbsp;РФ</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--
+          Поиск — с динамическим dropdown.
+          • При фокусе на пустом поле показываем chips популярных запросов
+          • При вводе — группированный dropdown результатов с sticky-кнопкой «Все результаты»
+          • Иконка очистки (backspace) появляется только когда есть текст — отдельно от X-закрытия
+        -->
+        <div class="search-row" id="searchRow">
+          <div class="container">
+            <form class="search-row__form" role="search" action="/poisk/" method="get">
+              <svg class="search-row__icon icon icon--lg" aria-hidden="true"><use href="/assets/icons/sprite.svg#search"/></svg>
+              <input type="search" name="q" class="search-row__input" id="searchInput" placeholder="Услуги, дела, статьи, классы МКТУ…" autocomplete="off">
+              <button type="button" class="search-row__clear" id="searchClear" aria-label="Очистить поле" hidden>
+                <svg class="icon icon--md" aria-hidden="true"><use href="/assets/icons/sprite.svg#backspace"/></svg>
+              </button>
+              <span class="search-row__hint">Esc&nbsp;— закрыть</span>
+              <button type="button" class="search-row__close" id="searchClose" aria-label="Закрыть поиск">
+                <svg class="icon icon--md" aria-hidden="true"><use href="/assets/icons/sprite.svg#close"/></svg>
+              </button>
+            </form>
+
+            <!-- Dropdown с результатами; JS наполняет, скрыт по умолчанию -->
+            <div class="search-suggest" id="searchSuggest" aria-live="polite" hidden></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>

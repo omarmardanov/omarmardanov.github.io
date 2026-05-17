@@ -1,0 +1,229 @@
+/* ============================================================
+   MOBILE MENU — fullscreen overlay + drill-down уровни
+   ============================================================ */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  z-index: var(--z-mobile);
+  display: flex;
+  flex-direction: column;
+  /* Шапка поверх меню, поэтому отступ сверху равен её высоте,
+     иначе контент уходит под бургер. */
+  padding-top: var(--header-h-mobile);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur) var(--ease);
+}
+body.mobile-open .mobile-menu {
+  opacity: 1;
+  pointer-events: auto;
+}
+body.mobile-open { overflow: hidden; }
+
+/* Скрыто полностью — закрытие через тот же бургер в шапке (анимируется в X).
+   Шапка перекрывает верхний край меню и держит свой brand + burger. */
+.mobile-menu__head { display: none; }
+
+/* Поле поиска поверх nav — в стиле дизайн-системы (нижняя линия + лупа) */
+.mobile-menu__search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--gutter);
+  border-bottom: 1px solid var(--color-rule);
+}
+.mobile-menu__search .icon {
+  color: var(--color-mute);
+  flex-shrink: 0;
+}
+.mobile-menu__search-input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  outline: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  padding: 0;
+}
+.mobile-menu__search-input::placeholder { color: var(--color-mute-2); }
+.mobile-menu__search-input::-webkit-search-cancel-button { display: none; }
+
+.mobile-menu__nav {
+  list-style: none;
+  margin: 0;
+  /* padding-bottom: 0 — отступ до CTA-кнопки даёт сам .mobile-menu__bottom.
+     Так от линии последнего пункта до верха кнопки = от низа кнопки до
+     линии контактов. */
+  padding: 0 var(--gutter) 0;
+}
+.mobile-menu__nav > li {
+  border-bottom: 1px solid var(--color-rule);
+}
+.mobile-menu__nav > li > a,
+.mobile-menu__nav > li > button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) 0;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--color-ink);
+  background: transparent;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+}
+.mobile-menu__nav > li > a::after,
+.mobile-menu__nav > li > button::after {
+  content: '→';
+  color: var(--color-mute);
+  flex-shrink: 0;
+  margin-left: var(--space-3);
+}
+
+/* Низ меню: большая CTA + ряд контактов с city-метками (как в cta-final).
+   Без margin-top: auto — иначе между nav-меню и кнопкой возникает
+   переменный пустой gap, и кнопка перестаёт быть симметричной
+   относительно линии сверху (последний nav-пункт) и линии снизу
+   (border-top контактов). */
+.mobile-menu__bottom {
+  padding: var(--space-8) var(--gutter) var(--space-10);
+}
+.mobile-menu__cta {
+  display: flex;
+  width: 100%;
+  height: 56px;          /* крупная тач-цель, не 40 */
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+.mobile-menu__contacts {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-6) 0 0;
+  border-top: 1px solid var(--color-rule);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.mobile-menu__contacts li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mobile-menu__contacts-city {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+.mobile-menu__contacts a {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  padding: 2px 0;
+}
+
+/* Ряд иконок мессенджеров в мобильном меню. Совпадает с layout остальных пунктов
+   (label сверху, контент снизу), но контент — три иконки 40×40 в ряд. */
+.mobile-menu__messengers {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+.mobile-menu__messengers a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--color-rule);
+  color: var(--color-ink);
+}
+.mobile-menu__messengers a svg { width: 18px; height: 18px; }
+
+/* MOBILE MENU — drill-down переключение уровней */
+.mobile-menu__panel {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.mobile-menu__panel[data-level] {
+  display: none;
+}
+.mobile-menu__panel.is-active {
+  display: flex;
+}
+
+/* «← Назад» */
+.mobile-menu__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--gutter);
+  font-family: var(--font-body);
+  font-size: var(--text-nav-size);
+  letter-spacing: var(--text-nav-tracking);
+  color: var(--color-mute);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--color-rule);
+  text-align: left;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.mobile-menu__back svg {
+  width: 16px;
+  height: 12px;
+}
+.mobile-menu__back:hover { color: var(--color-ink); }
+
+/* Заголовок уровня — название направления */
+.mobile-menu__level-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  padding: var(--space-6) var(--gutter) var(--space-3);
+  margin: 0;
+}
+.mobile-menu__level-lead {
+  font-family: var(--font-body);
+  font-size: var(--text-nav-size);
+  line-height: 1.5;
+  color: var(--color-mute);
+  padding: 0 var(--gutter) var(--space-6);
+  margin: 0;
+}
+
+/* Подзаголовок «Специализация» между основными направлениями и узкими срезами */
+.mobile-menu__section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  padding: var(--space-6) var(--gutter) var(--space-3);
+  border-top: 1px solid var(--color-rule);
+  margin-top: var(--space-4);
+}

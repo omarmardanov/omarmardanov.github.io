@@ -1,0 +1,23 @@
+<!--
+  COOKIE BANNER — bottom-fixed уведомление об использовании cookie.
+  Показывается до явного выбора пользователя (152-ФЗ требует opt-in).
+  Выбор сохраняется в localStorage; повторное открытие через клик
+  на «Изменить настройки» в /legal/cookies/ (см. cookie-banner.js).
+-->
+<aside class="cookie-banner" id="cookieBanner" role="region" aria-label="Уведомление об использовании cookie" hidden>
+  <div class="container cookie-banner__inner">
+    <div class="cookie-banner__body">
+      <p class="cookie-banner__text">
+        Сайт использует <strong>cookie-файлы</strong> для&nbsp;корректной работы и&nbsp;анализа посещаемости. Продолжая просмотр, вы&nbsp;соглашаетесь с&nbsp;<a href="/legal/cookies/" class="link">политикой использования cookie</a>. Категорию «Аналитика» можно отключить.
+      </p>
+    </div>
+    <div class="cookie-banner__actions">
+      <button type="button" class="cookie-banner__btn cookie-banner__btn--ghost" data-cookie-action="essential">
+        Только необходимые
+      </button>
+      <button type="button" class="cookie-banner__btn cookie-banner__btn--primary" data-cookie-action="all">
+        Принять все
+      </button>
+    </div>
+  </div>
+</aside>

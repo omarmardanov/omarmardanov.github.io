@@ -1,0 +1,169 @@
+/* ============================================================
+   USLUGI CATALOG — /uslugi/
+   4 направления — flat-блоки (meta, title+lead, services, more-link).
+   Услуги внутри — карточки на paper-2 фоне, единый паттерн с .card/.dela-card.
+   ============================================================ */
+
+/* Расстояние между направлениями — только воздухом, без линий. */
+.dir-block + .dir-block { margin-top: var(--space-20); }
+
+.dir-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+/* Meta-строка: index · counter · partner */
+.dir-block__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  align-items: baseline;
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+.dir-block__index    { color: var(--color-accent); }
+.dir-block__counter  { color: var(--color-mute); }
+.dir-block__partner  { color: var(--color-mute); }
+.dir-block__partner strong { color: var(--color-ink); font-weight: 500; }
+
+/* Header: title слева, lead справа — как и на page-hero */
+.dir-block__head {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--space-12);
+  align-items: start;
+  margin: 0;
+}
+.dir-block__title {
+  font-family: var(--font-display);
+  font-size: var(--text-h2-size);
+  font-weight: 500;
+  letter-spacing: var(--text-h2-tracking);
+  line-height: var(--text-h2-leading);
+  margin: 0;
+}
+.dir-block__title em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+.dir-block__lead {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--color-mute);
+  margin: 0;
+  max-width: 52ch;
+}
+
+/* Услуги — 3-колоночная сетка карточек.
+   Каждая карточка: paper-2 фон, padding, title + hint + arrow внизу.
+   Hover: brand-soft фон, title и стрелка в accent. */
+.dir-srv-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+.dir-srv {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  background: var(--color-paper-2);
+  color: var(--color-ink);
+  text-decoration: none;
+  /* Минимальная высота — чтобы короткие карточки не схлопывались,
+     ровняем визуальный ритм между рядами 3×2 сетки. */
+  min-height: 180px;
+  transition: background var(--dur-fast) var(--ease);
+}
+.dir-srv:hover {
+  background: var(--color-brand-soft);
+}
+.dir-srv__name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  line-height: 1.25;
+  color: var(--color-ink);
+  transition: color var(--dur-fast) var(--ease);
+}
+.dir-srv:hover .dir-srv__name { color: var(--color-accent); }
+.dir-srv__hint {
+  font-size: var(--text-nav-size);
+  line-height: 1.5;
+  color: var(--color-mute);
+  /* Ограничиваем hint двумя строками, чтобы высоты карточек в ряду
+     не разъезжались из-за длины описаний. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+.dir-srv__arrow {
+  width: 28px;
+  height: 10px;
+  color: var(--color-mute-2);
+  margin-top: auto;
+  transition: transform var(--dur) var(--ease),
+              color var(--dur-fast) var(--ease);
+}
+.dir-srv:hover .dir-srv__arrow {
+  color: var(--color-accent);
+  transform: translateX(4px);
+}
+
+/* CTA «Все N услуг направления» */
+.dir-block__more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--color-ink);
+  transition: color var(--dur-fast) var(--ease),
+              gap var(--dur) var(--ease);
+  margin: 0;
+}
+.dir-block__more:hover {
+  color: var(--color-accent);
+  gap: var(--space-4);
+}
+.dir-block__more .icon { width: 28px; height: 10px; }
+
+/* Tablet & mobile */
+@media (max-width: 1024px) {
+  .dir-block + .dir-block { margin-top: var(--space-16); }
+  .dir-block { gap: var(--space-8); }
+  .dir-block__head {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+  .dir-block__title { font-size: 40px; }
+  .dir-srv-list { grid-template-columns: repeat(2, 1fr); }
+  .dir-srv { padding: var(--space-5); }
+  .dir-srv__name { font-size: 20px; }
+}
+@media (max-width: 640px) {
+  .dir-block + .dir-block { margin-top: var(--space-12); }
+  .dir-block__title { font-size: 30px; }
+  .dir-srv-list { grid-template-columns: 1fr; }
+  /* На mobile карточки идут друг под другом — выравнивать не нужно,
+     текст показываем целиком. */
+  .dir-srv { min-height: 0; }
+  .dir-srv__hint {
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    display: block;
+    overflow: visible;
+  }
+  .dir-block__more { font-size: 18px; }
+}

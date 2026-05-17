@@ -1,0 +1,272 @@
+/* ============================================================
+   MODAL — split-layout (фото слева | форма справа)
+   На mobile (≤640px) — одна колонка, фото скрывается
+   ============================================================ */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-mobile);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+}
+.modal.is-open {
+  display: flex;
+  animation: modalFade var(--dur) var(--ease);
+}
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.65);
+}
+@keyframes modalFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Диалог — горизонтальный сплит */
+.modal__dialog {
+  position: relative;
+  background: var(--color-paper);
+  width: 100%;
+  max-width: 960px;
+  max-height: calc(100vh - var(--space-16));
+  display: flex;
+  overflow: hidden;
+}
+
+/* Левая колонка — фото */
+.modal__photo {
+  flex: 0 0 38%;
+  background-image: var(--hero-bg-url, none);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-8);
+}
+.modal__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* 3-stop: верх ~20% прозрачен, середина mid-затемнение, низ почти ink 90%.
+     Heading + контакты + мессенджеры читаются без потери самого фото. */
+  background: linear-gradient(
+    180deg,
+    transparent 20%,
+    rgba(10, 10, 10, 0.55) 55%,
+    rgba(10, 10, 10, 0.9) 100%
+  );
+  pointer-events: none;
+}
+.modal__photo-heading {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--color-on-photo);
+  margin: 0 0 var(--space-8);
+}
+/* DS-правило: em на фото-фоне — on-photo-mute, не accent (см. DESIGN_SYSTEM.md) */
+.modal__photo-heading em {
+  font-style: italic;
+  color: var(--color-on-photo-mute);
+}
+.modal__photo-contacts {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.modal__photo-city {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-on-photo-mute);
+  margin: 0 0 var(--space-1);
+}
+.modal__photo-contact {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-on-photo);
+  text-decoration: none;
+  display: block;
+  line-height: 1.6;
+  transition: color var(--dur-fast) var(--ease);
+}
+.modal__photo-contact:hover { color: var(--color-paper); }
+
+/* Ряд иконок мессенджеров в фото-панели модалки. Свой блок наравне с городами;
+   gap наследуется от .modal__photo-contacts. */
+.modal__photo-messengers {
+  display: flex;
+  gap: 8px;
+}
+.modal__photo-messengers a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--color-on-photo-rule);
+  color: var(--color-on-photo-mute);
+  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.modal__photo-messengers a svg { width: 15px; height: 15px; }
+.modal__photo-messengers a:hover {
+  color: var(--color-on-photo);
+  border-color: var(--color-on-photo);
+}
+
+/* Правая колонка — форма */
+.modal__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-10) var(--space-10) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  color: var(--color-mute);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease);
+  z-index: 2;
+}
+.modal__close:hover { color: var(--color-ink); }
+
+.modal__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin: 0;
+}
+.modal__title em { font-style: italic; color: var(--color-accent); font-weight: 500; }
+.modal__lead {
+  font-family: var(--font-body);
+  font-size: var(--text-nav-size);
+  line-height: 1.5;
+  color: var(--color-mute);
+  margin: -var(--space-2) 0 0;
+}
+
+/* Консультационная форма — 2-колоночная сетка.
+   Row gap (space-6 = 24) больше, чем внутренний gap .field (space-2 = 8) —
+   чтобы лейбл воспринимался прижатым к СВОЕМУ инпуту, а не к полю выше. */
+.consult-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.consult-form__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6) var(--space-4);
+}
+.consult-form__grid .field--full {
+  grid-column: 1 / -1;
+}
+
+/* Мобайл — одна колонка, без фото */
+@media (max-width: 700px) {
+  .modal { padding: 0; }
+  .modal__dialog {
+    max-width: none;
+    max-height: 100dvh;
+    height: 100dvh;
+    flex-direction: column;
+  }
+  .modal__photo { display: none; }
+  .modal__body {
+    padding: var(--space-8) var(--space-6);
+  }
+  .consult-form__grid {
+    grid-template-columns: 1fr;
+    /* На мобиле все поля стопкой — увеличиваем row gap для воздуха.
+       Каскад: row gap 24 (десктоп) → 32 (мобила), column gap не нужен. */
+    gap: var(--space-8);
+  }
+  .modal__close { top: 12px; right: 12px; }
+  .modal__title { font-size: 24px; }
+}
+
+/* ============================================================
+   MOBILE MENU — drill-down переключение уровней
+   ============================================================ */
+.mobile-menu__panel {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.mobile-menu__panel[data-level] {
+  display: none;
+}
+.mobile-menu__panel.is-active {
+  display: flex;
+}
+
+/* «← Назад» */
+.mobile-menu__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--gutter);
+  font-family: var(--font-body);
+  font-size: var(--text-nav-size);
+  letter-spacing: var(--text-nav-tracking);
+  color: var(--color-mute);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--color-rule);
+  text-align: left;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.mobile-menu__back svg {
+  width: 16px;
+  height: 12px;
+}
+.mobile-menu__back:hover { color: var(--color-ink); }
+
+/* Заголовок уровня — название направления */
+.mobile-menu__level-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  padding: var(--space-6) var(--gutter) var(--space-3);
+  margin: 0;
+}
+.mobile-menu__level-lead {
+  font-family: var(--font-body);
+  font-size: var(--text-nav-size);
+  line-height: 1.5;
+  color: var(--color-mute);
+  padding: 0 var(--gutter) var(--space-6);
+  margin: 0;
+}

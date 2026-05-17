@@ -1,0 +1,199 @@
+<!-- MOBILE MENU — fullscreen overlay с drill-down уровнями. -->
+<aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu__head">
+    <span class="mobile-menu__brand">Галифанов, Мальков и&nbsp;Партнёры</span>
+    <button type="button" class="mobile-menu__close" id="mobileClose" aria-label="Закрыть меню">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path d="m4 4 12 12M16 4 4 16"/>
+      </svg>
+    </button>
+  </div>
+  <!-- Уровень 0: корневое меню -->
+  <div class="mobile-menu__panel is-active" data-level="0">
+
+    <!-- Стилизованное поле поиска: submit ведёт на /poisk/?q=… -->
+    <form class="mobile-menu__search" role="search" action="/poisk/" method="get">
+      <svg class="icon icon--lg" aria-hidden="true"><use href="/assets/icons/sprite.svg#search"/></svg>
+      <input type="search" name="q" class="mobile-menu__search-input" placeholder="Услуги, дела, статьи, классы МКТУ…" autocomplete="off">
+    </form>
+
+    <ul class="mobile-menu__nav">
+      <li>
+        <button type="button" data-go="1">Услуги</button>
+      </li>
+      <li><a href="/o-byuro/">О&nbsp;бюро</a></li>
+      <li><a href="/zhurnal/">Журнал</a></li>
+      <li><a href="/dela/">Дела</a></li>
+      <li><a href="/kontakty/">Контакты</a></li>
+    </ul>
+
+    <div class="mobile-menu__bottom">
+      <a href="#" class="btn btn--primary btn--block mobile-menu__cta js-open-consult">
+        Заявка на&nbsp;консультацию
+      </a>
+
+      <ul class="mobile-menu__contacts">
+        <li>
+          <span class="mobile-menu__contacts-city">Москва</span>
+          <a href="tel:+74951518282">+7&nbsp;(495)&nbsp;151-82-82</a>
+        </li>
+        <li>
+          <span class="mobile-menu__contacts-city">Тюмень</span>
+          <a href="tel:+73452492557">+7&nbsp;(345)&nbsp;249-25-57</a>
+        </li>
+        <li>
+          <span class="mobile-menu__contacts-city">Email</span>
+          <a href="mailto:law@1-tm.ru">law@1-tm.ru</a>
+        </li>
+        <li class="mobile-menu__messengers-row">
+          <span class="mobile-menu__contacts-city">Мессенджеры</span>
+          <span class="mobile-menu__messengers">
+            <a href="https://wa.me/79258963188" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg aria-hidden="true"><use href="/assets/icons/sprite.svg#whatsapp"/></svg>
+            </a>
+            <a href="https://t.me/gmip_23" target="_blank" rel="noopener" aria-label="Telegram">
+              <svg aria-hidden="true"><use href="/assets/icons/sprite.svg#telegram"/></svg>
+            </a>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Уровень 1: список направлений -->
+  <div class="mobile-menu__panel" data-level="1">
+    <button type="button" class="mobile-menu__back" data-go="0">
+      <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" aria-hidden="true">
+        <path d="M16 6 H1"/>
+        <path d="M5 2 L1 6 L5 10"/>
+      </svg>
+      Назад
+    </button>
+    <h3 class="mobile-menu__level-title">Услуги</h3>
+    <p class="mobile-menu__level-lead">Четыре направления&nbsp;— выберите интересующее, чтобы увидеть разделы.</p>
+    <ul class="mobile-menu__nav">
+      <li><button type="button" data-go="2-ip">Интеллектуальная собственность</button></li>
+      <li><button type="button" data-go="2-ds">Договоры и&nbsp;сделки</button></li>
+      <li><button type="button" data-go="2-sz">Судебная практика</button></li>
+      <li><button type="button" data-go="2-sb">Сопровождение бизнеса</button></li>
+    </ul>
+
+    <div class="mobile-menu__section-eyebrow">Специализация</div>
+    <ul class="mobile-menu__nav">
+      <li><button type="button" data-go="2-otrasli">Патенты по&nbsp;отраслям</button></li>
+      <li><button type="button" data-go="2-sudy">Представительство в&nbsp;судах</button></li>
+    </ul>
+  </div>
+
+  <!-- Уровень 2: разделы внутри направления -->
+  <div class="mobile-menu__panel" data-level="2-ip">
+    <button type="button" class="mobile-menu__back" data-go="1">
+      <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" aria-hidden="true">
+        <path d="M16 6 H1"/>
+        <path d="M5 2 L1 6 L5 10"/>
+      </svg>
+      Услуги
+    </button>
+    <h3 class="mobile-menu__level-title">Интеллектуальная собственность</h3>
+    <ul class="mobile-menu__nav">
+      <li><a href="/uslugi/intellektualnaya-sobstvennost/#tovarnye-znaki">Товарные знаки</a></li>
+      <li><a href="/uslugi/intellektualnaya-sobstvennost/#patenty">Патенты</a></li>
+      <li><a href="/uslugi/intellektualnaya-sobstvennost/#avtorskoe-pravo">Авторское право</a></li>
+      <li><a href="/uslugi/intellektualnaya-sobstvennost/#po-bazy-dannyh">ПО и&nbsp;базы данных</a></li>
+      <li><a href="/uslugi/intellektualnaya-sobstvennost/#geograficheskie-ukazaniya">Географические указания</a></li>
+      <li><a href="/uslugi/intellektualnaya-sobstvennost/#franshiza">Франшиза</a></li>
+    </ul>
+  </div>
+
+  <div class="mobile-menu__panel" data-level="2-ds">
+    <button type="button" class="mobile-menu__back" data-go="1">
+      <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" aria-hidden="true">
+        <path d="M16 6 H1"/>
+        <path d="M5 2 L1 6 L5 10"/>
+      </svg>
+      Услуги
+    </button>
+    <h3 class="mobile-menu__level-title">Договоры и&nbsp;сделки</h3>
+    <ul class="mobile-menu__nav">
+      <li><a href="/uslugi/dogovory-i-sdelki/#litsenzii">Лицензионные договоры</a></li>
+      <li><a href="/uslugi/dogovory-i-sdelki/#otchuzhdenie">Договоры отчуждения</a></li>
+      <li><a href="/uslugi/dogovory-i-sdelki/#zalog">Договоры залога</a></li>
+      <li><a href="/uslugi/dogovory-i-sdelki/#nda">NDA и&nbsp;коммерческая тайна</a></li>
+      <li><a href="/uslugi/dogovory-i-sdelki/#avtorskij-zakaz">Авторский заказ</a></li>
+    </ul>
+  </div>
+
+  <div class="mobile-menu__panel" data-level="2-sz">
+    <button type="button" class="mobile-menu__back" data-go="1">
+      <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" aria-hidden="true">
+        <path d="M16 6 H1"/>
+        <path d="M5 2 L1 6 L5 10"/>
+      </svg>
+      Услуги
+    </button>
+    <h3 class="mobile-menu__level-title">Судебная практика</h3>
+    <ul class="mobile-menu__nav">
+      <li><a href="/uslugi/spory-i-zashchita/#arbitrazh">Арбитражные споры</a></li>
+      <li><a href="/uslugi/spory-i-zashchita/#korporativnye">Корпоративные споры</a></li>
+      <li><a href="/uslugi/spory-i-zashchita/#nalogovye">Налоговые споры</a></li>
+      <li><a href="/uslugi/spory-i-zashchita/#fas">Защита в&nbsp;ФАС</a></li>
+      <li><a href="/uslugi/spory-i-zashchita/#bankrotstvo">Банкротство</a></li>
+      <li><a href="/uslugi/spory-i-zashchita/#kontrafakt">Борьба с&nbsp;контрафактом</a></li>
+    </ul>
+  </div>
+
+  <div class="mobile-menu__panel" data-level="2-sb">
+    <button type="button" class="mobile-menu__back" data-go="1">
+      <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" aria-hidden="true">
+        <path d="M16 6 H1"/>
+        <path d="M5 2 L1 6 L5 10"/>
+      </svg>
+      Услуги
+    </button>
+    <h3 class="mobile-menu__level-title">Сопровождение бизнеса</h3>
+    <ul class="mobile-menu__nav">
+      <li><a href="/uslugi/soprovozhdenie-biznesa/#yur-soprovozhdenie">Юридическое сопровождение</a></li>
+      <li><a href="/uslugi/soprovozhdenie-biznesa/#goszakupki">Госзакупки 44/223-ФЗ</a></li>
+      <li><a href="/uslugi/soprovozhdenie-biznesa/#autsorsing">Бизнес-аутсорсинг</a></li>
+      <li><a href="/uslugi/soprovozhdenie-biznesa/#zashchita">Защита бизнеса</a></li>
+      <li><a href="/uslugi/soprovozhdenie-biznesa/#kommercheskaya-tayna">Коммерческая тайна</a></li>
+    </ul>
+  </div>
+
+  <div class="mobile-menu__panel" data-level="2-otrasli">
+    <button type="button" class="mobile-menu__back" data-go="1">
+      <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" aria-hidden="true">
+        <path d="M16 6 H1"/>
+        <path d="M5 2 L1 6 L5 10"/>
+      </svg>
+      Услуги
+    </button>
+    <h3 class="mobile-menu__level-title">Патенты по&nbsp;отраслям</h3>
+    <ul class="mobile-menu__nav">
+      <li><a href="/uslugi/patenty-v-selskom-khozyaystve/">Сельское хозяйство</a></li>
+      <li><a href="/uslugi/patenty-v-meditsine/">Медицина</a></li>
+      <li><a href="/uslugi/patenty-v-farmacevtike/">Фармацевтика</a></li>
+      <li><a href="/uslugi/patenty-v-neftegaze/">Нефтегаз</a></li>
+      <li><a href="/uslugi/patenty-v-promyshlennosti/">Промышленное оборудование</a></li>
+    </ul>
+  </div>
+
+  <div class="mobile-menu__panel" data-level="2-sudy">
+    <button type="button" class="mobile-menu__back" data-go="1">
+      <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" aria-hidden="true">
+        <path d="M16 6 H1"/>
+        <path d="M5 2 L1 6 L5 10"/>
+      </svg>
+      Услуги
+    </button>
+    <h3 class="mobile-menu__level-title">Представительство в&nbsp;судах</h3>
+    <ul class="mobile-menu__nav">
+      <li><a href="/uslugi/predstavitelstvo-v-sip/">СИП</a></li>
+      <li><a href="/uslugi/spory-v-arbitrazhnom-sude/">Арбитражный суд</a></li>
+      <li><a href="/uslugi/spory-v-fas/">ФАС</a></li>
+      <li><a href="/uslugi/spory-v-palate-po-patentnym-sporam/">Палата по&nbsp;патентным спорам</a></li>
+      <li><a href="/uslugi/spory-v-verhovnom-sude/">Верховный Суд&nbsp;РФ</a></li>
+    </ul>
+  </div>
+
+</aside>

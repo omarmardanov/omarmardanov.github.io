@@ -1,0 +1,670 @@
+/* ============================================================
+   HEADER — состояния через data-атрибуты
+   data-state, data-extra (mega/search), site-header--always-solid
+   ============================================================ */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-header);
+  background: var(--header-bg);
+  color: var(--header-fg);
+  transition: background var(--dur) var(--ease),
+              color var(--dur) var(--ease),
+              box-shadow var(--dur) var(--ease);
+}
+/* Лёгкая тень, когда шапка стала solid после скролла */
+.site-header[data-state="solid"] {
+  box-shadow: 0 1px 0 var(--color-rule);
+}
+
+/* Состояние SOLID — белая шапка, тёмный текст.
+   Триггеры: data-state="solid" (от extra) ИЛИ data-scrolled="true" (от скролла).
+   На белой шапке CTA-кнопка ink → accent на hover (фирменный коричневый). */
+.site-header[data-state="solid"],
+.site-header[data-scrolled="true"] {
+  --header-fg:        var(--color-ink);
+  --header-fg-mute:   var(--color-mute);
+  --header-fg-mute-2: var(--color-mute-2);
+  --header-bg:        var(--color-paper);
+  --header-rule:      var(--color-rule);
+  --header-cta-bg:        var(--color-ink);
+  --header-cta-bg-hover:  var(--color-accent);
+  --header-cta-fg:        var(--color-paper);
+}
+
+/* Топбар — 1-я линия */
+.topbar { border-bottom: 1px solid var(--header-rule); transition: border-color var(--dur) var(--ease); }
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+  gap: var(--space-6);
+}
+.topbar__locations { display: flex; gap: var(--space-10); }
+.topbar__loc {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  white-space: nowrap;
+  color: var(--header-fg-mute);                  /* «Москва · » — мид-mute, как label «Email» */
+  transition: color var(--dur) var(--ease);
+}
+.topbar__loc strong {
+  font-weight: 700;
+  color: inherit;                                 /* «Москва» / «Тюмень» — мид-mute, не bright */
+}
+.topbar__loc .link {
+  font-weight: 700;
+  color: var(--header-fg);                        /* телефон — bright + bold, как адрес почты */
+}
+.topbar__email {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  color: var(--header-fg-mute);                  /* подпись — средний серый */
+  white-space: nowrap;
+}
+.topbar__email .link {
+  font-weight: 700;
+  color: var(--header-fg);                        /* сам адрес — основной + bold */
+}
+.topbar__lang {
+  display: inline-flex;
+  gap: var(--space-3);
+}
+.topbar__lang .link { color: var(--header-fg-mute-2); }
+.topbar__lang .link.is-active {
+  color: var(--header-fg);
+  font-weight: 700;
+  opacity: 1;
+}
+
+/* Главный ряд — 2-я линия */
+.header-main-wrap { border-bottom: 1px solid var(--header-rule); transition: border-color var(--dur) var(--ease); }
+.header-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding-top: 14px;        /* уменьшено с 20 → 14 (~−30%) */
+  padding-bottom: 14px;
+  min-height: 68px;          /* было 84, теперь 68 */
+}
+
+/* Бренд */
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex-shrink: 0;
+  line-height: 1;
+}
+.brand__name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.brand__sub {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--header-fg-mute-2);
+  transition: color var(--dur) var(--ease);
+}
+
+/* Навигация в шапке */
+.header-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex: 0 1 auto;
+}
+.primary-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-nav-size);
+  letter-spacing: var(--text-nav-tracking);
+  line-height: 1;
+  color: var(--header-fg);
+  cursor: pointer;
+  transition: opacity var(--dur-fast) var(--ease), color var(--dur) var(--ease);
+}
+.nav-link:hover { opacity: 0.65; }
+.nav-link[aria-expanded="true"] { opacity: 1; }
+
+/* Кнопка «Услуги» с шевроном — компактный gap, мельче иконка */
+.nav-link--services { gap: 6px; }
+.nav-link__chevron {
+  width: 10px;
+  height: 10px;
+  color: currentColor;
+  margin-top: 1px; /* визуальная центровка с baseline текста */
+  transition: transform var(--dur) var(--ease);
+}
+.nav-link[aria-expanded="true"] .nav-link__chevron {
+  transform: rotate(180deg);
+}
+
+/* Кнопка-иконка (поиск) — наследует .btn--icon, но прозрачная */
+.btn-search {
+  width: var(--control-h);
+  height: var(--control-h);
+  display: grid;
+  place-items: center;
+  color: var(--header-fg);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  transition: opacity var(--dur-fast) var(--ease), color var(--dur) var(--ease);
+}
+.btn-search:hover { opacity: 0.65; }
+
+/* Бургер мобилки — спрятан на десктопе */
+.nav-toggle { display: none; }
+
+/* Mobile-only accent-кнопка для открытия модалки «Заявка на консультацию».
+   Появляется рядом с бургером на ≤1024 (десктоп CTA-кнопка вместе с шапкой
+   уже скрыта). Прячется когда меню открыто — чтобы не конкурировать с X. */
+.btn-consult-mobile { display: none; }
+
+/* ============================================================
+   MEGA MENU и SEARCH ROW — 3-я линия
+   ============================================================ */
+.header-extra {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur) var(--ease);
+}
+.header-extra > .header-extra__inner {
+  overflow: hidden;
+  min-height: 0;
+}
+.site-header[data-extra="mega"] .header-extra,
+.site-header[data-extra="search"] .header-extra {
+  grid-template-rows: 1fr;
+}
+.site-header[data-extra="mega"] .header-extra__inner,
+.site-header[data-extra="search"] .header-extra__inner {
+  border-bottom: 1px solid var(--color-rule);
+}
+
+/* Мега-меню */
+.mega { padding: var(--space-12) 0 var(--space-12); display: none; }
+.site-header[data-extra="mega"] .mega { display: block; }
+.mega__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-10);
+}
+.mega__col-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  margin: 0 0 var(--space-6);
+  line-height: 1;
+}
+.mega__list {
+  list-style: none;
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.mega__list li {
+  position: relative;
+  padding-left: var(--space-4);
+  line-height: 1.3;
+}
+.mega__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-mute-2);
+  transition: background var(--dur) var(--ease);
+}
+.mega__list a {
+  font-size: var(--text-nav-size);
+  letter-spacing: var(--text-nav-tracking);
+  color: var(--color-mute);
+  transition: color var(--dur) var(--ease);
+}
+.mega__list li:hover::before { background: var(--color-accent); }
+.mega__list a:hover { color: var(--color-accent); opacity: 1; }
+.mega__more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-nav-size);
+  letter-spacing: var(--text-nav-tracking);
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--color-ink);
+  padding-bottom: 2px;
+  transition: gap var(--dur) var(--ease),
+              color var(--dur) var(--ease),
+              border-color var(--dur) var(--ease);
+}
+.mega__more .icon { width: 24px; height: 8px; }
+.mega__more:hover { gap: var(--space-4); color: var(--color-accent); border-bottom-color: var(--color-accent); }
+
+/* Полоса «Специализация» — два узких среза практики под основной сеткой */
+.mega__rail {
+  margin-top: var(--space-10);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-rule);
+  position: relative;
+}
+.mega__rail-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-5);
+}
+.mega__rail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10);
+}
+.mega__rail-block .mega__col-title { color: var(--color-ink); margin-bottom: var(--space-4); }
+.mega__tags {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: var(--space-3);
+  column-gap: 0;
+}
+.mega__tags li { display: inline-flex; align-items: center; }
+.mega__tags li::after {
+  content: '·';
+  margin: 0 var(--space-3);
+  color: var(--color-mute-2);
+}
+.mega__tags li:last-child::after { content: none; }
+.mega__tags a {
+  font-size: var(--text-nav-size);
+  letter-spacing: var(--text-nav-tracking);
+  color: var(--color-ink);
+  transition: color var(--dur) var(--ease);
+}
+.mega__tags a:hover { color: var(--color-accent); }
+
+@media (max-width: 1024px) {
+  .mega__rail-grid { grid-template-columns: 1fr; gap: var(--space-7); }
+}
+
+/* Поиск */
+.search-row { padding: var(--space-6) 0; display: none; }
+.site-header[data-extra="search"] .search-row { display: block; }
+.search-row__form {
+  display: flex;
+  align-items: center;
+  /* Дефолтный gap — между input и clear */
+  gap: var(--space-4);
+}
+.search-row__icon { color: var(--color-mute); flex-shrink: 0; }
+.search-row__input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  outline: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 28px;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.search-row__input::placeholder { color: var(--color-mute-2); }
+/* Подавление нативной X-иконки браузера — мы используем свою backspace-кнопку */
+.search-row__input::-webkit-search-cancel-button,
+.search-row__input::-webkit-search-decoration,
+.search-row__input::-webkit-search-results-button,
+.search-row__input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+/* Кнопка очистки поля (backspace) — появляется при вводе текста.
+   Отделена крупным отступом от ESC-зоны (визуально другая семантика). */
+.search-row__clear {
+  width: var(--control-h);
+  height: var(--control-h);
+  display: grid;
+  place-items: center;
+  color: var(--color-mute-2);
+  border: 0;
+  background: transparent;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease);
+  margin-right: var(--space-8); /* большой отступ → отделён от Esc/X */
+}
+.search-row__clear:hover { color: var(--color-accent); }
+/* Высокая специфичность — перебивает .search-row__clear { display: grid } */
+.search-row__clear[hidden] { display: none; }
+
+/* ESC-подсказка (статический текст) — вплотную к иконке закрытия */
+.search-row__hint {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  flex-shrink: 0;
+  margin-right: 0; /* вплотную к X */
+}
+
+/* Кнопка закрытия поиска (X) — всегда видна, прижата к ESC-подсказке */
+.search-row__close {
+  width: var(--control-h);
+  height: var(--control-h);
+  display: grid;
+  place-items: center;
+  color: var(--color-mute);
+  border: 0;
+  background: transparent;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease);
+}
+.search-row__close:hover { color: var(--color-accent); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1180px) {
+  .header-nav { gap: var(--space-4); }
+  .primary-nav { gap: var(--space-4); }
+  .nav-link { font-size: 13px; }
+}
+
+@media (max-width: 1024px) {
+  .topbar { display: none; }
+  .header-nav { display: none; }
+  .btn-consult-hide-mobile { display: none; }
+
+  .header-main {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    min-height: 0;
+  }
+  .brand__name { font-size: 24px; }
+  .brand__sub { font-size: 11.5px; }
+
+  .nav-toggle {
+    position: relative; /* anchor для абсолютных span */
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    color: var(--header-fg);
+    transition: color var(--dur) var(--ease);
+  }
+
+  /* Mobile accent-CTA — иконка без фона. Цветовое поведение зеркально
+     бургеру: наследует --header-fg, меняется при solid/transparent режимах. */
+  .btn-consult-mobile {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    margin-left: auto;       /* прижимаем себя + бургер вправо, бренд слева */
+    flex-shrink: 0;
+    background: transparent;
+    color: var(--header-fg);
+    border: 0;
+    cursor: pointer;
+    transition: color var(--dur) var(--ease),
+                opacity var(--dur-fast) var(--ease);
+  }
+  .btn-consult-mobile:hover,
+  .btn-consult-mobile:focus-visible {
+    opacity: 0.65;
+    outline: 0;
+  }
+  /* Accent-кнопка и бургер должны стоять плотно как пара кнопок управления.
+     header-main даёт gap-6 (24px) — компенсируем отрицательным margin'ом. */
+  .btn-consult-mobile + .nav-toggle { margin-left: calc(-1 * var(--space-5)); }
+
+  /* Accent-кнопка остаётся видна и при открытом меню — пользователь может
+     отправить заявку прямо отсюда; модалка ляжет поверх mobile-menu. */
+  .nav-toggle span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 1.5px;
+    background: currentColor;
+    border-radius: 1px;
+    transition: transform var(--dur) var(--ease),
+                width var(--dur) var(--ease);
+  }
+  .nav-toggle span:nth-child(1) {
+    width: 24px;
+    transform: translate(-50%, calc(-50% - 4px));
+  }
+  .nav-toggle span:nth-child(2) {
+    width: 18px;
+    transform: translate(calc(-50% + 3px), calc(-50% + 4px));
+  }
+  /* Бургер → X анимация при открытом меню (линии сходятся в центре) */
+  body.mobile-open .nav-toggle span:nth-child(1) {
+    width: 24px;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  body.mobile-open .nav-toggle span:nth-child(2) {
+    width: 24px;
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  /* При открытом меню шапка поднимается над mobile-menu и форсит solid-фон.
+     Также форсим --header-rule на solid-цвет — иначе на странице с
+     transparent-шапкой (главная) border-bottom у .header-main-wrap остаётся
+     rgba-полупрозрачным и линия не видна. */
+  body.mobile-open .site-header {
+    z-index: calc(var(--z-mobile) + 50);
+    background: var(--color-paper);
+    --header-fg: var(--color-ink);
+    --header-fg-mute: var(--color-mute);
+    --header-fg-mute-2: var(--color-mute-2);
+    --header-rule: var(--color-rule);
+  }
+
+  /* Мегаменю и поиск на мобайле — выключаем (есть mobile-menu) */
+  .header-extra { display: none; }
+}
+
+@media (max-width: 480px) {
+  .brand__name { font-size: 20px; }
+  .brand__sub { font-size: 10px; letter-spacing: 0.06em; }
+}
+
+/* ============================================================
+   SEARCH SUGGEST — dropdown с результатами под строкой поиска
+   Layout:
+     [scrollable list] — flex:1, прокручивается
+     [sticky footer]   — кнопка «Все результаты», всегда видна
+   Скролл-аффорданс — top/bottom fade-маски через ::before/::after
+   ============================================================ */
+.search-suggest {
+  position: relative;
+  /* Без отступа сверху — единый блок с input через линию-разделитель */
+  margin-top: var(--space-5);
+  /* Тонкая разделительная линия между input и dropdown — в стиле системы */
+  border-top: 1px solid var(--color-rule);
+  background: var(--color-paper);
+  display: flex;
+  flex-direction: column;
+  max-height: min(60vh, 520px);
+  overflow: hidden;
+}
+.search-suggest__scroll {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}
+/* Fade-маска снизу — намёк на скролл. Прижата вплотную к футеру (или к низу
+   контейнера, если футера нет — например при popular state). */
+.search-suggest__scroll::after {
+  content: '';
+  position: sticky;
+  bottom: 0;
+  display: block;
+  height: 28px;
+  margin-top: -28px; /* перекрывает контент, не съедая высоту */
+  background: linear-gradient(to top, var(--color-paper), rgba(255,255,255,0));
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+.search-suggest[data-can-scroll-down="true"] .search-suggest__scroll::after { opacity: 1; }
+
+.search-suggest__group {
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-rule);
+}
+.search-suggest__group:last-child { border-bottom: 0; }
+.search-suggest__group-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  margin: 0 0 var(--space-3);
+}
+.search-suggest__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.search-suggest__item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--space-3) var(--space-3);
+  text-decoration: none;
+  color: var(--color-ink);
+  border-radius: 2px;
+  transition: background var(--dur-fast) var(--ease);
+}
+.search-suggest__item:hover { background: var(--color-paper-2); }
+.search-suggest__title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.search-suggest__excerpt {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--color-mute);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* Sticky-футер dropdown — всегда видна кнопка «Все результаты» */
+.search-suggest__footer {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  background: var(--color-paper);
+}
+.search-suggest__more {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  font-size: var(--text-nav-size);
+  font-weight: 500;
+  letter-spacing: var(--text-nav-tracking);
+  text-decoration: none;
+  transition: background var(--dur) var(--ease),
+              gap var(--dur) var(--ease);
+}
+.search-suggest__more .icon {
+  width: 24px;
+  height: 8px;
+  color: currentColor;
+}
+.search-suggest__more:hover { background: var(--color-accent); gap: var(--space-5); }
+
+/* Популярные запросы — пустое состояние */
+.search-suggest__popular {
+  padding: var(--space-5) var(--space-6);
+}
+.search-suggest__popular-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  margin: 0 0 var(--space-3);
+}
+
+.search-suggest__empty {
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+}
+.search-suggest__empty p {
+  margin: 0 0 var(--space-3);
+  font-size: 15px;
+  color: var(--color-ink);
+}
+.search-suggest__empty-hint {
+  font-size: 13px;
+  color: var(--color-mute);
+}
+/* .search-suggest__empty-hint a — стили из общего .text-link (components.css) */
+
+/* Подсветка совпадений (используется и в dropdown, и на /poisk/) */
+mark {
+  background: rgba(10, 10, 10, 0.10);
+  color: inherit;
+  padding: 0 2px;
+  border-radius: 1px;
+}

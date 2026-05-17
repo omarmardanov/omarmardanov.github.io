@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Корень -->
+  <url>
+    <loc>https://1-tm.ru/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Услуги: каталог + 4 направления -->
+  <url><loc>https://1-tm.ru/uslugi/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://1-tm.ru/uslugi/intellektualnaya-sobstvennost/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://1-tm.ru/uslugi/dogovory-i-sdelki/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://1-tm.ru/uslugi/spory-i-zashchita/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://1-tm.ru/uslugi/soprovozhdenie-biznesa/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+
+  <!-- Бюро -->
+  <url><loc>https://1-tm.ru/o-byuro/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://1-tm.ru/kontakty/</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+
+  <!-- Контент -->
+  <url><loc>https://1-tm.ru/zhurnal/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://1-tm.ru/zhurnal/ekspertiza-tovarnyh-znakov-2026/</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <!--
+    Статьи журнала создаются в WordPress по шаблону zhurnal/{slug}/.
+    Здесь только один пример для review-ревизии вёрстки.
+  -->
+  <url><loc>https://1-tm.ru/dela/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://1-tm.ru/dela/vzyskanie-kompensatsii-fmcg/</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <!--
+    Кейсы создаются в WordPress по шаблону dela/{slug}/.
+    Здесь только один пример для review-ревизии вёрстки.
+  -->
+
+  <!-- МКТУ -->
+  <url><loc>https://1-tm.ru/mktu/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://1-tm.ru/mktu/klass-41/</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <!--
+    Полный список 45 классов МКТУ создаётся в WordPress по шаблону mktu-klass-41.
+    После публикации — добавить здесь klass-1, klass-2 ... klass-45.
+  -->
+
+</urlset>

@@ -1,0 +1,203 @@
+/* ============================================================
+   UTILS — общие утилитарные компоненты
+   • .icon (SVG <use> sprite)
+   • .copy-trigger / tooltip / toast
+   • .chips (популярные запросы)
+   ============================================================ */
+
+/* SVG ICON через <use href="/assets/icons/sprite.svg#name"/> */
+.icon {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  vertical-align: middle;
+  pointer-events: none;
+}
+/* Размерные модификаторы — используются точечно */
+.icon--sm   { width: 14px; height: 14px; }
+.icon--md   { width: 18px; height: 18px; }
+.icon--lg   { width: 22px; height: 22px; }
+.icon--arrow { width: 28px; height: 10px; } /* длинная плоская стрелка */
+
+/* ============================================================
+   COPY-TRIGGER — tooltip "Скопировать" + click-to-copy
+   Применяется к <a data-copy data-copy-toast="..."> и др.
+   ============================================================ */
+.copy-trigger {
+  position: relative;
+  cursor: pointer;
+}
+.copy-trigger::after {
+  content: attr(data-copy-label);
+  position: absolute;
+  left: 50%;
+  /* Дефолт — ВНИЗУ. Меньше шансов уехать за viewport (топбар у самого верха). */
+  top: calc(100% + 6px);
+  transform: translateX(-50%) translateY(-4px);
+  padding: 6px 10px;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-fast) var(--ease),
+              transform var(--dur-fast) var(--ease);
+  z-index: 1000;
+}
+.copy-trigger::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-bottom-color: var(--color-ink);
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+  z-index: 1000;
+}
+
+/* Модификатор: tooltip сверху (используем там, где места снизу нет — например, в футере над контактами) */
+.copy-trigger--above::after {
+  top: auto;
+  bottom: calc(100% + 6px);
+  transform: translateX(-50%) translateY(4px);
+}
+.copy-trigger--above::before {
+  top: auto;
+  bottom: 100%;
+  border-bottom-color: transparent;
+  border-top-color: var(--color-ink);
+}
+
+/* Tooltip показывается только при настоящем hover (мышь) — на тач-устройствах
+   tap триггерит :hover/:focus как «sticky», и подсказка выскакивает над
+   только что нажатым телефоном/адресом. На (hover: hover) and (pointer: fine)
+   всё работает корректно. */
+@media (hover: hover) and (pointer: fine) {
+  .copy-trigger:hover::after,
+  .copy-trigger:focus-visible::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .copy-trigger:hover::before,
+  .copy-trigger:focus-visible::before {
+    opacity: 1;
+  }
+}
+/* Подавление tooltip когда показан состояние copied */
+.copy-trigger.is-copied::after,
+.copy-trigger.is-copied::before { opacity: 0 !important; }
+
+/* ============================================================
+   TOAST — уведомление о копировании
+   ============================================================ */
+.toast-stack {
+  position: fixed;
+  right: var(--space-6);
+  bottom: var(--space-6);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+.toast {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 12px 18px;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-left: 3px solid var(--color-accent);
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  box-shadow: 0 8px 24px rgba(10, 10, 10, 0.10),
+              0 1px 0 var(--color-rule);
+  transform: translateX(120%);
+  opacity: 0;
+  transition: transform var(--dur) var(--ease),
+              opacity var(--dur) var(--ease);
+  pointer-events: auto;
+  max-width: 360px;
+}
+.toast.is-visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+.toast .icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .toast-stack {
+    right: var(--space-4);
+    left: var(--space-4);
+    bottom: var(--space-4);
+  }
+  .toast { max-width: none; }
+}
+
+/* ============================================================
+   CHIPS — популярные запросы / тэги-фильтры
+   ============================================================ */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--color-paper-2);
+  color: var(--color-ink);
+  border: 0;
+  border-radius: 2px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease),
+              color var(--dur-fast) var(--ease);
+  white-space: nowrap;
+}
+.chip:hover {
+  /* Полупрозрачный коричневый — мягкий акцент, не кричит */
+  background: var(--color-brand-soft);
+  color: var(--color-accent);
+}
+.chip--label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  background: transparent;
+  cursor: default;
+  padding-left: 0;
+}
+.chip--label:hover {
+  background: transparent;
+  border-color: transparent;
+  color: var(--color-mute);
+}

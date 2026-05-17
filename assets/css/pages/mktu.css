@@ -1,0 +1,167 @@
+/* ============================================================
+   MKTU INDEX — /mktu/ (справочник классов МКТУ)
+   ============================================================ */
+
+/* Hero block — без линии снизу: границу списка снизу даёт border-top
+   первой mktu-item. Две линии подряд (hero + первая строка) — избыточно. */
+.mktu-hero {
+  padding: var(--space-12) 0 var(--space-10);
+}
+.mktu-hero__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-h1-size);
+  line-height: var(--text-h1-leading);
+  letter-spacing: var(--text-h1-tracking);
+  color: var(--color-ink);
+  margin: 0 0 var(--space-8);
+}
+.mktu-hero__title em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+/* Search — в стиле поиска шапки: Cormorant italic, прозрачный input,
+   иконка слева, подчёркивающая линия снизу как у input'а. */
+.mktu-search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  max-width: 680px;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-rule-strong);
+  transition: border-color var(--dur-fast) var(--ease);
+}
+.mktu-search:focus-within {
+  border-bottom-color: var(--color-ink);
+}
+.mktu-search__icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-mute);
+  flex-shrink: 0;
+}
+.mktu-search__input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  outline: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 28px;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  padding: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.mktu-search__input::placeholder { color: var(--color-mute-2); }
+.mktu-search__input::-webkit-search-cancel-button,
+.mktu-search__input::-webkit-search-decoration,
+.mktu-search__input::-webkit-search-results-button,
+.mktu-search__input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+.mktu-search__meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  letter-spacing: 0.08em;
+  color: var(--color-mute);
+  margin: var(--space-3) 0 0;
+  min-height: 16px;
+}
+
+/* Class list — паттерн строки в духе .service-list:
+   hover → brand-soft фон, accent на номере, slide-padding. */
+.mktu-list { padding: var(--space-10) 0 var(--space-24); }
+
+.mktu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--color-rule);
+  text-decoration: none;
+  color: inherit;
+  transition: padding var(--dur) var(--ease),
+              background-color var(--dur-fast) var(--ease),
+              color var(--dur-fast) var(--ease),
+              border-color var(--dur-fast) var(--ease),
+              box-shadow var(--dur-fast) var(--ease);
+}
+/* Верхняя граница на первой строке — функциональная «верх списка». */
+.mktu-item:first-child {
+  border-top: 1px solid var(--color-rule);
+}
+.mktu-item:hover {
+  padding-left: var(--space-5);
+  padding-right: var(--space-5);
+  background: var(--color-brand-soft);
+  border-bottom-color: var(--color-brand-rule);
+  box-shadow: 0 -1px 0 var(--color-brand-rule);
+}
+.mktu-item:first-child:hover {
+  border-top-color: var(--color-brand-rule);
+  box-shadow: none;
+}
+
+.mktu-item__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-body-size);
+  line-height: 1.5;
+  color: var(--color-mute);
+  flex: 1;
+  max-width: 640px;
+  transition: color var(--dur-fast) var(--ease);
+}
+.mktu-item:hover .mktu-item__desc { color: var(--color-ink); }
+
+.mktu-item__num {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color var(--dur-fast) var(--ease);
+}
+.mktu-item:hover .mktu-item__num { color: var(--color-accent); }
+
+.mktu-empty {
+  padding: var(--space-16) 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 24px;
+  color: var(--color-mute);
+  display: none;
+}
+.mktu-empty.is-visible { display: block; }
+
+mark {
+  background: var(--color-brand-soft);
+  color: inherit;
+  border-radius: 0;
+  padding: 0 2px;
+}
+
+@media (max-width: 1024px) {
+  .mktu-hero__title { font-size: 56px; }
+  .mktu-search__input { font-size: 22px; }
+}
+@media (max-width: 640px) {
+  .mktu-hero__title { font-size: 40px; }
+  .mktu-search__input { font-size: 18px; }
+  .mktu-item { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+  .mktu-item__num { font-size: 16px; }
+  .mktu-item:hover {
+    padding-left: 0;
+    padding-right: 0;
+    box-shadow: none;
+  }
+}

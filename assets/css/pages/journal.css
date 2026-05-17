@@ -1,0 +1,488 @@
+/* ============================================================
+   JOURNAL — каталог журнала и страница статьи
+   ============================================================ */
+
+/* ---------- Фильтры рубрик — общий компонент filter-chip в components.css ---------- */
+.journal-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-8);
+}
+
+/* ---------- Сетка статей ---------- */
+.journal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-12) var(--space-8);
+}
+
+/* Первая карточка занимает всю ширину строки (featured) */
+.journal-grid > .journal-card--featured {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-10);
+  align-items: start;
+}
+.journal-card--featured .journal-card__cover {
+  aspect-ratio: 4 / 3;
+}
+.journal-card--featured .journal-card__title {
+  font-size: 36px;
+  line-height: 1.1;
+}
+
+/* Базовая карточка статьи */
+.journal-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  text-decoration: none;
+  color: inherit;
+  transition: opacity var(--dur) var(--ease);
+}
+.journal-card:hover {
+  opacity: 0.7;
+}
+
+.journal-card__cover {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: var(--color-paper-2);
+  background-size: cover;
+  background-position: center;
+}
+
+.journal-card__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--color-mute);
+}
+.journal-card__meta .category {
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.journal-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.journal-card__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin: 0;
+}
+.journal-card__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-nav-size);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--color-mute);
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .journal-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-10) var(--space-8);
+  }
+  .journal-grid > .journal-card--featured {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+  .journal-card--featured .journal-card__title { font-size: 30px; }
+}
+
+@media (max-width: 640px) {
+  .journal-grid { grid-template-columns: 1fr; gap: var(--space-10); }
+  .journal-card--featured .journal-card__title { font-size: 24px; }
+  .journal-card__title { font-size: 20px; }
+}
+
+/* ---------- Пагинация ---------- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-16);
+  padding-top: var(--space-10);
+  border-top: 1px solid var(--color-rule);
+}
+.pagination__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-rule);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.pagination__item:hover {
+  border-color: var(--color-ink);
+}
+.pagination__item.is-active {
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+  border-color: var(--color-accent);
+  cursor: default;
+}
+.pagination__item.is-disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+.pagination__ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  color: var(--color-mute);
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   СТРАНИЦА СТАТЬИ
+   ============================================================ */
+
+/* Шапка статьи — narrow reading-column, прижата к левому краю контейнера. */
+.article-head {
+  max-width: var(--reading-narrow);
+  margin: 0;
+}
+.article-head__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--color-mute);
+  margin-bottom: var(--space-8);
+}
+.article-head__meta .category {
+  font-weight: 700;
+  color: var(--color-ink);
+}
+.article-head__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 56px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-8);
+}
+.article-head__title em {
+  font-style: italic;
+  font-weight: 400;
+}
+.article-head__lead {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.45;
+  color: var(--color-ink-2);
+  margin: 0;
+}
+
+/* Cover-фото статьи — same width как .article-head, тоже по левому краю. */
+.article-cover {
+  width: 100%;
+  max-width: var(--reading-narrow);
+  aspect-ratio: 16 / 7;
+  background: var(--color-paper-2);
+  background-size: cover;
+  background-position: center;
+  margin: var(--space-12) 0;
+}
+
+/* Основной layout: контент + sticky aside — wide body. */
+.article-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: var(--space-16);
+  align-items: start;
+  max-width: var(--reading-wide);
+  margin: 0 auto;
+}
+.article-layout__main {
+  max-width: 720px;
+}
+.article-layout__aside {
+  position: sticky;
+  top: calc(var(--header-h) + var(--space-8));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+/* TOC (Содержание) — единый паттерн с .aside-nav на странице направления:
+   per-link border-left, accent при is-active. */
+.article-toc {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.article-toc__title {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  line-height: 1;
+  padding: 0 var(--space-5);
+  margin: 0 0 var(--space-4);
+}
+.article-toc__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.article-toc__list a {
+  display: block;
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-body);
+  font-size: var(--text-nav-size);
+  letter-spacing: var(--text-nav-tracking);
+  line-height: 1.4;
+  color: var(--color-mute);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: color var(--dur-fast) var(--ease),
+              border-color var(--dur-fast) var(--ease);
+}
+.article-toc__list a:hover { color: var(--color-ink); }
+.article-toc__list a.is-active {
+  color: var(--color-ink);
+  border-left-color: var(--color-accent);
+  font-weight: 500;
+}
+
+/* Карточка автора */
+.article-author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  margin-top: var(--space-16);
+  padding-top: var(--space-10);
+  border-top: 1px solid var(--color-rule);
+}
+.article-author__photo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-paper-2);
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+.article-author__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.article-author__role {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+.article-author__name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.1;
+  color: var(--color-ink);
+}
+
+/* ---------- Типографика тела статьи (.article-prose) ---------- */
+.article-prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+/* Универсальный label-маркер для секции (например, «Введение»
+   перед интро-абзацем). Стиль повторяет .case-stage__num. */
+.article-prose__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  line-height: 1;
+}
+.article-prose p {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  letter-spacing: -0.005em;
+  color: var(--color-ink);
+  margin: 0;
+}
+.article-prose strong { font-weight: 500; }
+.article-prose em { font-style: italic; }
+/* .article-prose a — стили из общего .text-link (components.css) */
+
+.article-prose h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin: var(--space-8) 0 var(--space-2);
+  scroll-margin-top: calc(var(--header-h) + var(--space-4));
+}
+.article-prose h2 em { font-style: italic; font-weight: 400; }
+
+.article-prose h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin: var(--space-6) 0 0;
+}
+
+.article-prose ul,
+.article-prose ol {
+  margin: 0;
+  padding: 0 0 0 var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.article-prose li {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--color-ink);
+}
+
+/* .article-prose blockquote — стиль в components.css (общий с .callout) */
+
+.article-prose figure {
+  margin: var(--space-6) 0;
+}
+.article-prose figure img,
+.article-prose figure .figure-placeholder {
+  width: 100%;
+  display: block;
+}
+.article-prose figure .figure-placeholder {
+  aspect-ratio: 16 / 9;
+  background: var(--color-paper-2);
+  background-size: cover;
+  background-position: center;
+}
+.article-prose figcaption {
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--color-mute);
+}
+
+.article-prose hr {
+  border: 0;
+  border-top: 1px solid var(--color-rule);
+  margin: var(--space-8) 0;
+}
+
+/* Callout — выделенный блок (например «Что важно знать») */
+.article-callout {
+  padding: var(--space-6) var(--space-8);
+  background: var(--color-paper-2);
+  border-left: 3px solid var(--color-ink);
+  margin: var(--space-4) 0;
+}
+.article-callout__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  margin-bottom: var(--space-3);
+}
+.article-callout p {
+  font-size: 16px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .article-prose h2 { font-size: 26px; }
+  .article-prose h3 { font-size: 22px; }
+  .article-prose blockquote { font-size: 18px; padding-left: var(--space-5); }
+  .article-callout { padding: var(--space-5); }
+}
+
+/* Похожие статьи */
+.article-related {
+  margin-top: var(--space-20);
+  padding-top: var(--space-12);
+  border-top: 1px solid var(--color-rule);
+}
+.article-related__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-10);
+}
+
+@media (max-width: 1024px) {
+  .article-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+  }
+  /* Aside содержит только TOC, который на мобиле скрыт.
+     Прячем сам aside, чтобы не оставлять пустую grid-ячейку с gap. */
+  .article-layout__aside { display: none; }
+  .article-head__title { font-size: 44px; }
+}
+
+@media (max-width: 640px) {
+  .article-head__title { font-size: 32px; }
+  .article-head__lead { font-size: 18px; }
+  .article-related__title { font-size: 24px; }
+  .article-cover { margin: var(--space-8) 0; }
+}
+
+/* CHANNEL-PROMO стили перенесены в components.css — используются на /zhurnal/ и /o-byuro/ */
