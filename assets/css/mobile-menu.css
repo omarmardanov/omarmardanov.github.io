@@ -120,6 +120,7 @@ body.mobile-open { overflow: hidden; }
 .mobile-menu__contacts li {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 2px;
 }
 .mobile-menu__contacts-city {

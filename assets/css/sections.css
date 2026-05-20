@@ -148,6 +148,7 @@
 .cta-final__contacts li {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 4px;
   min-width: 160px;
 }
