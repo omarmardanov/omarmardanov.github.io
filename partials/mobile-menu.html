@@ -56,6 +56,16 @@
             </a>
           </span>
         </li>
+        <!-- Переключатель языка. Визуальный макет: RU активен, EN/ES — заглушки
+             (href="#") до внедрения реального i18n вместе с миграцией движка. -->
+        <li class="mobile-menu__lang-row">
+          <span class="mobile-menu__contacts-city">Язык</span>
+          <nav class="mobile-menu__lang" aria-label="Язык сайта">
+            <a href="#" class="is-active" aria-current="true" lang="ru" hreflang="ru">RU</a>
+            <a href="#" lang="en" hreflang="en">EN</a>
+            <a href="#" lang="es" hreflang="es">ES</a>
+          </nav>
+        </li>
       </ul>
     </div>
   </div>

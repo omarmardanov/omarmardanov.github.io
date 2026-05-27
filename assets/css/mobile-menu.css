@@ -159,6 +159,34 @@ body.mobile-open { overflow: hidden; }
 }
 .mobile-menu__messengers a svg { width: 18px; height: 18px; }
 
+/* Переключатель языка — сегмент-контрол под мессенджерами. Та же высота 40px
+   и рамка, что у иконок мессенджеров, чтобы ряды рифмовались. Активный язык
+   залит ink'ом. Макет: EN/ES — заглушки до реального i18n. */
+.mobile-menu__lang {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+.mobile-menu__lang a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  height: 40px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-rule);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-mute);
+}
+.mobile-menu__lang a.is-active {
+  color: var(--color-paper);
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+}
+
 /* MOBILE MENU — drill-down переключение уровней */
 .mobile-menu__panel {
   flex: 1;

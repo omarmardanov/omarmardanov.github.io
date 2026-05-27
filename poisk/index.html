@@ -69,7 +69,7 @@
 
 <header class="site-header site-header--always-solid" id="siteHeader" data-state="solid" data-extra="">
 
-    <!-- 1-я линия: телефоны городов + email -->
+    <!-- 1-я линия: телефоны городов · email (по центру) · переключатель языка (справа) -->
     <div class="topbar">
       <div class="container topbar__inner">
         <div class="topbar__locations text-meta">
@@ -79,6 +79,13 @@
         <div class="topbar__email text-meta">
           <strong>Email</strong> · <a href="mailto:law@1-tm.ru" class="link copy-trigger" data-copy-label="Скопировать адрес" data-copy-toast="Адрес электронной почты скопирован">law@1-tm.ru</a>
         </div>
+        <!-- Переключатель языка. Визуальный макет: RU активен, EN/ES — заглушки
+             (href="#") до внедрения реального i18n вместе с миграцией движка. -->
+        <nav class="topbar__lang text-meta" aria-label="Язык сайта">
+          <a href="#" class="link is-active" aria-current="true" lang="ru" hreflang="ru">RU</a>
+          <a href="#" class="link" lang="en" hreflang="en">EN</a>
+          <a href="#" class="link" lang="es" hreflang="es">ES</a>
+        </nav>
       </div>
     </div>
 
@@ -544,6 +551,16 @@
               <svg aria-hidden="true"><use href="/assets/icons/sprite.svg#telegram"/></svg>
             </a>
           </span>
+        </li>
+        <!-- Переключатель языка. Визуальный макет: RU активен, EN/ES — заглушки
+             (href="#") до внедрения реального i18n вместе с миграцией движка. -->
+        <li class="mobile-menu__lang-row">
+          <span class="mobile-menu__contacts-city">Язык</span>
+          <nav class="mobile-menu__lang" aria-label="Язык сайта">
+            <a href="#" class="is-active" aria-current="true" lang="ru" hreflang="ru">RU</a>
+            <a href="#" lang="en" hreflang="en">EN</a>
+            <a href="#" lang="es" hreflang="es">ES</a>
+          </nav>
         </li>
       </ul>
     </div>
