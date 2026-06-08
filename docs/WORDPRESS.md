@@ -36,6 +36,7 @@
 - **Wordfence** или **iThemes Security** — безопасность
 - **WP Super Cache** или **W3 Total Cache** — кэширование
 - **Redirection** — для 301 redirects со старого сайта
+- **WP Mail SMTP** — корректная отправка заявок с формы консультации через SMTP (без этого письма часто уходят в спам или не доходят)
 - **HTTPS** обязательно (Let's Encrypt)
 
 **НЕ ставить:** Elementor, Divi, WPBakery, Beaver Builder — любой визуальный конструктор конфликтует с дизайном и не нужен. Тема кастомная.
@@ -828,7 +829,7 @@ function gmip_welcome_widget() {
 ### Подготовка
 - [ ] Создан репозиторий темы, скопирована структура из репозитория проекта
 - [ ] Локальная среда (Local, Docker, MAMP) поднята
-- [ ] Установлены: WordPress, ACF Pro, Yoast/Rank Math, UpdraftPlus, Wordfence, Redirection
+- [ ] Установлены: WordPress, ACF Pro, Yoast/Rank Math, UpdraftPlus, Wordfence, Redirection, WP Mail SMTP
 
 ### Структуры
 - [ ] CPT зарегистрированы: `service`, `dela_case`, `mktu_class`, `team_member`, `book`
