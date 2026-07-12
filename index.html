@@ -1,13 +1,27 @@
 <!--
-  Портфолио — UI-дизайн интерфейсов и вёрстка. Десктоп, RU.
-  Один файл, без сборки. Правится в двух местах:
-    • CASES  — массив кейсов галереи (и содержимое модалки)
-    • PRINCIPLES — карточки блока «Принципы»
-  Реальные скрины: положить путь в case.img / case.shots — серый блок заменится картинкой.
+  Портфолио — UI-дизайн интерфейсов и вёрстка. RU/EN, десктоп-first.
+  Один файл, без сборки. Весь контент правится в объекте DICT (ru / en):
+    • DICT[lang].cases      — кейсы галереи (и содержимое модалки)
+    • DICT[lang].principles — карточки блока «Принципы»
+    • DICT[lang].steps/plans/scope/… — остальные секции
+  Медиа кейсов — в CASE_MEDIA (общее для языков): пути к скринам + число плейсхолдеров.
+  Язык по умолчанию — по языку браузера; тумблер RU/EN в доке; выбор запоминается.
 -->
+<html lang="ru">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Омар Марданов — интерфейсы и вёрстка</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23111'/><text x='16' y='22' font-family='Inter, system-ui, sans-serif' font-size='16' font-weight='500' letter-spacing='-1' text-anchor='middle' fill='%23fff'>ом</text></svg>">
+
+<!-- SEO и превью ссылки в мессенджерах/соцсетях -->
+<meta name="description" content="UI-дизайнер и верстальщик · UI designer & frontend developer. Проектирую продуктовые интерфейсы и собираю их в чистую семантичную вёрстку.">
+<link rel="canonical" href="https://omarmardanov.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://omarmardanov.github.io/">
+<meta property="og:title" content="Омар Марданов — интерфейсы и вёрстка">
+<meta property="og:description" content="Проектирую продуктовые интерфейсы, дашборды и лендинги — и собираю их в чистую семантичную вёрстку.">
+<meta property="og:image" content="https://omarmardanov.github.io/avatar.jpg">
+<meta name="twitter:card" content="summary">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,6 +71,9 @@
   }
   .dock a.link{padding:8px 12px;color:var(--mute);white-space:nowrap}
   .dock a.link:hover{color:var(--ink)}
+  /* Тумблер языка: текстовая кнопка в стиле ссылки, показывает второй язык */
+  .dock .lang{padding:8px 12px;color:var(--mute);background:none;border:0;font:inherit;cursor:pointer;white-space:nowrap}
+  .dock .lang:hover{color:var(--ink)}
   .cta{padding:8px 14px;font-weight:500;background:var(--ink);color:#fff;white-space:nowrap}
   .cta:hover{opacity:.85}
 
@@ -148,7 +165,6 @@
   .trust .cols{display:grid;grid-template-columns:1fr 1fr;gap:64px}
   .trust h2{font-size:22px;font-weight:400;letter-spacing:-.02em;line-height:1.35;margin:0;max-width:14em}
   .trust p{margin:0 0 16px;color:var(--mute)}
-  /* контакты закрывают .trust — пока без ссылок, хендлы вписать в href */
   .contacts{display:flex;gap:24px;margin-top:32px}
   .contacts a:hover{color:var(--mute)}
   /* год прижат к низу левой колонки — встаёт по нижней кромке правой */
@@ -268,14 +284,21 @@
     .year{order:3;margin-top:32px;padding-top:0}
     .contacts{flex-wrap:wrap;gap:14px 20px}
 
-    /* Док схлопывается до одной кнопки: по странице листают,
-       а не прыгают. Оправа дока не нужна вокруг одной кнопки. */
+    /* Док схлопывается: ссылки прячем, остаются тумблер языка и CTA.
+       Оправа дока не нужна — каждый оставшийся элемент несёт свою. */
     .dock{
       padding:0;border:0;background:none;
       backdrop-filter:none;box-shadow:none;
     }
     .dock a.link{display:none}
     .cta{padding:12px 20px;box-shadow:0 4px 24px rgba(0,0,0,.12)}
+    .dock .lang{
+      padding:12px 16px;
+      background:rgba(255,255,255,.82);
+      backdrop-filter:blur(12px);
+      border:1px solid var(--line);
+      box-shadow:0 4px 24px rgba(0,0,0,.12);
+    }
 
     /* Модалка на весь экран. Отступ в 12px не читался как рамка,
        но обещал закрытие тапом мимо панели — попасть было некуда. */
@@ -308,146 +331,76 @@
 </style>
 
 <nav class="dock">
-  <a class="link" href="#works">Работы</a>
-  <a class="link" href="#scope">Что беру</a>
-  <a class="link" href="#process">Как проходит работа</a>
-  <a class="link" href="#pricing">Цены</a>
-  <a class="cta" href="#contacts">Связаться</a>
+  <a class="link" href="#works" data-i18n="nav.works"></a>
+  <a class="link" href="#scope" data-i18n="nav.scope"></a>
+  <a class="link" href="#process" data-i18n="nav.process"></a>
+  <a class="link" href="#pricing" data-i18n="nav.pricing"></a>
+  <button class="lang" id="lang" type="button"></button>
+  <a class="cta" href="#contacts" data-i18n="nav.cta"></a>
 </nav>
 
 <main>
   <section class="hero wrap">
     <div class="top">
-      <h1>Интерфейсы для продуктов — <b>спроектированы и собраны в чистый код.</b></h1>
+      <h1 data-i18n="hero.h1"></h1>
       <div class="who">
         <div class="portrait"><img src="avatar.jpg" alt="Омар Марданов"></div>
-        <span class="name">Омар Марданов</span>
-        <span class="desc">проектирую и верстаю интерфейсы</span>
+        <span class="name" data-i18n="hero.name"></span>
+        <span class="desc" data-i18n="hero.desc"></span>
       </div>
     </div>
     <div class="cols">
-      <p>Продуктовые интерфейсы, дашборды и лендинги — для веба и приложений. Проектирую экраны и сразу собираю их в семантичную адаптивную вёрстку.</p>
-      <p><b>Приходите с задачей, а не с макетом.</b> Скрин, ссылка на конкурента, голосовое «хочу как здесь, но под нас». Структуру, сетку и состояния придумаю я — вам не нужно знать слова «флекс» и «токены».</p>
+      <p data-i18n="hero.p1"></p>
+      <p data-i18n="hero.p2"></p>
     </div>
   </section>
 
   <section class="gallery wrap" id="works">
-    <div class="label">Работы</div>
+    <div class="label" data-i18n="label.works"></div>
     <div class="grid" id="grid"></div>
   </section>
 
   <section class="scope wrap" id="scope">
-    <div class="label">Что беру</div>
+    <div class="label" data-i18n="label.scope"></div>
     <div class="cols">
       <div>
-        <h3>Беру</h3>
-        <ul>
-          <li>Продуктовые интерфейсы и дашборды</li>
-          <li>Лендинги и промо-страницы</li>
-          <li>Дизайн-системы и UI-киты</li>
-          <li>Адаптивную семантичную вёрстку</li>
-        </ul>
+        <h3 data-i18n="scope.yesTitle"></h3>
+        <ul id="scope-yes"></ul>
       </div>
       <div class="no">
-        <h3>Не беру</h3>
-        <ul>
-          <li>Логотипы и фирменный стиль</li>
-          <li>Иллюстрации и сложную графику</li>
-          <li>Бэкенд и серверную логику</li>
-          <li>Моушн-дизайн и анимационные ролики</li>
-          <li>SEO и маркетинговое продвижение</li>
-        </ul>
+        <h3 data-i18n="scope.noTitle"></h3>
+        <ul id="scope-no"></ul>
       </div>
     </div>
-    <p class="why">
-      <b>Логотип и айдентику я не беру осознанно.</b> Это отдельная профессия, и есть люди,
-      которые делают её лучше меня. Я нужен там, где интерфейс надо продумать: структура, сетка,
-      состояния, поведение на разных экранах. Макет отрисую отлично — а вот бэкенд и сложную
-      анимацию отдам тем, кто на них специализируется. Я собираю фронтенд и передаю чистый,
-      семантичный код, который не стыдно поддерживать.
-    </p>
+    <p class="why" data-i18n="scope.why"></p>
   </section>
 
   <section class="how wrap" id="method">
-    <div class="label">Принципы</div>
+    <div class="label" data-i18n="label.principles"></div>
     <ul class="cards" id="cards"></ul>
   </section>
 
   <section class="process wrap" id="process">
-    <div class="label">Как проходит работа</div>
-    <ol class="steps">
-      <li>
-        <span class="n">01</span>
-        <div>
-          <h3>Задача</h3>
-          <p>Присылаете что есть: бриф, ссылку, скрин, видео, голосовое. Или описываете словами. Пятнадцать минут — и я понимаю объём.</p>
-        </div>
-      </li>
-      <li>
-        <span class="n">02</span>
-        <div>
-          <h3>Структура и прототип</h3>
-          <p>Карта экранов и черновой прототип в низкой детализации. Согласуем логику и сценарии до отрисовки. Дальше — два круга правок, они уже в цене.</p>
-          <p class="def"><b>Круг правок</b> — один список замечаний целиком, сколько бы пунктов в нём ни было. «Кнопку выше, отступ меньше, состояние ошибки заметнее» — это один круг, а не три.</p>
-          <p class="def"><b>Правка</b> — изменение внутри согласованной структуры: сетка, состояние, поведение, положение блока. <b>Новый экран</b> — другая задача или другой сценарий; он считается отдельным экраном и оплачивается отдельно.</p>
-        </div>
-      </li>
-      <li>
-        <span class="n">03</span>
-        <div>
-          <h3>Дизайн и система</h3>
-          <p>Рисую интерфейс на сетке, собираю токены и компоненты. Утверждаем ключевые экраны, состояния и правила.</p>
-        </div>
-      </li>
-      <li>
-        <span class="n">04</span>
-        <div>
-          <h3>Вёрстка и выдача</h3>
-          <p>Собираю семантичную адаптивную вёрстку, проверяю состояния и браузеры. Отдаю код и короткую документацию по компонентам.</p>
-        </div>
-      </li>
-    </ol>
-    <div class="fix">
-      <p><b>До старта фиксируем письменно:</b> состав экранов, сроки и сумму.</p>
-      <p><b>Права.</b> Макеты и код ваши после оплаты — используйте где угодно и сколько угодно. Я не перепродаю их и не отдаю в шаблоны. Показываю в портфолио — если вы не против.</p>
-      <p><b>Срок</b> называю, когда увижу задачу. Обещать «за два дня» не зная объёма — способ его сорвать.</p>
-    </div>
+    <div class="label" data-i18n="label.process"></div>
+    <ol class="steps" id="steps"></ol>
+    <div class="fix" id="fix"></div>
   </section>
 
   <section class="pricing wrap" id="pricing">
-    <div class="label">Цены</div>
-    <ul class="plans">
-      <li>
-        <h3>Экран</h3>
-        <span class="sum">от 8 000 ₽</span>
-        <span class="per">за экран</span>
-        <p>Один экран или секция под ключ: дизайн и вёрстка. Способ проверить меня на небольшой задаче.</p>
-      </li>
-      <li>
-        <h3>Лендинг</h3>
-        <span class="sum">от 40 000 ₽</span>
-        <span class="per">за страницу</span>
-        <p>Посадочная целиком: структура, дизайн и адаптивная семантичная вёрстка.</p>
-      </li>
-      <li>
-        <h3>Продукт под ключ</h3>
-        <span class="sum">от 90 000 ₽</span>
-        <span class="per">за проект</span>
-        <p>Интерфейс целиком: проектирование, дизайн-система и вёрстка компонентов.</p>
-      </li>
-    </ul>
-    <p class="note">Готовый шаблон стоит дёшево — и выглядит как готовый шаблон. Дизайн-система и сопровождение — по договорённости; точную оценку даю, когда увижу задачу.</p>
+    <div class="label" data-i18n="label.pricing"></div>
+    <ul class="plans" id="plans"></ul>
+    <p class="note" data-i18n="pricing.note"></p>
   </section>
 
   <section class="trust" id="contacts">
     <div class="wrap cols">
       <div class="claim">
-        <h2>Обычно за этим идут к дизайнеру и отдельно к верстальщику — и теряют смысл на стыке.</h2>
-        <div class="year">© 2026</div>
+        <h2 data-i18n="trust.h2"></h2>
+        <div class="year" data-i18n="trust.year"></div>
       </div>
       <div>
-        <p>Шаблон сделан не под вас и уже стоит у десятка конкурентов. Дизайн без вёрстки застревает в макете; вёрстка без дизайна разъезжается на втором экране.</p>
-        <p>Я держу и макет, и код в одной голове: решаю сетку, состояния и поведение один раз — и отдаю готовый интерфейс, а не набор красивых картинок.</p>
+        <p data-i18n="trust.p1"></p>
+        <p data-i18n="trust.p2"></p>
         <div class="contacts">
           <a href="https://t.me/omarmardanov">Telegram</a>
           <a href="mailto:omarmardanov@gmail.com">omarmardanov@gmail.com</a>
@@ -464,11 +417,11 @@
     <h2 id="m-title"></h2>
     <div class="cols">
       <dl>
-        <dt>Задача</dt><dd id="m-task"></dd>
+        <dt data-i18n="modal.labels.task"></dt><dd id="m-task"></dd>
       </dl>
       <dl>
-        <dt>Решение</dt><dd id="m-solution"></dd>
-        <dt>Результат</dt><dd id="m-result"></dd>
+        <dt data-i18n="modal.labels.solution"></dt><dd id="m-solution"></dd>
+        <dt data-i18n="modal.labels.result"></dt><dd id="m-result"></dd>
       </dl>
     </div>
     <div class="shots" id="m-shots"></div>
@@ -476,88 +429,316 @@
 </dialog>
 
 <script>
-  // ── Кейсы галереи ─────────────────────────────────────
-  // img / shots: пути к скринам. Пусто → серый плейсхолдер.
-  const CASES = [
-    { title:'Кабинет аналитики для SaaS', client:'Аналитика «Пульс»', img:'', shots:4,
-      task:'Метрики жили на трёх разных экранах, и пользователи уходили в выгрузки вместо того, чтобы читать их в продукте.',
-      solution:'Собрал единый дашборд на 12-колоночной сетке: приоритет по частоте задач, конфигурируемые виджеты и продуманные состояния пусто/загрузка/ошибка.',
-      result:'Ключевые метрики уместились в один экран без прокрутки. Меньше выгрузок, быстрее вход в данные.' },
-    { title:'Онбординг платежей', client:'Финтех «Ставка»', img:'', shots:4,
-      task:'Длинная форма подключения платежей с высоким отвалом на шаге верификации.',
-      solution:'Разбил на шаги с прогрессом, добавил инлайн-подсказки, понятные ошибки полей и сохранение черновика. Сверстал адаптивно от 320 px.',
-      result:'Процесс стал предсказуемым: видно, сколько шагов и что нужно на каждом.' },
-    { title:'Лендинг запуска продукта', client:'Сервис «Обод»', img:'', shots:4,
-      task:'Нужна быстрая посадочная под запуск: смысл, оффер, форма — без тяжёлого стека.',
-      solution:'Дизайн и семантичная вёрстка на чистом HTML, CSS и JS. Модульные секции, адаптив от 320 px, ленивые изображения.',
-      result:'Лёгкая страница, быстрая загрузка и правка контента прямо в разметке, без сборки.' },
-    { title:'Дизайн-система для B2B', client:'Платформа «Каркас»', img:'', shots:4,
-      task:'Каждый экран рисовали заново, компоненты расходились между командами и продуктами.',
-      solution:'Собрал токены, сетку и UI-кит: типографика, состояния и компоненты с задокументированными правилами. Связал макет с кодом.',
-      result:'Единый язык интерфейса. Новые экраны собираются из готовых блоков без расхождений.' },
-    { title:'Мобильный каталог магазина', client:'Магазин «Полка»', img:'', shots:4,
-      task:'Каталог не был рассчитан на телефоны: мелкие цели нажатия и съезжающая сетка.',
-      solution:'Пересобрал сетку и карточки mobile-first, крупные тач-цели, аккуратные состояния корзины и оптимизацию изображений.',
-      result:'Каталог удобно листать с телефона; вёрстка держится от узких экранов до десктопа.' },
-    { title:'Портал документации', client:'Devtool «Стек»', img:'', shots:4,
-      task:'Документация выросла, а навигация и типографика не справлялись с длинными техническими текстами.',
-      solution:'Задал типографическую систему и меру строки, навигацию с якорями, блоки кода и таблицы, доступность с клавиатуры.',
-      result:'Длинные страницы стали читаемыми и предсказуемыми, по разделам легко ориентироваться.' },
+  // ── Общее для языков ──────────────────────────────────
+  // Иконки принципов — inline SVG 28×28, обводка 1px, без заливки.
+  const PRINCIPLE_ICONS = [
+    '<path d="M4 4h20v20H4z"/><path d="M14 4v20M4 14h20"/>',                                  // сетка
+    '<path d="M6 22L14 5l8 17"/><path d="M9.5 16h9"/>',                                       // типографика
+    '<path d="M14 3l11 5.5-11 5.5L3 8.5z"/><path d="M3 14l11 5.5L25 14"/><path d="M3 19.5l11 5.5 11-5.5"/>', // состояния
+    '<path d="M15 3L6 16h7l-1 9 10-13h-7z"/>',                                                // доступность/скорость
+  ];
+  // ╭─ КАК ДОБАВИТЬ КЕЙС ──────────────────────────────────────────────╮
+  // │ Один кейс = запись в ТРЁХ массивах на ОДНОЙ И ТОЙ ЖЕ позиции:     │
+  // │   1) CASE_MEDIA        — медиа (общее для языков)                 │
+  // │   2) DICT.ru.cases     — тексты по-русски                        │
+  // │   3) DICT.en.cases     — тексты по-английски                     │
+  // │ Форматы:                                                         │
+  // │   media: { img:'shots/cover.jpg',                                │
+  // │            shots:['shots/1.jpg','shots/2.jpg'] }                  │
+  // │          img — обложка карточки (пусто → серый плейсхолдер);      │
+  // │          shots — массив путей к скринам ИЛИ число плейсхолдеров.  │
+  // │   text:  { title:'Название', client:'Клиент · тип',              │
+  // │            task:'…', solution:'…', result:'…' }                   │
+  // │ Порядок записей должен совпадать во всех трёх массивах.           │
+  // │ Разметку, модалку и типографику трогать не нужно — подхватятся.   │
+  // ╰──────────────────────────────────────────────────────────────────╯
+  // Медиа кейсов — единый источник для обоих языков.
+  // img: путь к обложке (пусто → серый плейсхолдер). shots: пути к скринам или их число.
+  const CASE_MEDIA = [
+    { img:'', shots:4 },
+    { img:'', shots:4 },
+    { img:'', shots:4 },
+    { img:'', shots:4 },
+    { img:'', shots:4 },
+    { img:'', shots:4 },
   ];
 
-  // ── Карточки «Принципы» ───────────────────────────────
-  // Иконки — inline SVG 28×28, обводка 1px, без заливки.
-  const PRINCIPLES = [
-    { icon:'<path d="M4 4h20v20H4z"/><path d="M14 4v20M4 14h20"/>',
-      title:'Сетка', text:'Всё стоит на сетке. Модульная система, ритм и выравнивание держат интерфейс лучше украшений.' },
-    { icon:'<path d="M6 22L14 5l8 17"/><path d="M9.5 16h9"/>',
-      title:'Типографика', text:'Читаемость первична. Иерархия, межстрочный ритм и мера строки задают порядок и тон.' },
-    { icon:'<path d="M14 3l11 5.5-11 5.5L3 8.5z"/><path d="M3 14l11 5.5L25 14"/><path d="M3 19.5l11 5.5 11-5.5"/>',
-      title:'Состояния', text:'Проектирую не экран, а все его состояния: пусто, загрузка, ошибка, длинный текст, край данных.' },
-    { icon:'<path d="M15 3L6 16h7l-1 9 10-13h-7z"/>',
-      title:'Доступность и скорость', text:'Семантика, контраст, клавиатура и лёгкий код. Быстро и одинаково хорошо для всех.' },
-  ];
-
-  // ── Рендер ────────────────────────────────────────────
-  const grid = document.getElementById('grid');
-  grid.innerHTML = CASES.map((c, i) => `
-    <button class="card" data-i="${i}">
-      <div class="shot">${c.img ? `<img src="${c.img}" alt="${c.title}">` : ''}</div>
-      <div class="meta">${c.title}<span class="who">${c.client}</span></div>
-    </button>`).join('');
-
-  document.getElementById('cards').innerHTML = PRINCIPLES.map(p => `
-    <li>
-      <svg width="28" height="28" viewBox="0 0 28 28">${p.icon}</svg>
-      <h3>${p.title}</h3>
-      <p>${p.text}</p>
-    </li>`).join('');
-
-  // ── Модалка ───────────────────────────────────────────
-  const modal = document.getElementById('modal');
-
-  // 1 экран · 2–4 экрана · 5–20 экранов · 21 экран · 22 экрана …
-  const plural = (n, one, few, many) => {
+  // 1 экран · 2–4 экрана · 5–20 экранов · 21 экран …
+  function pluralRu(n, one, few, many){
     const t = Math.abs(n) % 100, d = t % 10;
     if (t > 10 && t < 20) return many;
     if (d > 1 && d < 5) return few;
     if (d === 1) return one;
     return many;
+  }
+
+  // ── Микротипографика: неразрывные пробелы ─────────────
+  // Вставляем реальный символ   (а не &nbsp;), чтобы работало
+  // и в innerHTML, и в textContent модалки. Чиним: висячие предлоги/
+  // союзы в конце строки, отрыв числа от слова/разряда, тире в начале
+  // строки. Прогоняем все строки при рендере — тексты в DICT остаются
+  // чистыми, без разметки пробелов вручную.
+  function typo(s){
+    if (!s) return s;
+    s = s.replace(/ — /g, ' — ');       // тире держим при предыдущем слове
+    s = s.replace(/(\d) (?=\S)/g, '$1 ');         // 320 px, 15 минут, разряды 1 800
+    s = s.replace(/([©№$€]) /g, '$1 '); // © 2026, № 5, € 5
+    const re = currentLang === 'ru'
+      ? /(?<=^|[\s(«„"“])([а-яёА-ЯЁ]{1,2}|без|для|над|под|при|про|что|как|чем|или|либо|если|чтобы|ведь|уже) /g
+      : /(?<=^|[\s("'“‘«])(a|an|the|to|of|in|on|at|is|it|as|or|and|for|but|[A-Za-z]{1,2}) /gi;
+    return s.replace(re, '$1 ');
+  }
+
+  // ── Словарь контента ──────────────────────────────────
+  const DICT = {
+    ru: {
+      title: 'Омар Марданов — интерфейсы и вёрстка',
+      nav: { works:'Работы', scope:'Что беру', process:'Как проходит работа', pricing:'Цены', cta:'Связаться' },
+      label: { works:'Работы', scope:'Что беру', principles:'Принципы', process:'Как проходит работа', pricing:'Цены' },
+      hero: {
+        h1: 'Интерфейсы для продуктов — <b>спроектированы и собраны в чистый код.</b>',
+        name: 'Омар Марданов',
+        desc: 'проектирую и верстаю интерфейсы',
+        p1: 'Продуктовые интерфейсы, дашборды и лендинги — для веба и приложений. Проектирую экраны и сразу собираю их в семантичную адаптивную вёрстку. Работаю в связке с ИИ: <b>Claude</b> — для логики, текстов и кода, <b>DALL·E</b> — для изображений; поэтому быстрее и точнее, без потери контроля над результатом.',
+        p2: '<b>Приходите с задачей, а не с макетом.</b> Скрин, ссылка на конкурента, голосовое «хочу как здесь, но под нас». Структуру, сетку и состояния придумаю я — вам не нужно знать слова «флекс» и «токены».',
+      },
+      scope: {
+        yesTitle: 'Беру',
+        yes: ['Продуктовые интерфейсы и дашборды','Лендинги и промо-страницы','Дизайн-системы и UI-киты','Адаптивную семантичную вёрстку'],
+        noTitle: 'Не беру',
+        no: ['Логотипы и фирменный стиль','Иллюстрации и сложную графику','Бэкенд и серверную логику','Моушн-дизайн и анимационные ролики','SEO и маркетинговое продвижение'],
+        why: '<b>Логотип и айдентику я не беру осознанно.</b> Это отдельная профессия, и есть люди, которые делают её лучше меня. Я нужен там, где интерфейс надо продумать: структура, сетка, состояния, поведение на разных экранах. Макет отрисую отлично — а вот бэкенд и сложную анимацию отдам тем, кто на них специализируется. Я собираю фронтенд и передаю чистый, семантичный код, который не стыдно поддерживать.',
+      },
+      principles: [
+        { title:'Сетка', text:'Всё стоит на сетке. Модульная система, ритм и выравнивание держат интерфейс лучше украшений.' },
+        { title:'Типографика', text:'Читаемость первична. Иерархия, межстрочный ритм и мера строки задают порядок и тон.' },
+        { title:'Состояния', text:'Проектирую не экран, а все его состояния: пусто, загрузка, ошибка, длинный текст, край данных.' },
+        { title:'Доступность и скорость', text:'Семантика, контраст, клавиатура и лёгкий код. Быстро и одинаково хорошо для всех.' },
+      ],
+      steps: [
+        { title:'Задача', text:'Присылаете что есть: бриф, ссылку, скрин, видео, голосовое. Или описываете словами. Пятнадцать минут — и я понимаю объём.' },
+        { title:'Структура и прототип', text:'Карта экранов и черновой прототип в низкой детализации. Согласуем логику и сценарии до отрисовки. Дальше — два круга правок, они уже в цене.',
+          defs:[
+            '<b>Круг правок</b> — один список замечаний целиком, сколько бы пунктов в нём ни было. «Кнопку выше, отступ меньше, состояние ошибки заметнее» — это один круг, а не три.',
+            '<b>Правка</b> — изменение внутри согласованной структуры: сетка, состояние, поведение, положение блока. <b>Новый экран</b> — другая задача или другой сценарий; он считается отдельным экраном и оплачивается отдельно.',
+          ] },
+        { title:'Дизайн и система', text:'Рисую интерфейс на сетке, собираю токены и компоненты. Утверждаем ключевые экраны, состояния и правила.' },
+        { title:'Вёрстка и выдача', text:'Собираю семантичную адаптивную вёрстку, проверяю состояния и браузеры. Отдаю код и короткую документацию по компонентам.' },
+      ],
+      fix: [
+        '<b>До старта фиксируем письменно:</b> состав экранов, сроки и сумму.',
+        '<b>Права.</b> Макеты и код ваши после оплаты — используйте где угодно и сколько угодно. Я не перепродаю их и не отдаю в шаблоны. Показываю в портфолио — если вы не против.',
+        '<b>Срок</b> называю, когда увижу задачу. Обещать «за два дня» не зная объёма — способ его сорвать.',
+      ],
+      plans: [
+        { title:'Экран', sum:'от $150', per:'за экран', text:'Один экран или секция под ключ: дизайн и вёрстка. Способ проверить меня на небольшой задаче.' },
+        { title:'Лендинг', sum:'от $800', per:'за страницу', text:'Посадочная целиком: структура, дизайн и адаптивная семантичная вёрстка.' },
+        { title:'Продукт под ключ', sum:'от $1 800', per:'за проект', text:'Интерфейс целиком: проектирование, дизайн-система и вёрстка компонентов.' },
+      ],
+      pricing: { note:'Готовый шаблон стоит дёшево — и выглядит как готовый шаблон. Дизайн-система и сопровождение — по договорённости; точную оценку даю, когда увижу задачу.' },
+      trust: {
+        h2: 'Обычно за этим идут к дизайнеру и отдельно к верстальщику — и теряют смысл на стыке.',
+        p1: 'Шаблон сделан не под вас и уже стоит у десятка конкурентов. Дизайн без вёрстки застревает в макете; вёрстка без дизайна разъезжается на втором экране.',
+        p2: 'Я держу и макет, и код в одной голове: решаю сетку, состояния и поведение один раз — и отдаю готовый интерфейс, а не набор красивых картинок.',
+        year: '© 2026',
+      },
+      modal: { labels:{ task:'Задача', solution:'Решение', result:'Результат' }, close:'Закрыть' },
+      kind: (n) => n === 1 ? 'Экран' : `Кейс, ${n} ${pluralRu(n, 'экран', 'экрана', 'экранов')}`,
+      cases: [
+        { title:'Кабинет аналитики для SaaS', client:'Аналитика «Пульс»',
+          task:'Метрики жили на трёх разных экранах, и пользователи уходили в выгрузки вместо того, чтобы читать их в продукте.',
+          solution:'Собрал единый дашборд на 12-колоночной сетке: приоритет по частоте задач, конфигурируемые виджеты и продуманные состояния пусто/загрузка/ошибка.',
+          result:'Ключевые метрики уместились в один экран без прокрутки. Меньше выгрузок, быстрее вход в данные.' },
+        { title:'Онбординг платежей', client:'Финтех «Ставка»',
+          task:'Длинная форма подключения платежей с высоким отвалом на шаге верификации.',
+          solution:'Разбил на шаги с прогрессом, добавил инлайн-подсказки, понятные ошибки полей и сохранение черновика. Сверстал адаптивно от 320 px.',
+          result:'Процесс стал предсказуемым: видно, сколько шагов и что нужно на каждом.' },
+        { title:'Лендинг запуска продукта', client:'Сервис «Обод»',
+          task:'Нужна быстрая посадочная под запуск: смысл, оффер, форма — без тяжёлого стека.',
+          solution:'Дизайн и семантичная вёрстка на чистом HTML, CSS и JS. Модульные секции, адаптив от 320 px, ленивые изображения.',
+          result:'Лёгкая страница, быстрая загрузка и правка контента прямо в разметке, без сборки.' },
+        { title:'Дизайн-система для B2B', client:'Платформа «Каркас»',
+          task:'Каждый экран рисовали заново, компоненты расходились между командами и продуктами.',
+          solution:'Собрал токены, сетку и UI-кит: типографика, состояния и компоненты с задокументированными правилами. Связал макет с кодом.',
+          result:'Единый язык интерфейса. Новые экраны собираются из готовых блоков без расхождений.' },
+        { title:'Мобильный каталог магазина', client:'Магазин «Полка»',
+          task:'Каталог не был рассчитан на телефоны: мелкие цели нажатия и съезжающая сетка.',
+          solution:'Пересобрал сетку и карточки mobile-first, крупные тач-цели, аккуратные состояния корзины и оптимизацию изображений.',
+          result:'Каталог удобно листать с телефона; вёрстка держится от узких экранов до десктопа.' },
+        { title:'Портал документации', client:'Devtool «Стек»',
+          task:'Документация выросла, а навигация и типографика не справлялись с длинными техническими текстами.',
+          solution:'Задал типографическую систему и меру строки, навигацию с якорями, блоки кода и таблицы, доступность с клавиатуры.',
+          result:'Длинные страницы стали читаемыми и предсказуемыми, по разделам легко ориентироваться.' },
+      ],
+    },
+
+    en: {
+      title: 'Omar Mardanov — interfaces & frontend',
+      nav: { works:'Work', scope:'Services', process:'Process', pricing:'Pricing', cta:'Get in touch' },
+      label: { works:'Selected work', scope:'What I take on', principles:'Principles', process:'How it works', pricing:'Pricing' },
+      hero: {
+        h1: 'Product interfaces — <b>designed and built into clean code.</b>',
+        name: 'Omar Mardanov',
+        desc: 'I design and build interfaces',
+        p1: 'Product interfaces, dashboards and landing pages — for web and apps. I design the screens and build them straight into semantic, responsive markup. I work with AI in the loop: <b>Claude</b> for logic, copy and code, <b>DALL·E</b> for imagery — so it comes out faster and sharper, without losing control over the result.',
+        p2: '<b>Come with a problem, not a mockup.</b> A screenshot, a competitor link, a voice note “like this, but for us.” I’ll work out the structure, grid and states — you don’t need to know words like “flexbox” and “tokens.”',
+      },
+      scope: {
+        yesTitle: 'I take on',
+        yes: ['Product interfaces and dashboards','Landing and promo pages','Design systems and UI kits','Responsive semantic markup'],
+        noTitle: 'I don’t take on',
+        no: ['Logos and brand identity','Illustration and complex graphics','Backend and server logic','Motion design and video','SEO and marketing'],
+        why: '<b>I don’t do logos or brand identity — on purpose.</b> It’s a separate craft, and there are people who do it better than me. I’m useful where the interface has to be thought through: structure, grid, states, behavior across screens. I’ll design the mockup well — but backend and complex animation I hand to people who specialize in them. I build the frontend and hand over clean, semantic code that’s easy to maintain.',
+      },
+      principles: [
+        { title:'Grid', text:'Everything sits on a grid. A modular system, rhythm and alignment hold an interface together better than decoration.' },
+        { title:'Typography', text:'Readability comes first. Hierarchy, vertical rhythm and line length set the order and the tone.' },
+        { title:'States', text:'I design not a screen but all of its states: empty, loading, error, long text, the edge of the data.' },
+        { title:'Accessibility & speed', text:'Semantics, contrast, keyboard and lightweight code. Fast and equally good for everyone.' },
+      ],
+      steps: [
+        { title:'The task', text:'Send whatever you have: a brief, a link, a screenshot, a video, a voice note. Or describe it in words. Fifteen minutes and I know the scope.' },
+        { title:'Structure & prototype', text:'A screen map and a rough low-fidelity prototype. We agree on the logic and flows before any visuals. Then two rounds of edits — already included.',
+          defs:[
+            '<b>A round of edits</b> is one full list of notes, however many points it holds. “Button higher, tighter spacing, make the error state clearer” is one round, not three.',
+            '<b>An edit</b> is a change inside the agreed structure: grid, state, behavior, position of a block. <b>A new screen</b> is a different task or flow; it counts as a separate screen and is billed separately.',
+          ] },
+        { title:'Design & system', text:'I design the interface on a grid and assemble tokens and components. We approve the key screens, states and rules.' },
+        { title:'Build & handoff', text:'I write semantic, responsive markup and check states and browsers. I hand over the code and short component docs.' },
+      ],
+      fix: [
+        '<b>Before we start, we put in writing:</b> the set of screens, the timeline and the price.',
+        '<b>Rights.</b> The mockups and code are yours after payment — use them wherever and however you like. I don’t resell them or put them into templates. I show them in my portfolio — unless you’d rather I didn’t.',
+        '<b>The timeline</b> I name once I’ve seen the task. Promising “in two days” without knowing the scope is a way to miss the deadline.',
+      ],
+      plans: [
+        { title:'Screen', sum:'from $150', per:'per screen', text:'A single screen or section, end to end: design and build. A low-risk way to try me on something small.' },
+        { title:'Landing', sum:'from $800', per:'per page', text:'A full landing page: structure, design and responsive semantic markup.' },
+        { title:'Full product', sum:'from $1,800', per:'per project', text:'The whole interface: design, a design system and component build.' },
+      ],
+      pricing: { note:'A ready-made template is cheap — and looks like a ready-made template. Design systems and ongoing support are by arrangement; I give a precise estimate once I’ve seen the task.' },
+      trust: {
+        h2: 'Usually you go to a designer and, separately, to a developer — and lose the point where they meet.',
+        p1: 'A template wasn’t made for you and already sits on a dozen competitors’ sites. Design without build gets stuck in the mockup; build without design falls apart on the second screen.',
+        p2: 'I keep both the mockup and the code in one head: I solve the grid, states and behavior once — and hand over a finished interface, not a set of pretty pictures.',
+        year: '© 2026',
+      },
+      modal: { labels:{ task:'Task', solution:'Solution', result:'Result' }, close:'Close' },
+      kind: (n) => n === 1 ? 'Screen' : `Case, ${n} screens`,
+      cases: [
+        { title:'SaaS analytics dashboard', client:'Pulse Analytics',
+          task:'Metrics lived on three separate screens, and users left for exports instead of reading them inside the product.',
+          solution:'I built a single dashboard on a 12-column grid: priority by task frequency, configurable widgets and considered empty/loading/error states.',
+          result:'The key metrics fit on one screen without scrolling. Fewer exports, a faster way into the data.' },
+        { title:'Payments onboarding', client:'Stavka Fintech',
+          task:'A long payment-setup form with high drop-off at the verification step.',
+          solution:'I split it into steps with a progress indicator, added inline hints, clear field errors and draft saving. Built responsive from 320px.',
+          result:'The flow became predictable: you can see how many steps there are and what each one needs.' },
+        { title:'Product launch landing', client:'Obod',
+          task:'A fast landing page was needed for launch: the message, the offer, the form — without a heavy stack.',
+          solution:'Design and semantic build on plain HTML, CSS and JS. Modular sections, responsive from 320px, lazy images.',
+          result:'A light page, fast load, and content you can edit right in the markup — no build step.' },
+        { title:'B2B design system', client:'Karkas Platform',
+          task:'Every screen was drawn from scratch, and components drifted apart between teams and products.',
+          solution:'I assembled tokens, a grid and a UI kit: typography, states and components with documented rules. Linked the mockup to the code.',
+          result:'A single interface language. New screens are assembled from ready blocks with no drift.' },
+        { title:'Mobile store catalog', client:'Polka Store',
+          task:'The catalog wasn’t built for phones: tiny tap targets and a grid that slid apart.',
+          solution:'I rebuilt the grid and cards mobile-first, with large tap targets, tidy cart states and image optimization.',
+          result:'The catalog is easy to browse on a phone; the layout holds from narrow screens up to desktop.' },
+        { title:'Documentation portal', client:'Stack Devtool',
+          task:'The docs grew, and navigation and typography couldn’t cope with long technical texts.',
+          solution:'I set a type system and line length, anchored navigation, code blocks and tables, and keyboard accessibility.',
+          result:'Long pages became readable and predictable, and sections are easy to navigate.' },
+      ],
+    },
   };
 
-  grid.addEventListener('click', e => {
+  // ── Рендер повторяющихся блоков из массивов ───────────
+  function render(t){
+    document.getElementById('grid').innerHTML = t.cases.map((c, i) => {
+      const m = CASE_MEDIA[i];
+      return `<button class="card" data-i="${i}">
+        <div class="shot">${m.img ? `<img src="${m.img}" alt="${c.title}">` : ''}</div>
+        <div class="meta">${typo(c.title)}<span class="who">${typo(c.client)}</span></div>
+      </button>`;
+    }).join('');
+
+    document.getElementById('cards').innerHTML = t.principles.map((p, i) => `
+      <li>
+        <svg width="28" height="28" viewBox="0 0 28 28">${PRINCIPLE_ICONS[i]}</svg>
+        <h3>${typo(p.title)}</h3>
+        <p>${typo(p.text)}</p>
+      </li>`).join('');
+
+    document.getElementById('scope-yes').innerHTML = t.scope.yes.map(x => `<li>${typo(x)}</li>`).join('');
+    document.getElementById('scope-no').innerHTML  = t.scope.no.map(x => `<li>${typo(x)}</li>`).join('');
+
+    document.getElementById('steps').innerHTML = t.steps.map((s, i) => `
+      <li>
+        <span class="n">${String(i + 1).padStart(2, '0')}</span>
+        <div>
+          <h3>${typo(s.title)}</h3>
+          <p>${typo(s.text)}</p>
+          ${(s.defs || []).map(d => `<p class="def">${typo(d)}</p>`).join('')}
+        </div>
+      </li>`).join('');
+
+    document.getElementById('fix').innerHTML = t.fix.map(p => `<p>${typo(p)}</p>`).join('');
+
+    document.getElementById('plans').innerHTML = t.plans.map(p => `
+      <li>
+        <h3>${typo(p.title)}</h3>
+        <span class="sum">${typo(p.sum)}</span>
+        <span class="per">${typo(p.per)}</span>
+        <p>${typo(p.text)}</p>
+      </li>`).join('');
+  }
+
+  // ── Переключение языка ────────────────────────────────
+  const getPath = (obj, path) => path.split('.').reduce((o, k) => o && o[k], obj);
+  let currentLang = 'ru';
+
+  function applyLang(lang){
+    const t = DICT[lang];
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.title = t.title;
+    // Статические строки — через data-i18n (некоторые содержат <b>, потому innerHTML).
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = typo(getPath(t, el.dataset.i18n)); });
+    render(t);
+    document.getElementById('m-close').setAttribute('aria-label', t.modal.close);
+    const b = document.getElementById('lang');
+    b.textContent = lang === 'ru' ? 'EN' : 'RU';                          // кнопка показывает второй язык
+    b.setAttribute('aria-label', lang === 'ru' ? 'Switch to English' : 'Переключить на русский');
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+  }
+
+  let saved; try { saved = localStorage.getItem('lang'); } catch (e) {}
+  // Язык можно задать ссылкой: ?lang=en / ?lang=ru (приоритетнее браузера и сохранённого).
+  const param = new URLSearchParams(location.search).get('lang');
+  const initial = (param === 'ru' || param === 'en') ? param
+                : saved || ((navigator.language || '').toLowerCase().startsWith('ru') ? 'ru' : 'en');
+  applyLang(initial);
+  document.getElementById('lang').addEventListener('click', () => applyLang(currentLang === 'ru' ? 'en' : 'ru'));
+
+  // ── Модалка ───────────────────────────────────────────
+  const modal = document.getElementById('modal');
+
+  // Делегирование на постоянный контейнер: innerHTML грида меняется, сам элемент — нет.
+  document.getElementById('grid').addEventListener('click', e => {
     const card = e.target.closest('.card');
     if (!card) return;
-    const c = CASES[card.dataset.i];
-    const n = Array.isArray(c.shots) ? c.shots.length : c.shots;
-    document.getElementById('m-kind').textContent =
-      (n === 1 ? 'Экран' : `Кейс, ${n} ${plural(n, 'экран', 'экрана', 'экранов')}`) + ` · ${c.client}`;
-    document.getElementById('m-title').textContent = c.title;
-    document.getElementById('m-task').textContent = c.task;
-    document.getElementById('m-solution').textContent = c.solution;
-    document.getElementById('m-result').textContent = c.result;
-    // Скрины кейса: массив путей или число плейсхолдеров.
-    const shots = Array.isArray(c.shots) ? c.shots : Array(c.shots).fill('');
+    const t = DICT[currentLang];
+    const i = card.dataset.i;
+    const c = t.cases[i], m = CASE_MEDIA[i];
+    const n = Array.isArray(m.shots) ? m.shots.length : m.shots;
+    document.getElementById('m-kind').textContent = typo(t.kind(n) + ` · ${c.client}`);
+    document.getElementById('m-title').textContent = typo(c.title);
+    document.getElementById('m-task').textContent = typo(c.task);
+    document.getElementById('m-solution').textContent = typo(c.solution);
+    document.getElementById('m-result').textContent = typo(c.result);
+    const shots = Array.isArray(m.shots) ? m.shots : Array(m.shots).fill('');
     document.getElementById('m-shots').innerHTML = shots
       .map(src => `<div class="shot">${src ? `<img src="${src}" alt="">` : ''}</div>`).join('');
     modal.scrollTop = 0;          // иначе второй кейс откроется прокрученным
