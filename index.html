@@ -1,0 +1,579 @@
+<!--
+  Портфолио — UI-дизайн интерфейсов и вёрстка. Десктоп, RU.
+  Один файл, без сборки. Правится в двух местах:
+    • CASES  — массив кейсов галереи (и содержимое модалки)
+    • PRINCIPLES — карточки блока «Принципы»
+  Реальные скрины: положить путь в case.img / case.shots — серый блок заменится картинкой.
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Омар Марданов — интерфейсы и вёрстка</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#111;
+    --mute:#8b8b8b;
+    --line:#e6e6e6;
+    --ph:#e9e9e9;          /* плейсхолдер скрина */
+    --pad:32px;
+    --max:1120px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  section{scroll-margin-top:40px}
+  body{
+    margin:0;
+    background:#fff;
+    color:var(--ink);
+    font-family:"Inter", -apple-system, system-ui, sans-serif;
+    font-size:13px;
+    line-height:1.55;
+    letter-spacing:-.01em;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+
+  /* мелкая надпись-ярлык над каждой секцией */
+  .label{
+    font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--mute);margin-bottom:28px;
+  }
+
+  /* ── Плавающая панель внизу ─────────────────────────── */
+  .dock{
+    position:fixed;z-index:10;
+    left:50%;bottom:24px;transform:translateX(-50%);
+    display:flex;align-items:center;gap:6px;
+    padding:6px;
+    background:rgba(255,255,255,.82);
+    backdrop-filter:blur(12px);
+    border:1px solid var(--line);
+    box-shadow:0 4px 24px rgba(0,0,0,.06);
+  }
+  .dock a.link{padding:8px 12px;color:var(--mute);white-space:nowrap}
+  .dock a.link:hover{color:var(--ink)}
+  .cta{padding:8px 14px;font-weight:500;background:var(--ink);color:#fff;white-space:nowrap}
+  .cta:hover{opacity:.85}
+
+  /* ── Оффер ──────────────────────────────────────────── */
+  .hero{padding-top:40px;padding-bottom:64px}
+  .hero .top{display:flex;align-items:flex-start;gap:64px;margin-bottom:24px}
+  .hero h1{
+    font-size:34px;font-weight:400;line-height:1.25;letter-spacing:-.03em;
+    margin:0;max-width:15em;
+  }
+  .hero h1 b{font-weight:500}
+  /* 8px — компенсация leading у h1: верх квадрата по верху букв, а не бокса */
+  .hero .who{flex:none;margin-left:auto;margin-top:8px;text-align:right}
+  .hero .portrait{width:96px;aspect-ratio:1;background:var(--ph);margin-left:auto}
+  .hero .portrait img{width:100%;height:100%;object-fit:cover;display:block}
+  .hero .who .name{display:block;margin-top:10px;white-space:nowrap}
+  .hero .who .desc{display:block;margin-top:2px;color:var(--mute);white-space:nowrap}
+  .hero .cols{display:grid;grid-template-columns:1fr 1fr;gap:64px;max-width:760px}
+  .hero p{margin:0;color:var(--mute);max-width:34em}
+  .hero p b{color:var(--ink);font-weight:400}
+
+  /* ── Галерея ────────────────────────────────────────── */
+  .gallery{padding-bottom:120px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);column-gap:12px;row-gap:48px}
+  .card{cursor:pointer;display:block;text-align:left;border:0;padding:0;background:none;font:inherit;color:inherit}
+  .shot{aspect-ratio:16/10;background:var(--ph);overflow:hidden}
+  .shot img{width:100%;height:100%;object-fit:cover;display:block}
+  .card:hover .shot{opacity:.85}
+  /* Подпись в две строки: название работы — чёрным, клиент/тип — серым.
+     Обе прижаты влево, к своей карточке: при column-gap:12px правый край
+     оказывался ближе к соседней. Объём и год — не здесь (год убран вовсе:
+     все работы одного года, дата сообщала бы лишь отсутствие истории). */
+  .card .meta{padding-top:10px}
+  .card .meta .who{display:block;color:var(--mute);margin-top:2px}
+
+  /* ── Что беру / что нет ─────────────────────────────── */
+  .scope{padding-bottom:120px}
+  .scope .cols{display:grid;grid-template-columns:1fr 1fr;gap:64px;max-width:860px}
+  .scope h3{font-size:13px;font-weight:500;margin:0 0 16px}
+  .scope ul{margin:0;padding:0;list-style:none}
+  .scope li{padding:10px 0;border-top:1px solid var(--line)}
+  .scope .no li,.scope .no h3{color:var(--mute)}
+  .scope .why{margin:28px 0 0;color:var(--mute);max-width:36em}
+  .scope .why b{color:var(--ink);font-weight:500}
+
+  /* ── Принципы ───────────────────────────────────────── */
+  .how{padding-bottom:120px}
+  .cards{
+    margin:0;padding:0;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);
+  }
+  .cards li{list-style:none;background:#fff;padding:28px 24px 32px}
+  .cards svg{display:block;margin-bottom:36px;stroke:var(--ink);fill:none;stroke-width:1}
+  .cards h3{font-size:13px;font-weight:500;margin:0 0 8px}
+  .cards p{margin:0;color:var(--mute)}
+
+  /* ── Как проходит работа ────────────────────────────── */
+  .process{padding-bottom:120px}
+  .steps{margin:0 0 48px;padding:0;list-style:none;max-width:760px}
+  .steps li{display:grid;grid-template-columns:32px 1fr;gap:24px;padding:20px 0;border-top:1px solid var(--line)}
+  .steps .n{color:var(--mute)}
+  .steps h3{font-size:13px;font-weight:500;margin:0 0 4px}
+  .steps p{margin:0;color:var(--mute);max-width:34em}
+  .steps .def{margin-top:12px;padding-left:14px;border-left:1px solid var(--line)}
+  .steps .def b{color:var(--ink);font-weight:500}
+  .fix{max-width:760px;color:var(--mute)}
+  .fix b{color:var(--ink);font-weight:500}
+  .fix p{margin:0 0 12px}
+  .fix p:last-child{margin-bottom:0}
+
+  /* ── Цены ───────────────────────────────────────────── */
+  .pricing{padding-bottom:120px}
+  .plans{
+    margin:0 0 24px;padding:0;list-style:none;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);
+  }
+  .plans li{background:#fff;padding:28px 24px 32px}
+  .plans h3{font-size:13px;font-weight:500;margin:0 0 24px}
+  .plans .sum{font-size:24px;letter-spacing:-.02em;display:block;margin-bottom:2px}
+  .plans .per{color:var(--mute);display:block;margin-bottom:20px}
+  .plans p{margin:0;color:var(--mute)}
+  .pricing .note{margin:0;color:var(--mute);max-width:36em}
+
+  /* ── Доверие: закрывает страницу, футера нет ────────── */
+  /* 120px снизу — запас, чтобы .dock не накрыл строку контактов */
+  .trust{border-top:1px solid var(--line);padding:64px 0 120px}
+  .trust .cols{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+  .trust h2{font-size:22px;font-weight:400;letter-spacing:-.02em;line-height:1.35;margin:0;max-width:14em}
+  .trust p{margin:0 0 16px;color:var(--mute)}
+  /* контакты закрывают .trust — пока без ссылок, хендлы вписать в href */
+  .contacts{display:flex;gap:24px;margin-top:32px}
+  .contacts a:hover{color:var(--mute)}
+  /* год прижат к низу левой колонки — встаёт по нижней кромке правой */
+  .trust .claim{display:flex;flex-direction:column}
+  .year{margin-top:auto;padding-top:28px;color:var(--mute)}
+
+  /* ── Модалка кейса ──────────────────────────────────── */
+  /* Панель, а не полный экран. Рамка и тень — как у дока:
+     белое на почти белом фоне иначе не читается как объект. */
+  dialog{
+    border:1px solid var(--line);padding:0;color:var(--ink);
+    width:min(920px, calc(100% - 64px));
+    max-height:calc(100% - 96px);
+    margin:auto;background:#fff;overflow-y:auto;
+    box-shadow:0 4px 24px rgba(0,0,0,.06);
+  }
+  dialog::backdrop{background:rgba(255,255,255,.9)}
+
+  /* Появление панели. display у <dialog> переключается дискретно,
+     поэтому нужны allow-discrete и @starting-style. Где их нет —
+     панель просто появляется мгновенно, как раньше.
+     Прозрачность коротко, движение долго — не наоборот. Иначе панель
+     доезжает на место, пока она ещё невидима, движения никто не видит,
+     и остаётся только резко проступающий текст. */
+  dialog{
+    transition:opacity .2s ease,
+               transform .34s cubic-bezier(0,0,.58,1),
+               overlay .34s allow-discrete, display .34s allow-discrete;
+  }
+  /* НЕ РАБОТАЕТ: opacity у ::backdrop не анимируется — замерено,
+     подложка появляется мгновенно. Чинится переходом background-color
+     от rgba(255,255,255,0) вместо opacity. Пока оставлено как есть. */
+  dialog::backdrop{
+    transition:opacity .3s ease,
+               overlay .3s allow-discrete, display .3s allow-discrete;
+  }
+  dialog{opacity:1;transform:translateY(0) scale(1)}
+  /* Уход быстрее прихода и целиком, без раздельных таймингов. */
+  dialog:not([open]){
+    opacity:0;transform:translateY(16px) scale(.985);
+    transition:opacity .2s ease, transform .2s ease,
+               overlay .2s allow-discrete, display .2s allow-discrete;
+  }
+  dialog:not([open])::backdrop{transition-duration:.2s}
+  @starting-style{
+    dialog[open]{opacity:0;transform:translateY(16px) scale(.985)}
+    dialog[open]::backdrop{opacity:0}
+  }
+  dialog[open]::backdrop{opacity:1}
+  dialog:not([open])::backdrop{opacity:0}
+
+  /* Системная настройка «меньше движения» — уважаем. */
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    dialog, dialog::backdrop{transition:none}
+    dialog:not([open]){transform:none}
+  }
+
+  .close{
+    position:absolute;top:20px;right:24px;
+    border:0;background:none;font:inherit;color:var(--mute);cursor:pointer;padding:0;
+  }
+  .close:hover{color:var(--ink)}
+  /* Автофокус уведён на .modal-body (autofocus + tabindex="-1"),
+     иначе <dialog> фокусит ✕ и Chrome рисует на нём кольцо. */
+  .modal-body:focus{outline:none}
+  /* Боковые отступы здесь, а не от .wrap: панель уже 920px,
+     max-width:1120px у .wrap ничего не ограничивает. */
+  .modal-body{padding:56px 48px 64px}
+  .m-kind{
+    display:block;margin-bottom:28px;
+    font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);
+  }
+  .modal-body h2{font-size:26px;font-weight:400;letter-spacing:-.025em;margin:0 0 40px;max-width:16em}
+  .modal-body .cols{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-bottom:56px}
+  .modal-body dt{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-bottom:10px}
+  .modal-body dd{margin:0 0 24px}
+  .modal-body dd:last-child{margin-bottom:0}
+  .shots{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .shots .shot{aspect-ratio:4/3}
+  /* ── Адаптив ────────────────────────────────────────────
+     Точки выбраны по контенту, а не по устройствам:
+     900px — четыре карточки принципов перестают влезать в ряд;
+     640px — две колонки текста становятся уже 20 знаков. */
+
+  @media (max-width:900px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .cards{grid-template-columns:repeat(2,1fr)}
+    .plans{grid-template-columns:1fr}
+    .hero h1{max-width:none}
+  }
+
+  @media (max-width:640px){
+    :root{--pad:20px}
+    .hero{padding-top:32px;padding-bottom:48px}
+    .hero h1{font-size:26px}
+    /* Портрет уходит под заголовок: оффер важнее лица. */
+    .hero .top{display:block;margin-bottom:32px}
+    .hero .who{margin:24px 0 0;text-align:left}
+    .hero .portrait{margin-left:0}
+    .hero .cols,
+    .scope .cols,
+    .trust .cols,
+    .modal-body .cols{grid-template-columns:1fr;gap:32px}
+
+    .gallery,.scope,.how,.process,.pricing{padding-bottom:72px}
+    .grid{grid-template-columns:1fr;row-gap:36px}
+    /* Принципы остаются 2×2 — швы сетки держат блок таблицей */
+    .cards li{padding:24px 18px 26px}
+    .cards svg{margin-bottom:24px}
+
+    /* Год встаёт последним, после контактов, а не между h2 и прозой. */
+    .trust{padding:48px 0 96px}
+    .trust .claim{display:contents}
+    .trust h2{order:1}
+    .trust .cols > div:not(.claim){order:2}
+    .year{order:3;margin-top:32px;padding-top:0}
+    .contacts{flex-wrap:wrap;gap:14px 20px}
+
+    /* Док схлопывается до одной кнопки: по странице листают,
+       а не прыгают. Оправа дока не нужна вокруг одной кнопки. */
+    .dock{
+      padding:0;border:0;background:none;
+      backdrop-filter:none;box-shadow:none;
+    }
+    .dock a.link{display:none}
+    .cta{padding:12px 20px;box-shadow:0 4px 24px rgba(0,0,0,.12)}
+
+    /* Модалка на весь экран. Отступ в 12px не читался как рамка,
+       но обещал закрытие тапом мимо панели — попасть было некуда. */
+    /* max-width снимаем: у <dialog> он задан браузером (100% - 2em).
+       transform:none обязателен: любой transform у предка превращает
+       position:fixed у ✕ в absolute, и кнопка уезжает при прокрутке.
+       Подъём тут всё равно оголил бы белую полосу — остаётся проявление. */
+    dialog{
+      width:100%;height:100%;max-width:none;max-height:none;
+      margin:0;border:0;box-shadow:none;transform:none;
+    }
+    dialog:not([open]){transform:none}
+    @starting-style{ dialog[open]{transform:none} }
+
+    /* Единственный способ закрыть: фона нет, Esc нет, «назад» уводит
+       со страницы. Поэтому ✕ прибит к вьюпорту и не уезжает при
+       прокрутке. Подложка — как у дока, иначе он утонет в светлом скрине. */
+    .close{
+      position:fixed;top:12px;right:12px;z-index:1;
+      width:36px;height:36px;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(255,255,255,.82);
+      backdrop-filter:blur(12px);
+      border:1px solid var(--line);
+    }
+    .modal-body{padding:60px 20px 40px}
+    .modal-body h2{font-size:22px;margin-bottom:32px}
+    .shots{grid-template-columns:1fr}
+  }
+</style>
+
+<nav class="dock">
+  <a class="link" href="#works">Работы</a>
+  <a class="link" href="#scope">Что беру</a>
+  <a class="link" href="#process">Как проходит работа</a>
+  <a class="link" href="#pricing">Цены</a>
+  <a class="cta" href="#contacts">Связаться</a>
+</nav>
+
+<main>
+  <section class="hero wrap">
+    <div class="top">
+      <h1>Интерфейсы для продуктов — <b>спроектированы и собраны в чистый код.</b></h1>
+      <div class="who">
+        <div class="portrait"><img src="photo_2026-07-12%2013.37.31.jpeg" alt="Омар Марданов"></div>
+        <span class="name">Омар Марданов</span>
+        <span class="desc">проектирую и верстаю интерфейсы</span>
+      </div>
+    </div>
+    <div class="cols">
+      <p>Продуктовые интерфейсы, дашборды и лендинги — для веба и приложений. Проектирую экраны и сразу собираю их в семантичную адаптивную вёрстку.</p>
+      <p><b>Приходите с задачей, а не с макетом.</b> Скрин, ссылка на конкурента, голосовое «хочу как здесь, но под нас». Структуру, сетку и состояния придумаю я — вам не нужно знать слова «флекс» и «токены».</p>
+    </div>
+  </section>
+
+  <section class="gallery wrap" id="works">
+    <div class="label">Работы</div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="scope wrap" id="scope">
+    <div class="label">Что беру</div>
+    <div class="cols">
+      <div>
+        <h3>Беру</h3>
+        <ul>
+          <li>Продуктовые интерфейсы и дашборды</li>
+          <li>Лендинги и промо-страницы</li>
+          <li>Дизайн-системы и UI-киты</li>
+          <li>Адаптивную семантичную вёрстку</li>
+        </ul>
+      </div>
+      <div class="no">
+        <h3>Не беру</h3>
+        <ul>
+          <li>Логотипы и фирменный стиль</li>
+          <li>Иллюстрации и сложную графику</li>
+          <li>Бэкенд и серверную логику</li>
+          <li>Моушн-дизайн и анимационные ролики</li>
+          <li>SEO и маркетинговое продвижение</li>
+        </ul>
+      </div>
+    </div>
+    <p class="why">
+      <b>Логотип и айдентику я не беру осознанно.</b> Это отдельная профессия, и есть люди,
+      которые делают её лучше меня. Я нужен там, где интерфейс надо продумать: структура, сетка,
+      состояния, поведение на разных экранах. Макет отрисую отлично — а вот бэкенд и сложную
+      анимацию отдам тем, кто на них специализируется. Я собираю фронтенд и передаю чистый,
+      семантичный код, который не стыдно поддерживать.
+    </p>
+  </section>
+
+  <section class="how wrap" id="method">
+    <div class="label">Принципы</div>
+    <ul class="cards" id="cards"></ul>
+  </section>
+
+  <section class="process wrap" id="process">
+    <div class="label">Как проходит работа</div>
+    <ol class="steps">
+      <li>
+        <span class="n">01</span>
+        <div>
+          <h3>Задача</h3>
+          <p>Присылаете что есть: бриф, ссылку, скрин, видео, голосовое. Или описываете словами. Пятнадцать минут — и я понимаю объём.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">02</span>
+        <div>
+          <h3>Структура и прототип</h3>
+          <p>Карта экранов и черновой прототип в низкой детализации. Согласуем логику и сценарии до отрисовки. Дальше — два круга правок, они уже в цене.</p>
+          <p class="def"><b>Круг правок</b> — один список замечаний целиком, сколько бы пунктов в нём ни было. «Кнопку выше, отступ меньше, состояние ошибки заметнее» — это один круг, а не три.</p>
+          <p class="def"><b>Правка</b> — изменение внутри согласованной структуры: сетка, состояние, поведение, положение блока. <b>Новый экран</b> — другая задача или другой сценарий; он считается отдельным экраном и оплачивается отдельно.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">03</span>
+        <div>
+          <h3>Дизайн и система</h3>
+          <p>Рисую интерфейс на сетке, собираю токены и компоненты. Утверждаем ключевые экраны, состояния и правила.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">04</span>
+        <div>
+          <h3>Вёрстка и выдача</h3>
+          <p>Собираю семантичную адаптивную вёрстку, проверяю состояния и браузеры. Отдаю код и короткую документацию по компонентам.</p>
+        </div>
+      </li>
+    </ol>
+    <div class="fix">
+      <p><b>До старта фиксируем письменно:</b> состав экранов, сроки и сумму.</p>
+      <p><b>Права.</b> Макеты и код ваши после оплаты — используйте где угодно и сколько угодно. Я не перепродаю их и не отдаю в шаблоны. Показываю в портфолио — если вы не против.</p>
+      <p><b>Срок</b> называю, когда увижу задачу. Обещать «за два дня» не зная объёма — способ его сорвать.</p>
+    </div>
+  </section>
+
+  <section class="pricing wrap" id="pricing">
+    <div class="label">Цены</div>
+    <ul class="plans">
+      <li>
+        <h3>Экран</h3>
+        <span class="sum">от 8 000 ₽</span>
+        <span class="per">за экран</span>
+        <p>Один экран или секция под ключ: дизайн и вёрстка. Способ проверить меня на небольшой задаче.</p>
+      </li>
+      <li>
+        <h3>Лендинг</h3>
+        <span class="sum">от 40 000 ₽</span>
+        <span class="per">за страницу</span>
+        <p>Посадочная целиком: структура, дизайн и адаптивная семантичная вёрстка.</p>
+      </li>
+      <li>
+        <h3>Продукт под ключ</h3>
+        <span class="sum">от 90 000 ₽</span>
+        <span class="per">за проект</span>
+        <p>Интерфейс целиком: проектирование, дизайн-система и вёрстка компонентов.</p>
+      </li>
+    </ul>
+    <p class="note">Готовый шаблон стоит дёшево — и выглядит как готовый шаблон. Дизайн-система и сопровождение — по договорённости; точную оценку даю, когда увижу задачу.</p>
+  </section>
+
+  <section class="trust" id="contacts">
+    <div class="wrap cols">
+      <div class="claim">
+        <h2>Обычно за этим идут к дизайнеру и отдельно к верстальщику — и теряют смысл на стыке.</h2>
+        <div class="year">© 2026</div>
+      </div>
+      <div>
+        <p>Шаблон сделан не под вас и уже стоит у десятка конкурентов. Дизайн без вёрстки застревает в макете; вёрстка без дизайна разъезжается на втором экране.</p>
+        <p>Я держу и макет, и код в одной голове: решаю сетку, состояния и поведение один раз — и отдаю готовый интерфейс, а не набор красивых картинок.</p>
+        <div class="contacts">
+          <span>Telegram</span>
+          <a href="mailto:accounts@seruan.co">accounts@seruan.co</a>
+          <span>GitHub</span>
+          <span>Behance</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<dialog id="modal">
+  <button class="close" id="m-close" aria-label="Закрыть">✕</button>
+  <div class="modal-body" tabindex="-1" autofocus>
+    <span class="m-kind" id="m-kind"></span>
+    <h2 id="m-title"></h2>
+    <div class="cols">
+      <dl>
+        <dt>Задача</dt><dd id="m-task"></dd>
+      </dl>
+      <dl>
+        <dt>Решение</dt><dd id="m-solution"></dd>
+        <dt>Результат</dt><dd id="m-result"></dd>
+      </dl>
+    </div>
+    <div class="shots" id="m-shots"></div>
+  </div>
+</dialog>
+
+<script>
+  // ── Кейсы галереи ─────────────────────────────────────
+  // img / shots: пути к скринам. Пусто → серый плейсхолдер.
+  const CASES = [
+    { title:'Кабинет аналитики для SaaS', client:'Аналитика «Пульс»', img:'', shots:4,
+      task:'Метрики жили на трёх разных экранах, и пользователи уходили в выгрузки вместо того, чтобы читать их в продукте.',
+      solution:'Собрал единый дашборд на 12-колоночной сетке: приоритет по частоте задач, конфигурируемые виджеты и продуманные состояния пусто/загрузка/ошибка.',
+      result:'Ключевые метрики уместились в один экран без прокрутки. Меньше выгрузок, быстрее вход в данные.' },
+    { title:'Онбординг платежей', client:'Финтех «Ставка»', img:'', shots:4,
+      task:'Длинная форма подключения платежей с высоким отвалом на шаге верификации.',
+      solution:'Разбил на шаги с прогрессом, добавил инлайн-подсказки, понятные ошибки полей и сохранение черновика. Сверстал адаптивно от 320 px.',
+      result:'Процесс стал предсказуемым: видно, сколько шагов и что нужно на каждом.' },
+    { title:'Лендинг запуска продукта', client:'Сервис «Обод»', img:'', shots:4,
+      task:'Нужна быстрая посадочная под запуск: смысл, оффер, форма — без тяжёлого стека.',
+      solution:'Дизайн и семантичная вёрстка на чистом HTML, CSS и JS. Модульные секции, адаптив от 320 px, ленивые изображения.',
+      result:'Лёгкая страница, быстрая загрузка и правка контента прямо в разметке, без сборки.' },
+    { title:'Дизайн-система для B2B', client:'Платформа «Каркас»', img:'', shots:4,
+      task:'Каждый экран рисовали заново, компоненты расходились между командами и продуктами.',
+      solution:'Собрал токены, сетку и UI-кит: типографика, состояния и компоненты с задокументированными правилами. Связал макет с кодом.',
+      result:'Единый язык интерфейса. Новые экраны собираются из готовых блоков без расхождений.' },
+    { title:'Мобильный каталог магазина', client:'Магазин «Полка»', img:'', shots:4,
+      task:'Каталог не был рассчитан на телефоны: мелкие цели нажатия и съезжающая сетка.',
+      solution:'Пересобрал сетку и карточки mobile-first, крупные тач-цели, аккуратные состояния корзины и оптимизацию изображений.',
+      result:'Каталог удобно листать с телефона; вёрстка держится от узких экранов до десктопа.' },
+    { title:'Портал документации', client:'Devtool «Стек»', img:'', shots:4,
+      task:'Документация выросла, а навигация и типографика не справлялись с длинными техническими текстами.',
+      solution:'Задал типографическую систему и меру строки, навигацию с якорями, блоки кода и таблицы, доступность с клавиатуры.',
+      result:'Длинные страницы стали читаемыми и предсказуемыми, по разделам легко ориентироваться.' },
+  ];
+
+  // ── Карточки «Принципы» ───────────────────────────────
+  // Иконки — inline SVG 28×28, обводка 1px, без заливки.
+  const PRINCIPLES = [
+    { icon:'<path d="M4 4h20v20H4z"/><path d="M14 4v20M4 14h20"/>',
+      title:'Сетка', text:'Всё стоит на сетке. Модульная система, ритм и выравнивание держат интерфейс лучше украшений.' },
+    { icon:'<path d="M6 22L14 5l8 17"/><path d="M9.5 16h9"/>',
+      title:'Типографика', text:'Читаемость первична. Иерархия, межстрочный ритм и мера строки задают порядок и тон.' },
+    { icon:'<path d="M14 3l11 5.5-11 5.5L3 8.5z"/><path d="M3 14l11 5.5L25 14"/><path d="M3 19.5l11 5.5 11-5.5"/>',
+      title:'Состояния', text:'Проектирую не экран, а все его состояния: пусто, загрузка, ошибка, длинный текст, край данных.' },
+    { icon:'<path d="M15 3L6 16h7l-1 9 10-13h-7z"/>',
+      title:'Доступность и скорость', text:'Семантика, контраст, клавиатура и лёгкий код. Быстро и одинаково хорошо для всех.' },
+  ];
+
+  // ── Рендер ────────────────────────────────────────────
+  const grid = document.getElementById('grid');
+  grid.innerHTML = CASES.map((c, i) => `
+    <button class="card" data-i="${i}">
+      <div class="shot">${c.img ? `<img src="${c.img}" alt="${c.title}">` : ''}</div>
+      <div class="meta">${c.title}<span class="who">${c.client}</span></div>
+    </button>`).join('');
+
+  document.getElementById('cards').innerHTML = PRINCIPLES.map(p => `
+    <li>
+      <svg width="28" height="28" viewBox="0 0 28 28">${p.icon}</svg>
+      <h3>${p.title}</h3>
+      <p>${p.text}</p>
+    </li>`).join('');
+
+  // ── Модалка ───────────────────────────────────────────
+  const modal = document.getElementById('modal');
+
+  // 1 экран · 2–4 экрана · 5–20 экранов · 21 экран · 22 экрана …
+  const plural = (n, one, few, many) => {
+    const t = Math.abs(n) % 100, d = t % 10;
+    if (t > 10 && t < 20) return many;
+    if (d > 1 && d < 5) return few;
+    if (d === 1) return one;
+    return many;
+  };
+
+  grid.addEventListener('click', e => {
+    const card = e.target.closest('.card');
+    if (!card) return;
+    const c = CASES[card.dataset.i];
+    const n = Array.isArray(c.shots) ? c.shots.length : c.shots;
+    document.getElementById('m-kind').textContent =
+      (n === 1 ? 'Экран' : `Кейс, ${n} ${plural(n, 'экран', 'экрана', 'экранов')}`) + ` · ${c.client}`;
+    document.getElementById('m-title').textContent = c.title;
+    document.getElementById('m-task').textContent = c.task;
+    document.getElementById('m-solution').textContent = c.solution;
+    document.getElementById('m-result').textContent = c.result;
+    // Скрины кейса: массив путей или число плейсхолдеров.
+    const shots = Array.isArray(c.shots) ? c.shots : Array(c.shots).fill('');
+    document.getElementById('m-shots').innerHTML = shots
+      .map(src => `<div class="shot">${src ? `<img src="${src}" alt="">` : ''}</div>`).join('');
+    modal.scrollTop = 0;          // иначе второй кейс откроется прокрученным
+    modal.showModal();
+  });
+
+  // Закрытие: ✕, Esc (его обрабатывает сам <dialog>) или клик по фону.
+  // Проверяем координаты, а не e.target: клик по полосе прокрутки
+  // панели тоже приходит с target === dialog и закрывал бы модалку.
+  document.getElementById('m-close').onclick = () => modal.close();
+  modal.addEventListener('click', e => {
+    const r = modal.getBoundingClientRect();
+    const inside = e.clientX >= r.left && e.clientX <= r.right
+                && e.clientY >= r.top  && e.clientY <= r.bottom;
+    if (!inside) modal.close();
+  });
+</script>
