@@ -256,6 +256,7 @@
   .modal-body dd:last-child{margin-bottom:0}
   .shots{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
   .shots .shot{aspect-ratio:4/3;border:1px solid var(--line)}
+  .shots .shot-soon{grid-column:1/-1;aspect-ratio:auto;min-height:200px;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--mute);font-size:14px;letter-spacing:.01em}
   /* ── Адаптив ────────────────────────────────────────────
      Точки выбраны по контенту, а не по устройствам:
      900px — четыре карточки принципов перестают влезать в ряд;
@@ -476,9 +477,9 @@
   // img: путь к обложке (пусто → серый плейсхолдер). shots: пути к скринам или их число.
   const CASE_MEDIA = [
     { img:'cases/1tm/cover.jpg', shots:['cases/1tm/shot1.jpg','cases/1tm/shot2.jpg','cases/1tm/shot3.jpg','cases/1tm/shot4.jpg','cases/1tm/shot5.jpg'], url:'https://omarmardanov.github.io/1tm/' },   // 1ТМ — сайт юридической фирмы
-    { img:'', shots:4 },   // Litera.studio — сайт студии дизайна (шоты в работе)
-    { img:'', shots:4, url:'https://az.partal.app' },   // Partal — поисковик автозапчастей (шоты в работе)
-    { img:'', shots:4 },   // MDMprint — сайт и каталог типографии (шоты в работе)
+    { img:'cases/litera/cover.png', shots:4 },   // Litera.studio — сайт студии дизайна (шоты в работе)
+    { img:'cases/partal/cover.jpg', shots:4, url:'https://az.partal.app' },   // Partal — поисковик автозапчастей (шоты в работе)
+    { img:'cases/mdm/cover.jpg', shots:4 },   // MDMprint — сайт и каталог типографии (шоты в работе)
   ];
 
   // 1 экран · 2–4 экрана · 5–20 экранов · 21 экран …
@@ -560,22 +561,22 @@
         p2: 'Я держу и макет, и код в одной голове: решаю сетку, состояния и поведение один раз — и отдаю готовый интерфейс, а не набор красивых картинок.',
         year: '© 2026',
       },
-      modal: { labels:{ task:'Задача', solution:'Решение', result:'Результат' }, close:'Закрыть', visit:'Открыть сайт' },
+      modal: { labels:{ task:'Задача', solution:'Решение', result:'Результат' }, close:'Закрыть', visit:'Открыть сайт', soon:'Скоро добавятся изображения' },
       kind: (n) => n === 1 ? 'Экран' : `Кейс, ${n} ${pluralRu(n, 'экран', 'экрана', 'экранов')}`,
       cases: [
         { title:'Сайт юридической фирмы', client:'1ТМ · «Галифанов, Мальков и партнёры»',
           task:'Патентное бюро выросло в полноценную юридическую фирму, но сайт остался с плоским списком из 18 услуг без группировки. Разнородную экспертизу — от товарных знаков до банкротства и налогов — было тяжело охватить, а бизнесу — понять, с чего начать.',
           solution:'Пересобрал структуру в четыре направления с разделами и услугами — с учётом ключевого требования заказчика сохранить позиции в поиске: рабочие URL и семантику оставил на месте, чтобы переиндексация прошла без просадки в выдаче, а реструктуризация — безболезненно. Спроектировал редакционный интерфейс на дизайн-системе: крупный serif и строгий sans, один тёплый акцент, воздух и хайрлайны. Сверстал всё на ванильном HTML/CSS/JS без сборщика — от главной до шаблонов страниц услуг, из которых собираются сотни страниц в WordPress.',
           result:'Каталог стал обозримым: четыре направления вместо списка из 18 пунктов, единая система компонентов, адаптив от телефона до десктопа. Фронтенд передан разработчику готовыми шаблонами — новые страницы собираются без дизайнера.' },
-        { title:'Сайт студии дизайна', client:'Litera.studio · студия дизайна и полиграфии',
+        { title:'Сайт студии дизайна', client:'Litera.studio · скоро',
           task:'Студия печати и дизайна с сильными работами, но сайт на WordPress разросся: услуги оформлены как товары магазина — 36 разделов и около 200 страниц, а в верхнем меню всего 4 пункта. Каталог мешал сразу несколько принципов деления — по результату, по этапу работы и по отрасли, — плодил повторы вроде «дизайн визитки» и «вёрстка визитки» на разных страницах и прятал, что студия вообще умеет.',
           solution:'Пересобрал каталог в понятную иерархию «направление → категория → услуга»: пять направлений с выпадающим меню, а этапы работы — дизайн, вёрстка, печать, препресс — свёл в разделы внутри одной страницы услуги, что убрало сотни повторов. Заложил сохранение поисковых позиций: старые адреса не выбрасываем, а переупаковываем с переадресацией и аудитом трафика перед изменениями. Спроектировал дизайн-систему на айдентике студии: спокойный чёрно-бело-серый макет и по одному фирменному цвету на каждое направление — по сути типографские цвета красок, что метко для студии печати. Собрал кликабельный прототип зонтичной главной с двумя вариантами первого экрана.',
           result:'Каталог из стихийного магазина превращается в понятную витрину направлений — без потери поискового трафика. Прототип главной согласовали с заказчиком по-крупному: структура блоков, тон и стартовый экран; дальше — эталонная страница категории, задающая стиль всему сайту, и тиражирование подхода на разделы. Проект в работе.' },
-        { title:'Поисковик автозапчастей', client:'Partal · собственный продукт, Азербайджан',
+        { title:'Поисковик автозапчастей', client:'Partal',
           task:'Продавцы автозапчастей в Азербайджане разбросаны по OLX, Tap.az и Lalafo — покупателю трудно найти конкретную деталь под свою машину, а небольшому магазину — стать находимым. Отдельного поиска запчастей по марке, модели и году под этот рынок не было.',
           solution:'Спроектировал и разработал продукт целиком — от дизайна до фронтенда. Для покупателя: поиск свободной строкой, которая сама разбирается на марку, модель, год, двигатель и тип детали (алиасы AZ/RU/EN), выдача с фильтром по региону и прямой связью с продавцом — звонок или WhatsApp, без посредника и комиссии. Для продавца: личный кабинет со статистикой, загрузка каталога файлом (CSV/XLS) с проверкой строк перед публикацией и ручная форма товара. Всё — мобильное веб-приложение на азербайджанском, цены в манатах. Собрал как одностраничное React-приложение без сборщика, на Firebase: вход по телефону с OTP, Firestore, App Check.',
           result:'Живой продукт на az.partal.app: продавец за пару шагов выкладывает каталог и становится находимым, покупатель ищет деталь естественным запросом и связывается с магазином напрямую. Partal сознательно не маркетплейс-посредник — не берёт комиссию и не встаёт в сделку, а просто делает продавца находимым.' },
-        { title:'Сайт и каталог типографии', client:'MDMprint · типография',
+        { title:'Сайт и каталог типографии', client:'MDMprint · скоро',
           task:'Крупная типография с огромным ассортиментом — сотни видов продукции от листовой полиграфии до упаковки и мерча. Каталог и навигация не справлялись с объёмом: всё свалено в общий список, иерархия не читалась, а в дизайне был всего один размер заголовка и текста — системе нечем было расставлять приоритет. Кнопки, иконки и метки жили вразнобой.',
           solution:'Спроектировал информационную архитектуру каталога и мегаменю: направления → подкатегории → товары, внутренние табы «Каталог / Услуги / Материалы», отраслевые подборки «Решения для бизнеса и агентств», единые метки «Хит». Собрал дизайн-систему v1 как контракт для Figma и передачи в разработку — роли цвета, типографическая шкала, кнопки, воздух и единые SVG-иконки вместо самодеятельности. Добавил калькулятор «Рассчитать и заказать» со скидкой за самостоятельный расчёт. Всё проверял на живых прототипах: рабочий хедер с мегакаталогом и шаблон страницы услуги на чистом HTML/CSS/JS — с состояниями и мобильной версией, в фирменной жёлто-чёрной гамме.',
           result:'Каталог из свалки превращается в читаемую витрину с приоритетом — крупные разделы, «хиты», понятная навигация; разрозненный интерфейс — в систему с ролями и шкалами, готовую к переносу в Figma и хендоффу. Прототипы хедера, мегаменю и страницы услуги согласовываются и тиражируются на остальные разделы. Проект в работе.' },
@@ -633,22 +634,22 @@
         p2: 'I keep both the mockup and the code in one head: I solve the grid, states and behavior once — and hand over a finished interface, not a set of pretty pictures.',
         year: '© 2026',
       },
-      modal: { labels:{ task:'Task', solution:'Solution', result:'Result' }, close:'Close', visit:'Visit site' },
+      modal: { labels:{ task:'Task', solution:'Solution', result:'Result' }, close:'Close', visit:'Visit site', soon:'Images coming soon' },
       kind: (n) => n === 1 ? 'Screen' : `Case, ${n} screens`,
       cases: [
         { title:'Law firm website', client:'Galifanov, Malkov & Partners',
           task:'A patent bureau had grown into a full-service law firm, but the site still listed 18 services as one flat, ungrouped list. The breadth of expertise — from trademarks to bankruptcy and tax — was hard to take in, and businesses couldn’t tell where to start.',
           solution:'I restructured the offering into four directions with sections and services — honoring the client’s key requirement to keep their search rankings: existing URLs and semantics stayed in place, so re-indexing cost no positions and the migration was painless. I designed an editorial interface on a design system: a large serif and a restrained sans, a single warm accent, generous space and hairlines. I built it all in vanilla HTML/CSS/JS with no bundler — from the homepage to the service-page templates that generate hundreds of pages in WordPress.',
           result:'The catalog became scannable: four directions instead of a list of 18, one component system, and responsive from phone to desktop. The frontend was handed off to the developer as ready-made templates — new pages assemble without a designer.' },
-        { title:'Design studio website', client:'Litera.studio · design & print studio',
+        { title:'Design studio website', client:'Litera.studio · soon',
           task:'A print-and-design studio with strong work, but its WordPress site had sprawled: services were set up as shop products — 36 sections and around 200 pages, with just 4 items in the top menu. The catalog mixed several ways of dividing at once — by result, by stage of work and by industry — bred duplicates like “business-card design” and “business-card layout” on separate pages, and hid what the studio can actually do.',
           solution:'I restructured the catalog into a clear hierarchy — direction → category → service: five directions with a dropdown menu, while the stages of work (design, layout, print, prepress) became sections inside a single service page, which removed hundreds of duplicates. I built in keeping the search rankings: old URLs aren’t thrown away but repackaged with redirects and a traffic audit before any changes. I designed a design system on the studio’s identity: a calm black-white-gray layout with one brand color per direction — essentially printing-ink colors, fitting for a print studio. I built a clickable prototype of the umbrella homepage with two first-screen options.',
           result:'The catalog is turning from a chaotic shop into a clear showcase of directions — with no loss of search traffic. The homepage prototype was reviewed with the client at a high level: block structure, tone and opening screen; next comes the reference category page that sets the style for the whole site, then rolling the approach out across sections. The project is in progress.' },
-        { title:'Auto-parts search engine', client:'Partal · own product, Azerbaijan',
+        { title:'Auto-parts search engine', client:'Partal',
           task:'Auto-parts sellers in Azerbaijan are scattered across OLX, Tap.az and Lalafo — buyers struggle to find the exact part for their car, and small shops struggle to be found. There was no dedicated parts search by make, model and year for this market.',
           solution:'I designed and built the whole product — from design to frontend. For the buyer: a free-form search that parses make, model, year, engine and part type on its own (AZ/RU/EN aliases), results with a regional filter and direct contact with the seller — a call or WhatsApp, no intermediary, no commission. For the seller: a dashboard with daily stats, catalog upload from a file (CSV/XLS) with row-checking before publishing, and a manual product form. All of it a mobile web app in Azerbaijani, prices in manat. Built as a single-page React app with no bundler, on Firebase: phone OTP auth, Firestore, App Check.',
           result:'A live product at az.partal.app: a seller lists their catalog in a couple of steps and becomes findable, a buyer searches with a natural query and contacts the shop directly. Partal is deliberately not a marketplace middleman — it takes no commission and doesn’t sit inside the deal, it simply makes the seller findable.' },
-        { title:'Print house website & catalog', client:'MDMprint · print house',
+        { title:'Print house website & catalog', client:'MDMprint · soon',
           task:'A large print house with a huge range — hundreds of product types, from flat printing to packaging and merch. The catalog and navigation couldn’t cope with the volume: everything dumped into one list, no readable hierarchy, and the design had just one heading size and one text size — the system had nothing to build priority with. Buttons, icons and labels were all over the place.',
           solution:'I designed the catalog’s information architecture and mega-menu: directions → subcategories → products, internal tabs (Catalog / Services / Materials), industry collections (“solutions for business and agencies”), and unified “Hit” labels. I built a design system v1 as a contract for Figma and developer handoff — color roles, a type scale, buttons, spacing and unified SVG icons instead of ad-hoc ones. I added a “calculate & order” tool with a discount for self-service estimating. I validated everything on live prototypes: a working header with the mega-catalog and a service-page template in plain HTML/CSS/JS — with states and a mobile version, in the brand yellow-and-black palette.',
           result:'The catalog is turning from a dump into a readable showcase with priority — major sections, “hits”, clear navigation; the scattered interface into a system with roles and scales, ready to move into Figma and hand off. Prototypes of the header, mega-menu and service page are being reviewed and rolled out across the rest of the sections. The project is in progress.' },
@@ -751,8 +752,10 @@
     } else {
       visit.style.display = 'none';
     }
-    document.getElementById('m-shots').innerHTML = shots
-      .map(src => `<div class="shot">${src ? `<img src="${src}" alt="">` : ''}</div>`).join('');
+    // Есть реальные картинки — грид скринов; нет — один плейсхолдер с подписью.
+    document.getElementById('m-shots').innerHTML = shots.some(Boolean)
+      ? shots.map(src => `<div class="shot">${src ? `<img src="${src}" alt="">` : ''}</div>`).join('')
+      : `<div class="shot shot-soon">${typo(t.modal.soon)}</div>`;
     modal.scrollTop = 0;          // иначе второй кейс откроется прокрученным
     modal.showModal();
   });
