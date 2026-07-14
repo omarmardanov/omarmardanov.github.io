@@ -149,7 +149,7 @@
   .pricing{padding-bottom:120px}
   .plans{
     margin:0 0 24px;padding:0;list-style:none;
-    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
     background:var(--line);border:1px solid var(--line);
   }
   .plans li{background:#fff;padding:28px 24px 32px}
@@ -157,7 +157,10 @@
   .plans .sum{font-size:24px;letter-spacing:-.02em;display:block;margin-bottom:2px}
   .plans .per{color:var(--mute);display:block;margin-bottom:20px}
   .plans p{margin:0;color:var(--mute)}
+  .pricing .support{margin:0 0 16px;color:var(--mute);max-width:40em}
+  .pricing .support b{color:var(--ink);font-weight:500}
   .pricing .note{margin:0;color:var(--mute);max-width:36em}
+  .pricing .rate{margin:16px 0 0;color:var(--mute);font-size:13px}
 
   /* ── Доверие: закрывает страницу, футера нет ────────── */
   /* 120px снизу — запас, чтобы .dock не накрыл строку контактов */
@@ -401,7 +404,9 @@
   <section class="pricing wrap" id="pricing">
     <div class="label" data-i18n="label.pricing"></div>
     <ul class="plans" id="plans"></ul>
+    <p class="support" id="support"></p>
     <p class="note" data-i18n="pricing.note"></p>
+    <p class="rate" id="rate" hidden></p>
   </section>
 
   <section class="trust" id="contacts">
@@ -450,10 +455,10 @@
   // ── Общее для языков ──────────────────────────────────
   // Иконки принципов — inline SVG 28×28, обводка 1px, без заливки.
   const PRINCIPLE_ICONS = [
-    '<path d="M4 4h20v20H4z"/><path d="M14 4v20M4 14h20"/>',                                  // сетка
-    '<path d="M6 22L14 5l8 17"/><path d="M9.5 16h9"/>',                                       // типографика
-    '<path d="M14 3l11 5.5-11 5.5L3 8.5z"/><path d="M3 14l11 5.5L25 14"/><path d="M3 19.5l11 5.5 11-5.5"/>', // состояния
-    '<path d="M15 3L6 16h7l-1 9 10-13h-7z"/>',                                                // доступность/скорость
+    '<circle cx="14" cy="14" r="11"/><circle cx="14" cy="14" r="5.5"/><circle cx="14" cy="14" r="1.2"/>',   // сначала задача — прицел
+    '<path d="M4 14h20"/><circle cx="4" cy="14" r="2"/><circle cx="24" cy="14" r="2"/>',                    // просто — прямой путь
+    '<path d="M4 4h20v20H4z"/><path d="M14 4v20M4 14h20"/>',                                                 // порядок из хаоса — система/сетка
+    '<circle cx="14" cy="14" r="11"/><path d="M8.5 14.5l4 4 7-8.5"/>',                                       // на вашей стороне — честность/галочка
   ];
   // ╭─ КАК ДОБАВИТЬ КЕЙС ──────────────────────────────────────────────╮
   // │ Один кейс = запись в ТРЁХ массивах на ОДНОЙ И ТОЙ ЖЕ позиции:     │
@@ -478,7 +483,8 @@
   const CASE_MEDIA = [
     { img:'cases/1tm/cover.jpg', shots:['cases/1tm/shot1.jpg','cases/1tm/shot2.jpg','cases/1tm/shot3.jpg','cases/1tm/shot4.jpg','cases/1tm/shot5.jpg'], url:'https://omarmardanov.github.io/1tm/' },   // 1ТМ — сайт юридической фирмы
     { img:'cases/litera/cover.png', shots:4 },   // Litera.studio — сайт студии дизайна (шоты в работе)
-    { img:'cases/partal/cover.jpg', shots:4, url:'https://az.partal.app' },   // Partal — поисковик автозапчастей (шоты в работе)
+    /* Partal скрыт — поисковик автозапчастей (шоты в работе). Вернуть: раскомментировать здесь + в ru.cases и en.cases.
+    { img:'cases/partal/cover.jpg', shots:4, url:'https://az.partal.app' }, */
     { img:'cases/mdm/cover.jpg', shots:4 },   // MDMprint — сайт и каталог типографии (шоты в работе)
   ];
 
@@ -511,54 +517,56 @@
   // ── Словарь контента ──────────────────────────────────
   const DICT = {
     ru: {
-      title: 'Омар Марданов — интерфейсы и вёрстка',
+      title: 'Омар Марданов — цифровые решения для бизнеса',
       nav: { works:'Работы', scope:'Что беру', process:'Как проходит работа', pricing:'Цены', cta:'Связаться' },
       label: { works:'Работы', scope:'Что беру', principles:'Принципы', process:'Как проходит работа', pricing:'Цены' },
       hero: {
-        h1: 'Интерфейсы для продуктов — <b>спроектированы и собраны в чистый код.</b>',
+        h1: 'Не продаю сайты. <b>Решаю задачу бизнеса тем, что реально нужно.</b>',
         name: 'Омар Марданов',
-        desc: 'проектирую и верстаю интерфейсы',
-        p1: 'Продуктовые интерфейсы, дашборды и лендинги — для веба и приложений. Проектирую экраны и сразу собираю их в семантичную адаптивную вёрстку. Работаю в связке с ИИ: <b>Claude</b> — для логики, текстов и кода, <b>DALL·E</b> — для изображений; поэтому быстрее и точнее, без потери контроля над результатом.',
-        p2: '<b>Приходите с задачей, а не с макетом.</b> Скрин, ссылка на конкурента, голосовое «хочу как здесь, но под нас». Структуру, сетку и состояния придумаю я — вам не нужно знать слова «флекс» и «токены».',
+        desc: 'решаю цифровые задачи бизнеса',
+        p1: 'Сайты и лендинги, внутренние сервисы и кабинеты, автоматизация рутины — для веба и приложений. Сначала разбираюсь, что бизнесу реально нужно, потом проектирую и собираю решение сам. Работаю в связке с ИИ: <b>Claude</b> — для логики, текстов и кода, <b>DALL·E</b> — для изображений; поэтому быстрее и точнее, без потери контроля над результатом.',
+        p2: '<b>Приходите с задачей, а не с макетом — даже если не знаете, нужен ли вам вообще сайт.</b> Скрин, ссылка на конкурента, голосовое «хочу как здесь, но под нас». Что и как строить — придумаю я; вам не нужно знать слова «флекс» и «токены».',
       },
       scope: {
         yesTitle: 'Беру',
-        yes: ['Продуктовые интерфейсы и дашборды','Лендинги и промо-страницы','Дизайн-системы и UI-киты','Адаптивную семантичную вёрстку'],
+        yes: ['Сайты, каталоги и лендинги','Внутренние сервисы, кабинеты и админки','Автоматизацию рутины и интеграции','Дизайн-системы и вёрстку'],
         noTitle: 'Не беру',
-        no: ['Логотипы и фирменный стиль','Иллюстрации и сложную графику','Бэкенд и серверную логику','Моушн-дизайн и анимационные ролики','SEO и маркетинговое продвижение'],
-        why: '<b>Логотип и айдентику я не беру осознанно.</b> Это отдельная профессия, и есть люди, которые делают её лучше меня. Я нужен там, где интерфейс надо продумать: структура, сетка, состояния, поведение на разных экранах. Макет отрисую отлично — а вот бэкенд и сложную анимацию отдам тем, кто на них специализируется. Я собираю фронтенд и передаю чистый, семантичный код, который не стыдно поддерживать.',
+        no: ['Логотипы и фирменный стиль','Иллюстрации и сложную графику','Нагруженный бэкенд и highload-системы','Моушн-дизайн и анимационные ролики','SEO и маркетинговое продвижение'],
+        why: '<b>Я продаю не сайт, а решённую задачу.</b> Сначала разбираюсь, где вы теряете деньги и время в цифре — и может выясниться, что сайт вам не нужен, а нужна автоматизация или настройка готового инструмента. Скажу прямо, даже если это дешевле для вас и меньше для меня: я зарабатываю на решённой задаче, а не на проданном проекте. Логотип, айдентику и highload осознанно не беру — отдам тем, кто делает их лучше.',
       },
       principles: [
-        { title:'Сетка', text:'Всё стоит на сетке. Модульная система, ритм и выравнивание держат интерфейс лучше украшений.' },
-        { title:'Типографика', text:'Читаемость первична. Иерархия, межстрочный ритм и мера строки задают порядок и тон.' },
-        { title:'Состояния', text:'Проектирую не экран, а все его состояния: пусто, загрузка, ошибка, длинный текст, край данных.' },
-        { title:'Доступность и скорость', text:'Семантика, контраст, клавиатура и лёгкий код. Быстро и одинаково хорошо для всех.' },
+        { title:'Сначала задача', text:'Начинаю не с макета, а с вопроса «что бизнесу вообще нужно». Инструмент выбираю под задачу, а не задачу под любимый инструмент.' },
+        { title:'Просто', text:'Лучшее решение — самое простое из работающих. Не строю лишнего: если задача закрывается настройкой готового инструмента, так и делаю.' },
+        { title:'Порядок из хаоса', text:'Разрозненное превращаю в систему: структура, приоритет, понятная навигация. Чтобы нужное находили сразу — и вы, и ваш клиент.' },
+        { title:'На вашей стороне', text:'Считаю ваши деньги, как свои. Скажу прямо, если что-то решается дешевле или без меня. Доверие дороже одного заказа.' },
       ],
       steps: [
-        { title:'Задача', text:'Присылаете что есть: бриф, ссылку, скрин, видео, голосовое. Или описываете словами. Пятнадцать минут — и я понимаю объём.' },
-        { title:'Структура и прототип', text:'Карта экранов и черновой прототип в низкой детализации. Согласуем логику и сценарии до отрисовки. Дальше — два круга правок, они уже в цене.',
+        { title:'Задача', text:'Присылаете что есть: бриф, ссылку, скрин, видео, голосовое. Или описываете словами. Пятнадцать минут — и я понимаю, в чём вопрос.' },
+        { title:'Диагностика и решение', text:'Разбираюсь в задаче и предлагаю, что и как делать — сайт, сервис, автоматизацию или что-то ещё. Иногда лучший ответ — не строить, и я скажу об этом. Дальше фиксируем письменно план, сроки и сумму.' },
+        { title:'Работа', text:'Проектирую и собираю решение, показываю на живых прототипах и согласую по ходу. Что именно на этом этапе — зависит от задачи; правки уже в цене.',
           defs:[
-            '<b>Круг правок</b> — один список замечаний целиком, сколько бы пунктов в нём ни было. «Кнопку выше, отступ меньше, состояние ошибки заметнее» — это один круг, а не три.',
-            '<b>Правка</b> — изменение внутри согласованной структуры: сетка, состояние, поведение, положение блока. <b>Новый экран</b> — другая задача или другой сценарий; он считается отдельным экраном и оплачивается отдельно.',
+            '<b>Круг правок</b> — один список замечаний целиком, сколько бы пунктов в нём ни было. «Это выше, тут заметнее, здесь короче» — один круг, а не три.',
+            '<b>Правка</b> — изменение внутри согласованного решения. <b>Новая задача или сценарий</b> сверх согласованного считается отдельно и оценивается отдельно.',
           ] },
-        { title:'Дизайн и система', text:'Рисую интерфейс на сетке, собираю токены и компоненты. Утверждаем ключевые экраны, состояния и правила.' },
-        { title:'Вёрстка и выдача', text:'Собираю семантичную адаптивную вёрстку, проверяю состояния и браузеры. Отдаю код и короткую документацию по компонентам.' },
+        { title:'Запуск', text:'Запускаю, проверяю на реальных сценариях и отдаю результат с короткой документацией. После запуска остаюсь на связи.' },
       ],
       fix: [
-        '<b>До старта фиксируем письменно:</b> состав экранов, сроки и сумму.',
+        '<b>До старта фиксируем письменно:</b> состав работ, сроки и сумму.',
         '<b>Права.</b> Макеты и код ваши после оплаты — используйте где угодно и сколько угодно. Я не перепродаю их и не отдаю в шаблоны. Показываю в портфолио — если вы не против.',
         '<b>Срок</b> называю, когда увижу задачу. Обещать «за два дня» не зная объёма — способ его сорвать.',
       ],
       plans: [
-        { title:'Экран', sum:'от $150', per:'за экран', text:'Один экран или секция под ключ: дизайн и вёрстка. Способ проверить меня на небольшой задаче.' },
-        { title:'Лендинг', sum:'от $800', per:'за страницу', text:'Посадочная целиком: структура, дизайн и адаптивная семантичная вёрстка.' },
-        { title:'Продукт под ключ', sum:'от $1 800', per:'за проект', text:'Интерфейс целиком: проектирование, дизайн-система и вёрстка компонентов.' },
+        { title:'Диагностика', usd:300, from:false, per:'разово', text:'Разбираю бизнес и нахожу, где теряются деньги и время в цифре. Может выясниться, что строить пока ничего не нужно — скажу и об этом прямо. Засчитывается в проект, если беретесь.' },
+        { title:'Сайт или лендинг', usd:800, from:true, per:'за проект', text:'Посадочная или сайт-каталог целиком: структура, дизайн и адаптивная семантичная вёрстка.' },
+        { title:'Внутренний сервис или кабинет', usd:2500, from:true, per:'за проект', text:'Кабинет, админка или внутренний инструмент под ключ — от проектирования до кода.' },
+        { title:'Автоматизация', usd:500, from:true, per:'за задачу', text:'Убираю ручную рутину: интеграции, боты, таблица вместо десятка файлов. Цена — по объёму.' },
       ],
-      pricing: { note:'Готовый шаблон стоит дёшево — и выглядит как готовый шаблон. Дизайн-система и сопровождение — по договорённости; точную оценку даю, когда увижу задачу.' },
+      support: { text:'Сопровождение проекта — хостинг, правки и развитие:', usd:150, from:true, per:'/мес' },
+      pricing: { note:'Готовый шаблон стоит дёшево — и выглядит как готовый шаблон. Цены привязаны к доллару и показаны в рублях по курсу ЦБ РФ; точную сумму называю после диагностики, когда вижу задачу.' },
       trust: {
-        h2: 'Обычно за этим идут к дизайнеру и отдельно к верстальщику — и теряют смысл на стыке.',
-        p1: 'Шаблон сделан не под вас и уже стоит у десятка конкурентов. Дизайн без вёрстки застревает в макете; вёрстка без дизайна разъезжается на втором экране.',
-        p2: 'Я держу и макет, и код в одной голове: решаю сетку, состояния и поведение один раз — и отдаю готовый интерфейс, а не набор красивых картинок.',
+        h2: 'Обычно исполнитель делает ровно то, что попросили. Даже если бизнесу нужно было другое.',
+        p1: 'Студия продаст сайт всем — потому что продаёт сайты. Дизайнер отрисует макет, разработчик соберёт что скажут, а нужно ли это бизнесу — не их вопрос.',
+        p2: 'Я сначала разбираюсь в задаче, потом выбираю решение — и держу его целиком в одной голове: от того, что вообще строить, до кода. Отдаю результат, а не набор услуг.',
         year: '© 2026',
       },
       modal: { labels:{ task:'Задача', solution:'Решение', result:'Результат' }, close:'Закрыть', visit:'Открыть сайт', soon:'Скоро добавятся изображения' },
@@ -572,10 +580,11 @@
           task:'Студия печати и дизайна с сильными работами, но сайт на WordPress разросся: услуги оформлены как товары магазина — 36 разделов и около 200 страниц, а в верхнем меню всего 4 пункта. Каталог мешал сразу несколько принципов деления — по результату, по этапу работы и по отрасли, — плодил повторы вроде «дизайн визитки» и «вёрстка визитки» на разных страницах и прятал, что студия вообще умеет.',
           solution:'Пересобрал каталог в понятную иерархию «направление → категория → услуга»: пять направлений с выпадающим меню, а этапы работы — дизайн, вёрстка, печать, препресс — свёл в разделы внутри одной страницы услуги, что убрало сотни повторов. Заложил сохранение поисковых позиций: старые адреса не выбрасываем, а переупаковываем с переадресацией и аудитом трафика перед изменениями. Спроектировал дизайн-систему на айдентике студии: спокойный чёрно-бело-серый макет и по одному фирменному цвету на каждое направление — по сути типографские цвета красок, что метко для студии печати. Собрал кликабельный прототип зонтичной главной с двумя вариантами первого экрана.',
           result:'Каталог из стихийного магазина превращается в понятную витрину направлений — без потери поискового трафика. Прототип главной согласовали с заказчиком по-крупному: структура блоков, тон и стартовый экран; дальше — эталонная страница категории, задающая стиль всему сайту, и тиражирование подхода на разделы. Проект в работе.' },
+        /* Partal скрыт — вернуть: раскомментировать этот кейс + в en.cases и в CASE_MEDIA.
         { title:'Поисковик автозапчастей', client:'Partal',
           task:'Продавцы автозапчастей в Азербайджане разбросаны по OLX, Tap.az и Lalafo — покупателю трудно найти конкретную деталь под свою машину, а небольшому магазину — стать находимым. Отдельного поиска запчастей по марке, модели и году под этот рынок не было.',
           solution:'Спроектировал и разработал продукт целиком — от дизайна до фронтенда. Для покупателя: поиск свободной строкой, которая сама разбирается на марку, модель, год, двигатель и тип детали (алиасы AZ/RU/EN), выдача с фильтром по региону и прямой связью с продавцом — звонок или WhatsApp, без посредника и комиссии. Для продавца: личный кабинет со статистикой, загрузка каталога файлом (CSV/XLS) с проверкой строк перед публикацией и ручная форма товара. Всё — мобильное веб-приложение на азербайджанском, цены в манатах. Собрал как одностраничное React-приложение без сборщика, на Firebase: вход по телефону с OTP, Firestore, App Check.',
-          result:'Живой продукт на az.partal.app: продавец за пару шагов выкладывает каталог и становится находимым, покупатель ищет деталь естественным запросом и связывается с магазином напрямую. Partal сознательно не маркетплейс-посредник — не берёт комиссию и не встаёт в сделку, а просто делает продавца находимым.' },
+          result:'Живой продукт на az.partal.app: продавец за пару шагов выкладывает каталог и становится находимым, покупатель ищет деталь естественным запросом и связывается с магазином напрямую. Partal сознательно не маркетплейс-посредник — не берёт комиссию и не встаёт в сделку, а просто делает продавца находимым.' }, */
         { title:'Сайт и каталог типографии', client:'MDMprint · скоро',
           task:'Крупная типография с огромным ассортиментом — сотни видов продукции от листовой полиграфии до упаковки и мерча. Каталог и навигация не справлялись с объёмом: всё свалено в общий список, иерархия не читалась, а в дизайне был всего один размер заголовка и текста — системе нечем было расставлять приоритет. Кнопки, иконки и метки жили вразнобой.',
           solution:'Спроектировал информационную архитектуру каталога и мегаменю: направления → подкатегории → товары, внутренние табы «Каталог / Услуги / Материалы», отраслевые подборки «Решения для бизнеса и агентств», единые метки «Хит». Собрал дизайн-систему v1 как контракт для Figma и передачи в разработку — роли цвета, типографическая шкала, кнопки, воздух и единые SVG-иконки вместо самодеятельности. Добавил калькулятор «Рассчитать и заказать» со скидкой за самостоятельный расчёт. Всё проверял на живых прототипах: рабочий хедер с мегакаталогом и шаблон страницы услуги на чистом HTML/CSS/JS — с состояниями и мобильной версией, в фирменной жёлто-чёрной гамме.',
@@ -584,54 +593,56 @@
     },
 
     en: {
-      title: 'Omar Mardanov — interfaces & frontend',
+      title: 'Omar Mardanov — digital solutions for business',
       nav: { works:'Work', scope:'Services', process:'Process', pricing:'Pricing', cta:'Get in touch' },
       label: { works:'Selected work', scope:'What I take on', principles:'Principles', process:'How it works', pricing:'Pricing' },
       hero: {
-        h1: 'Product interfaces — <b>designed and built into clean code.</b>',
+        h1: 'I don’t sell websites. <b>I solve the business problem — with whatever actually fits.</b>',
         name: 'Omar Mardanov',
-        desc: 'I design and build interfaces',
-        p1: 'Product interfaces, dashboards and landing pages — for web and apps. I design the screens and build them straight into semantic, responsive markup. I work with AI in the loop: <b>Claude</b> for logic, copy and code, <b>DALL·E</b> for imagery — so it comes out faster and sharper, without losing control over the result.',
-        p2: '<b>Come with a problem, not a mockup.</b> A screenshot, a competitor link, a voice note “like this, but for us.” I’ll work out the structure, grid and states — you don’t need to know words like “flexbox” and “tokens.”',
+        desc: 'I solve digital problems for business',
+        p1: 'Websites and landing pages, internal services and dashboards, automation of routine work — for web and apps. First I work out what the business actually needs, then I design and build the solution myself. I work with AI in the loop: <b>Claude</b> for logic, copy and code, <b>DALL·E</b> for imagery — so it comes out faster and sharper, without losing control over the result.',
+        p2: '<b>Come with a problem, not a mockup — even if you’re not sure you need a website at all.</b> A screenshot, a competitor link, a voice note “like this, but for us.” What to build and how is my job; you don’t need to know words like “flexbox” and “tokens.”',
       },
       scope: {
         yesTitle: 'I take on',
-        yes: ['Product interfaces and dashboards','Landing and promo pages','Design systems and UI kits','Responsive semantic markup'],
+        yes: ['Websites, catalogs and landing pages','Internal services, dashboards and admin panels','Automation of routine work and integrations','Design systems and markup'],
         noTitle: 'I don’t take on',
-        no: ['Logos and brand identity','Illustration and complex graphics','Backend and server logic','Motion design and video','SEO and marketing'],
-        why: '<b>I don’t do logos or brand identity — on purpose.</b> It’s a separate craft, and there are people who do it better than me. I’m useful where the interface has to be thought through: structure, grid, states, behavior across screens. I’ll design the mockup well — but backend and complex animation I hand to people who specialize in them. I build the frontend and hand over clean, semantic code that’s easy to maintain.',
+        no: ['Logos and brand identity','Illustration and complex graphics','Heavy backend and high-load systems','Motion design and video','SEO and marketing'],
+        why: '<b>I sell a solved problem, not a website.</b> First I work out where you’re losing money and time in your digital setup — and it may turn out you don’t need a website at all, but automation or setting up an existing tool. I’ll tell you straight, even when it’s cheaper for you and less for me: I earn on the problem solved, not the project sold. Logos, identity and high-load I deliberately don’t take — I hand those to people who do them better.',
       },
       principles: [
-        { title:'Grid', text:'Everything sits on a grid. A modular system, rhythm and alignment hold an interface together better than decoration.' },
-        { title:'Typography', text:'Readability comes first. Hierarchy, vertical rhythm and line length set the order and the tone.' },
-        { title:'States', text:'I design not a screen but all of its states: empty, loading, error, long text, the edge of the data.' },
-        { title:'Accessibility & speed', text:'Semantics, contrast, keyboard and lightweight code. Fast and equally good for everyone.' },
+        { title:'Problem first', text:'I start not with a mockup but with the question “what does the business actually need.” I pick the tool for the task, not the task for a favorite tool.' },
+        { title:'Keep it simple', text:'The best solution is the simplest one that works. I don’t build extra: if setting up an existing tool solves it, that’s what I do.' },
+        { title:'Order from chaos', text:'I turn the scattered into a system: structure, priority, clear navigation. So the right thing is found at once — by you and by your customer.' },
+        { title:'On your side', text:'I count your money like my own. I’ll tell you straight if something is cheaper or doable without me. Trust is worth more than one order.' },
       ],
       steps: [
-        { title:'The task', text:'Send whatever you have: a brief, a link, a screenshot, a video, a voice note. Or describe it in words. Fifteen minutes and I know the scope.' },
-        { title:'Structure & prototype', text:'A screen map and a rough low-fidelity prototype. We agree on the logic and flows before any visuals. Then two rounds of edits — already included.',
+        { title:'The task', text:'Send whatever you have: a brief, a link, a screenshot, a video, a voice note. Or describe it in words. Fifteen minutes and I know what the question is.' },
+        { title:'Diagnosis & solution', text:'I get to the bottom of the task and propose what to do and how — a website, a service, automation or something else. Sometimes the best answer is not to build, and I’ll say so. Then we put the plan, timeline and price in writing.' },
+        { title:'The work', text:'I design and build the solution, show it on live prototypes and align as we go. What exactly happens here depends on the task; edits are already included.',
           defs:[
-            '<b>A round of edits</b> is one full list of notes, however many points it holds. “Button higher, tighter spacing, make the error state clearer” is one round, not three.',
-            '<b>An edit</b> is a change inside the agreed structure: grid, state, behavior, position of a block. <b>A new screen</b> is a different task or flow; it counts as a separate screen and is billed separately.',
+            '<b>A round of edits</b> is one full list of notes, however many points it holds. “This higher, that clearer, this shorter” is one round, not three.',
+            '<b>An edit</b> is a change inside the agreed solution. <b>A new task or flow</b> beyond what was agreed counts separately and is priced separately.',
           ] },
-        { title:'Design & system', text:'I design the interface on a grid and assemble tokens and components. We approve the key screens, states and rules.' },
-        { title:'Build & handoff', text:'I write semantic, responsive markup and check states and browsers. I hand over the code and short component docs.' },
+        { title:'Launch', text:'I launch, test it on real scenarios and hand over the result with short docs. After launch I stay in touch.' },
       ],
       fix: [
-        '<b>Before we start, we put in writing:</b> the set of screens, the timeline and the price.',
+        '<b>Before we start, we put in writing:</b> the scope of work, the timeline and the price.',
         '<b>Rights.</b> The mockups and code are yours after payment — use them wherever and however you like. I don’t resell them or put them into templates. I show them in my portfolio — unless you’d rather I didn’t.',
         '<b>The timeline</b> I name once I’ve seen the task. Promising “in two days” without knowing the scope is a way to miss the deadline.',
       ],
       plans: [
-        { title:'Screen', sum:'from $150', per:'per screen', text:'A single screen or section, end to end: design and build. A low-risk way to try me on something small.' },
-        { title:'Landing', sum:'from $800', per:'per page', text:'A full landing page: structure, design and responsive semantic markup.' },
-        { title:'Full product', sum:'from $1,800', per:'per project', text:'The whole interface: design, a design system and component build.' },
+        { title:'Diagnostics', usd:300, from:false, per:'one-off', text:'I study the business and find where money and time leak in the digital setup. It may turn out there’s nothing to build yet — I’ll tell you that too. Credited toward the project if you go ahead.' },
+        { title:'Website or landing', usd:800, from:true, per:'per project', text:'A landing page or a full catalog site: structure, design and responsive semantic markup.' },
+        { title:'Internal service or dashboard', usd:2500, from:true, per:'per project', text:'A dashboard, admin panel or internal tool, turnkey — from design to code.' },
+        { title:'Automation', usd:500, from:true, per:'per task', text:'I remove manual routine: integrations, bots, one table instead of a dozen files. Priced by scope.' },
       ],
-      pricing: { note:'A ready-made template is cheap — and looks like a ready-made template. Design systems and ongoing support are by arrangement; I give a precise estimate once I’ve seen the task.' },
+      support: { text:'Project support — hosting, edits and development:', usd:150, from:true, per:'/mo' },
+      pricing: { note:'A ready-made template is cheap — and looks like a ready-made template. I name the exact figure after diagnostics, once I’ve seen the task.' },
       trust: {
-        h2: 'Usually you go to a designer and, separately, to a developer — and lose the point where they meet.',
-        p1: 'A template wasn’t made for you and already sits on a dozen competitors’ sites. Design without build gets stuck in the mockup; build without design falls apart on the second screen.',
-        p2: 'I keep both the mockup and the code in one head: I solve the grid, states and behavior once — and hand over a finished interface, not a set of pretty pictures.',
+        h2: 'Usually a contractor builds exactly what you asked for. Even when the business needed something else.',
+        p1: 'A studio will sell everyone a website — because it sells websites. A designer draws the mockup, a developer builds what they’re told, and whether the business needed it isn’t their problem.',
+        p2: 'I work out the task first, then choose the solution — and keep the whole of it in one head: from what to build at all, down to the code. I hand over a result, not a set of services.',
         year: '© 2026',
       },
       modal: { labels:{ task:'Task', solution:'Solution', result:'Result' }, close:'Close', visit:'Visit site', soon:'Images coming soon' },
@@ -645,10 +656,11 @@
           task:'A print-and-design studio with strong work, but its WordPress site had sprawled: services were set up as shop products — 36 sections and around 200 pages, with just 4 items in the top menu. The catalog mixed several ways of dividing at once — by result, by stage of work and by industry — bred duplicates like “business-card design” and “business-card layout” on separate pages, and hid what the studio can actually do.',
           solution:'I restructured the catalog into a clear hierarchy — direction → category → service: five directions with a dropdown menu, while the stages of work (design, layout, print, prepress) became sections inside a single service page, which removed hundreds of duplicates. I built in keeping the search rankings: old URLs aren’t thrown away but repackaged with redirects and a traffic audit before any changes. I designed a design system on the studio’s identity: a calm black-white-gray layout with one brand color per direction — essentially printing-ink colors, fitting for a print studio. I built a clickable prototype of the umbrella homepage with two first-screen options.',
           result:'The catalog is turning from a chaotic shop into a clear showcase of directions — with no loss of search traffic. The homepage prototype was reviewed with the client at a high level: block structure, tone and opening screen; next comes the reference category page that sets the style for the whole site, then rolling the approach out across sections. The project is in progress.' },
+        /* Partal hidden — to restore: uncomment this case + in ru.cases and CASE_MEDIA.
         { title:'Auto-parts search engine', client:'Partal',
           task:'Auto-parts sellers in Azerbaijan are scattered across OLX, Tap.az and Lalafo — buyers struggle to find the exact part for their car, and small shops struggle to be found. There was no dedicated parts search by make, model and year for this market.',
           solution:'I designed and built the whole product — from design to frontend. For the buyer: a free-form search that parses make, model, year, engine and part type on its own (AZ/RU/EN aliases), results with a regional filter and direct contact with the seller — a call or WhatsApp, no intermediary, no commission. For the seller: a dashboard with daily stats, catalog upload from a file (CSV/XLS) with row-checking before publishing, and a manual product form. All of it a mobile web app in Azerbaijani, prices in manat. Built as a single-page React app with no bundler, on Firebase: phone OTP auth, Firestore, App Check.',
-          result:'A live product at az.partal.app: a seller lists their catalog in a couple of steps and becomes findable, a buyer searches with a natural query and contacts the shop directly. Partal is deliberately not a marketplace middleman — it takes no commission and doesn’t sit inside the deal, it simply makes the seller findable.' },
+          result:'A live product at az.partal.app: a seller lists their catalog in a couple of steps and becomes findable, a buyer searches with a natural query and contacts the shop directly. Partal is deliberately not a marketplace middleman — it takes no commission and doesn’t sit inside the deal, it simply makes the seller findable.' }, */
         { title:'Print house website & catalog', client:'MDMprint · soon',
           task:'A large print house with a huge range — hundreds of product types, from flat printing to packaging and merch. The catalog and navigation couldn’t cope with the volume: everything dumped into one list, no readable hierarchy, and the design had just one heading size and one text size — the system had nothing to build priority with. Buttons, icons and labels were all over the place.',
           solution:'I designed the catalog’s information architecture and mega-menu: directions → subcategories → products, internal tabs (Catalog / Services / Materials), industry collections (“solutions for business and agencies”), and unified “Hit” labels. I built a design system v1 as a contract for Figma and developer handoff — color roles, a type scale, buttons, spacing and unified SVG icons instead of ad-hoc ones. I added a “calculate & order” tool with a discount for self-service estimating. I validated everything on live prototypes: a working header with the mega-catalog and a service-page template in plain HTML/CSS/JS — with states and a mobile version, in the brand yellow-and-black palette.',
@@ -656,6 +668,20 @@
       ],
     },
   };
+
+  // ── Цены: рубли по живому курсу ЦБ РФ ─────────────────
+  // USD хранится числом в планах; для RU пересчитываем в рубли,
+  // для EN показываем доллары. Курс тянем с ЦБ (см. ниже), до ответа
+  // и при сбое — фолбэк. rateInfo != null → показываем строку курса.
+  let usdRub = 80;        // фолбэк-курс, пока/если не пришёл живой
+  let rateInfo = null;    // { value, date } — живой курс ЦБ РФ
+  function fmtPrice(usd, from){
+    if (currentLang === 'ru'){
+      const rub = Math.round(usd * usdRub / 100) * 100;
+      return (from ? 'от ' : '') + rub.toLocaleString('ru-RU') + ' ₽';
+    }
+    return (from ? 'from ' : '') + '$' + usd.toLocaleString('en-US');
+  }
 
   // ── Рендер повторяющихся блоков из массивов ───────────
   function render(t){
@@ -692,10 +718,24 @@
     document.getElementById('plans').innerHTML = t.plans.map(p => `
       <li>
         <h3>${typo(p.title)}</h3>
-        <span class="sum">${typo(p.sum)}</span>
+        <span class="sum">${fmtPrice(p.usd, p.from)}</span>
         <span class="per">${typo(p.per)}</span>
         <p>${typo(p.text)}</p>
       </li>`).join('');
+
+    const s = t.support;
+    document.getElementById('support').innerHTML =
+      `${typo(s.text)} <b>${fmtPrice(s.usd, s.from)}${s.per}</b>`;
+
+    const rateEl = document.getElementById('rate');
+    if (currentLang === 'ru' && rateInfo){
+      rateEl.textContent = `Курс ЦБ РФ на ${rateInfo.date}: $1 = ` +
+        rateInfo.value.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ₽';
+      rateEl.hidden = false;
+    } else {
+      rateEl.textContent = '';
+      rateEl.hidden = true;
+    }
   }
 
   // ── Переключение языка ────────────────────────────────
@@ -724,6 +764,19 @@
                 : saved || ((navigator.language || '').toLowerCase().startsWith('ru') ? 'ru' : 'en');
   applyLang(initial);
   document.getElementById('lang').addEventListener('click', () => applyLang(currentLang === 'ru' ? 'en' : 'ru'));
+
+  // Живой курс USD→RUB от ЦБ РФ для рублёвых цен. При сбое остаётся фолбэк.
+  fetch('https://www.cbr-xml-daily.ru/daily_json.js')
+    .then(r => r.json())
+    .then(d => {
+      const v = d && d.Valute && d.Valute.USD && d.Valute.USD.Value;
+      if (!v) return;
+      usdRub = v;
+      const [y, m, day] = d.Date.slice(0, 10).split('-');
+      rateInfo = { value: v, date: `${day}.${m}.${y}` };
+      applyLang(currentLang);   // перерисовать цены и строку курса
+    })
+    .catch(() => {});
 
   // ── Модалка ───────────────────────────────────────────
   const modal = document.getElementById('modal');
