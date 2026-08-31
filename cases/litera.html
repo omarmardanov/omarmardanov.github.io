@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Litera.Studio — site audit and rebuild — Omar Mardanov</title>
+<link rel="stylesheet" href="../assets/ids/css/tokens/palette.css">
+<link rel="stylesheet" href="../assets/ids/css/tokens/colors.css">
+<link rel="stylesheet" href="../assets/ids/css/reset.css">
+<link rel="stylesheet" href="../assets/ids/css/tokens/scales.css">
+<link rel="stylesheet" href="../assets/ids/css/settings.css">
+<link rel="stylesheet" href="../assets/ids/css/page-composition/layout.css">
+<link rel="stylesheet" href="../assets/ids/css/components/ids.css">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="ids">
+
+<main>
+  <div class="ids__wrapper">
+    <div class="ids__space L"></div>
+
+    <div class="ids__text-width">
+      <p><a href="../index.html">&larr; Omar Mardanov</a></p>
+
+      <div class="ids__space S"></div>
+
+      <h1>Litera.Studio — site audit and rebuild</h1>
+
+      <p class="dek">In development — <a href="https://omarmardanov.github.io/litera-prototype/">live demo</a>.</p>
+
+      <p>Print and graphic design studio, Moscow, 13 years in business.
+      WordPress + WooCommerce, services listed as products: 226 services, 36 categories,
+      30 articles, 7 case studies.</p>
+
+      <p>No brief — I proposed the direction myself. Scope, agreed by email: free to restructure
+      and rebuild, as long as SEO weight carries over through redirects. The client wanted
+      everything at once — leads, speed, search traffic, brand — so I prioritized by data,
+      not by eye.</p>
+
+      <p>No admin or theme access. Everything below came from outside the CMS: a full crawl,
+      a year of Yandex Metrika, and a raw log of outgoing WordPress emails a developer
+      happened to still have.</p>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">The audit</h2>
+
+      <p>Homepage, desktop: 133 requests, 9.8MB. Images alone: 46 requests, 8MB, 0% in WebP.
+      Zero of 93 images lazy-loaded. HTML was 911KB — one whole section shipped as a
+      base64 image.</p>
+
+      <p>Crawled and locally mirrored all 262 catalog pages to quantify the rest:</p>
+
+      <div class="table-scroll">
+      <table>
+        <thead><tr><th>Defect</th><th>Scale</th></tr></thead>
+        <tbody>
+        <tr><td>Base64 images inline in HTML</td><td>250 of 262 pages, up to 426KB per page</td></tr>
+        <tr><td><code>loading="lazy"</code></td><td>0 pages, out of 20,908 <code>&lt;img&gt;</code> tags</td></tr>
+        <tr><td><code>&lt;img&gt;</code> with no <code>alt</code></td><td>7,276 of 20,908 — 35%</td></tr>
+        <tr><td>Price missing from page text</td><td>186 of 262 pages</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <p>Content: median unique text per product page was 171 words on 567KB of HTML.
+      182 of 226 pages fell in the 100–200 word band — templated for search engines,
+      not written for a person. A third of all page pairs shared over 70% of their text;
+      a tenth shared over 90%. Four pages for a tray product, identical copy, the only
+      real difference a diagram image.</p>
+
+      <p>Information architecture: 36 categories, four levels deep on flat URLs — the hierarchy
+      existed only in the nav, not the address. One category contained itself
+      ("Packaging &amp; labels" nested inside "Packaging &amp; labels"). 13 duplicate design/layout
+      page pairs. 18 near-identical ad-format pages, one per platform, same copy with the
+      platform name swapped in.</p>
+
+      <p>Mobile: the category page opened on four uncaptioned photos and a cookie banner
+      sitting over the headline. The one unique paragraph that page existed to rank for
+      was at the very bottom, small, truncated behind "read more." The <code>&lt;title&gt;</code> for one
+      page promised a price ("from 1,100₽") that appeared nowhere on the page itself —
+      a direct, measurable cause of bounces.</p>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">Decisions made from data, not taste</h2>
+
+      <p><strong>801 real leads, recovered.</strong> The client had no export tool beyond a Gmail inbox.
+      A developer sent the raw WordPress mail log instead — 2,853 records, every field of
+      every submitted lead sitting inside the email body. Parsed it, dropped one anomalous
+      month, kept the trailing year: 801 leads. That dataset overturned two of my own
+      assumptions going in. I'd planned to drop the contact-channel radio buttons as
+      friction — the data said 58% of users manually changed the pre-selected default
+      (WhatsApp 42%, Telegram 35%, phone 11%, email 8%, a fifth messenger 5%): the choice
+      mattered, it stayed.
+      I'd planned to cut the free-text comment field — 85% of submitters used it.</p>
+
+      <p><strong>Catalog: 36 categories &rarr; 4.</strong> I split 222 real services by script — no
+      losses — the other 4 of the 226 catalog entries were section-index pages
+      (<code>/poligrafiya</code> and similar), not individual services. Proposed 6 groupings,
+      the client's director approved 4 and cut two categories outright ("not our business").
+      The data backed the cut: those 52 pages accounted for 832 visits and 13 leads across
+      the whole year.</p>
+
+      <!-- MOCKUP SLOT 1: category page. See TZ. -->
+
+      <p><strong>Form redesign.</strong> Mobile is 58% of traffic and converts a quarter worse than
+      desktop (2.22% vs 2.77%) — the argument for keeping the form short. Phone required,
+      email optional, name optional, a task field, channel choice as chips (Telegram
+      default, not WhatsApp — accounts for blocking risk), file attachment, cross-field
+      validation (email-only contact + "call me" selected gets flagged).</p>
+
+      <p><strong>On-site search — checked whether it was needed before building it.</strong> 939 searches
+      in a year, 0.41% of traffic, and the top query counts were suspiciously flat
+      (73, 72, 69, 69 — bot traffic). Real signal only in the long tail: typos, seasonal
+      terms. Built a client-side service picker instead of a search backend: 170 items in
+      a 13KB file, suggestions from the first letter, no server round trip, no results
+      page. Typo normalization pulled straight from the query log, plus a synonym
+      dictionary. A "describe your task" fallback carries whatever was typed straight
+      into the lead form, so nothing gets retyped.</p>
+
+      <p><strong>Rejected the client's own branding idea.</strong> The director wanted a "print clinic
+      for business" metaphor. I argued against it and it didn't ship: going to a doctor
+      implies fear, going to a print shop implies a deadline — the metaphor turns the
+      client's task into an illness and the studio into the doctor, which puts the studio
+      above the client it's meant to serve. Kept the brief's actual tone instead: "we won't
+      recommend something bad" now lives on the page in the studio's own words, without
+      the clinic framing.</p>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">What I refused to build, and why</h2>
+
+      <ul>
+        <li><strong>No quiz</strong> — the existing one logged 274 completions against 3,449 for the form.</li>
+        <li><strong>No color-coding by category</strong> — the catalog gets little traffic (1,355 visits vs
+        14,368 for services), and color would compete with product photography.</li>
+        <li><strong>No dark theme</strong> — this is a print business; white reads as paper and shows true
+        product color. Night traffic (23.8%) is irrelevant — dark mode is a system
+        setting people leave on around the clock, not a night-specific choice.</li>
+        <li><strong>No per-card "file requirements" block</strong> — bleed and CMYK specs are identical
+        across every service; one shared page beats a hundred places to keep in sync.</li>
+      </ul>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">Engineering</h2>
+
+      <p>Rebuilt as components specifically because the client's developers had complained
+      about the previous project — one inline HTML file, overlapping styles, no
+      documentation. Result: <code>index.html</code> at 46KB instead of 218KB in one file, 19
+      component stylesheets, 10 scripts, zero inline styles, zero inline scripts, zero
+      base64 — the exceptions are the JSON-LD blocks (breadcrumb, service, FAQ schema),
+      which search engines only read inline. Measured the prototype against their live
+      site: 0.68MB vs 9.8MB, ~35 requests vs 133, WebP with a JPEG fallback, lazy-loading
+      and alt text everywhere.</p>
+
+      <div class="ids__space S"></div>
+      <div class="mockup-row">
+        <figure class="mockup-phone">
+          <img src="../assets/img/litera/prototype-card-mobile.png" alt="Litera.Studio prototype — gift certificate service card, mobile">
+          <figcaption>Service card, mobile — <a href="https://omarmardanov.github.io/litera-prototype/">live demo</a></figcaption>
+        </figure>
+      </div>
+      <!-- MOCKUP SLOT 2b: before/after weight comparison still open. See TZ. -->
+
+      <p>Verification rule for the whole project: visual changes get checked by render, never
+      by reading code. That surfaced real bugs an emulator wouldn't have — over a third of
+      the site's iPhone traffic is XR/11-class hardware (more than half in the most recent
+      quarter), so the notch got checked against real device values instead of a simulator
+      default: it needed both header height and inner padding substituted together
+      (get only one right and the header looks broken even though the device would have
+      rendered it fine), and a horizontal-scroll bug on mobile traced to flex items not
+      shrinking below their content width without <code>min-width: 0</code>.</p>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">Status</h2>
+
+      <p>Two pages built and live as a prototype — the pitch to the client hasn't happened
+      yet, a rehearsal pass comes first. Tablet/desktop adaptive layout and developer
+      documentation are still open. A few items sit on the client's side: an actual
+      privacy policy (the current link points to a data-processing consent form instead),
+      a company registration number with a checksum-verified typo, real prices and
+      turnaround times, and image usage consent for published client work.</p>
+    </div>
+
+    <div class="ids__space XL"></div>
+  </div>
+</main>
+
+</body>
+</html>
