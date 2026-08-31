@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Omar Mardanov — Resume</title>
+<style>
+  :root {
+    --ink: #111;
+    --ink-soft: #444;
+    --line: #ccc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #f2f2f0;
+    color: var(--ink);
+    font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+    line-height: 1.32;
+    font-size: 12.5px;
+  }
+  .page {
+    max-width: 780px;
+    margin: 2rem auto;
+    background: #fff;
+    padding: 2.5rem 3rem;
+  }
+  h1 { font-size: 1.5rem; margin: 0 0 0.15rem; }
+  .role { font-size: 1rem; color: var(--ink-soft); margin: 0 0 0.4rem; }
+  .contact { font-size: 0.82rem; color: var(--ink-soft); margin: 0 0 1rem; }
+  .contact a { color: inherit; }
+  .summary { margin: 0 0 1rem; }
+  h2 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.15rem;
+    margin: 1rem 0 0.45rem;
+  }
+  .entry { margin-bottom: 0.6rem; }
+  .entry-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-weight: 600;
+  }
+  .entry-sub { color: var(--ink-soft); font-size: 0.88rem; margin: 0.05rem 0 0.3rem; }
+  ul { margin: 0.25rem 0 0; padding-left: 1.1rem; }
+  li { margin-bottom: 0.18rem; }
+  .skills-row { margin-bottom: 0.25rem; }
+  .skills-row b { font-weight: 600; }
+  .lang-row span { margin-right: 1.5rem; }
+  @page { margin: 12mm; }
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; padding: 0; max-width: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Omar Mardanov</h1>
+  <p class="role">Design Engineer</p>
+  <p class="contact">
+    Baku, Azerbaijan &middot; Open to relocation &middot;
+    <a href="mailto:omarmardanov@gmail.com">omarmardanov@gmail.com</a>
+    &middot; <a href="https://www.linkedin.com/in/omarmard">linkedin.com/in/omarmard</a>
+    &middot; <a href="https://github.com/omarmardanov">github.com/omarmardanov</a>
+    &middot; <a href="https://omarmardanov.github.io">omarmardanov.github.io</a>
+  </p>
+
+  <p class="summary">Product/UX-UI designer who moved into building — research, decisions, and the
+  front-end code that carries them. Four years designing to brief; the last year spent using
+  AI-augmented workflows to prototype and build production-ready front-end, delivered to developers
+  with full documentation on client work, and shipped solo end-to-end on personal projects. Runs
+  full data-driven audits when no CMS access is given.</p>
+
+  <h2>Experience</h2>
+
+  <div class="entry">
+    <div class="entry-head"><span>Design Engineer <span style="font-weight:400;color:var(--ink-soft)">(previously UX/UI Designer)</span> — VEA</span><span>Sep 2022 – Present</span></div>
+    <p class="entry-sub">Digital design &amp; development agency, Moscow &middot; Remote</p>
+    <ul>
+      <li>Run end-to-end product/site audits — crawling, performance and content analysis,
+        information architecture review — including cases with no CMS or admin access, working
+        entirely from external data (analytics exports, crawls, raw logs).</li>
+      <li>Pull and interpret analytics (Yandex Metrika, Google Analytics, Search Console) to
+        prioritize design and product decisions by evidence, not opinion; build lightweight
+        reporting automation so stakeholders get answers without manual work.</li>
+      <li>Own the full design process — UX/UI design, information architecture, design systems —
+        from research through high-fidelity design and prototyping.</li>
+      <li>Build and ship production-ready front-end (HTML/CSS/JS, component-based) using
+        AI-augmented workflows; document components and hand off to developers for CMS integration
+        (WordPress/WooCommerce and others).</li>
+      <li>Verify every visual and behavioral change by rendering and device-testing rather than by
+        reading code — catches real device- and browser-specific bugs a simulator or code review
+        alone would miss.</li>
+      <li>Present findings and design decisions directly to clients and stakeholders, back them
+        with data, and push back on scope that isn't.</li>
+    </ul>
+  </div>
+
+  <h2>Selected personal projects</h2>
+
+  <div class="entry">
+    <div class="entry-head">Haven — iOS app for household document management</div>
+    <p class="entry-sub">Wills, records, physical-document tracking — not just credentials. Built
+    end-to-end through AI-assisted development.</p>
+  </div>
+  <div class="entry">
+    <div class="entry-head">Partal — AI-powered auto-parts search engine</div>
+    <p class="entry-sub">React front-end prototype, MVP from scratch.</p>
+  </div>
+
+  <h2>Education</h2>
+  <div class="entry">
+    <div class="entry-head"><span>Saint Petersburg State University of Economics</span><span>2019</span></div>
+    <p class="entry-sub">B.Sc., Audit and Internal Control</p>
+  </div>
+
+  <h2>Skills</h2>
+  <p class="skills-row"><b>Design:</b> UX/UI design, responsive/adaptive design, information
+    architecture, design systems (tokens, variable styles, component-based), JTBD, customer journey
+    mapping, UX audits, wireframing &amp; prototyping</p>
+  <p class="skills-row"><b>Hands-on code:</b> CSS</p>
+  <p class="skills-row"><b>AI-augmented development:</b> HTML, JavaScript, Python, Swift/iOS — shipped
+    end-to-end with LLM-assisted workflows (Claude Code, ChatGPT), verified by render- and
+    device-testing rather than by reading code</p>
+  <p class="skills-row"><b>Tools:</b> Figma, Miro, Notion, Yandex Metrika API, GitHub Actions</p>
+
+  <h2>Languages</h2>
+  <p class="lang-row"><span>Russian — Native</span><span>English — B1</span></p>
+
+</div>
+</body>
+</html>
