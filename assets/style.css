@@ -26,7 +26,9 @@
   flex: 0 1 260px;
   margin: 0;
 }
-.mockup-phone img {
+.mockup-phone img,
+.mockup-phone video {
+  display: block;
   width: 100%;
 }
 .mockup-wide {
@@ -35,4 +37,71 @@
 }
 .mockup-wide img {
   width: 100%;
+}
+
+.mockup-video-frame {
+  background: #000;
+  padding: 1.8%;
+}
+.mockup-video-frame video {
+  display: block;
+  width: 100%;
+}
+
+.ba-slider {
+  margin: 0;
+}
+.ba-frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 2000 / 1157;
+  border: 1px solid var(--ids__border);
+  --pos: 50%;
+}
+.ba-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ba-before {
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+.ba-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: col-resize;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.ba-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 1px;
+  background: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  transform: translateX(-0.5px);
+}
+.ba-range:focus-visible ~ .ba-handle {
+  width: 2px;
+  box-shadow: 0 0 0 2px var(--ids__link);
+}
+.ba-stats {
+  color: var(--ids__text-caption);
+}
+.ba-stat {
+  opacity: 0.45;
+  transition: opacity 0.2s;
+}
+.ba-stat.is-active {
+  opacity: 1;
+  font-weight: 600;
 }
