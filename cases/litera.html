@@ -30,7 +30,7 @@
 
       <p>Print and graphic design studio, Moscow, 13 years in business.
       WordPress + WooCommerce, services listed as products: 226 services, 36 categories,
-      30 articles, 7 case studies.</p>
+      30 articles, 6 written case studies, 816 portfolio work photos.</p>
 
       <p>No brief — I proposed the direction myself. Scope, agreed by email: free to restructure
       and rebuild, as long as SEO weight carries over through redirects. The client wanted
@@ -40,6 +40,20 @@
       <p>No admin or theme access. Everything below came from outside the CMS: a full crawl,
       a year of Yandex Metrika, and a raw log of outgoing WordPress emails a developer
       happened to still have.</p>
+
+      <div class="ids__space S"></div>
+      <figure class="ba-slider">
+        <div class="ba-frame">
+          <img class="ba-img ba-after" src="../assets/img/litera/hero-desktop.jpg" alt="Rebuilt service page, desktop">
+          <img class="ba-img ba-before" src="../assets/img/litera/hero-desktop-before.jpg" alt="Old litera.studio service page, desktop">
+          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Compare the old Litera.Studio page with the rebuild">
+          <div class="ba-handle" aria-hidden="true"></div>
+        </div>
+        <figcaption>Same service page, same crop &mdash; drag to compare.
+        <span class="ba-stats"><span class="ba-stat ba-stat-before">9.8MB, 133 requests</span> &rarr;
+        <span class="ba-stat ba-stat-after">0.68MB, 35 requests</span></span> &mdash;
+        <a href="https://omarmardanov.github.io/litera-prototype/">live demo</a></figcaption>
+      </figure>
 
       <div class="ids__space M"></div>
       <h2 class="XS">The audit</h2>
@@ -100,7 +114,21 @@
       The data backed the cut: those 52 pages accounted for 832 visits and 13 leads across
       the whole year.</p>
 
-      <!-- MOCKUP SLOT 1: category page. See TZ. -->
+      <div class="ids__space S"></div>
+      <figure class="mockup-wide">
+        <img src="../assets/img/litera/menu-desktop.jpg" alt="Open menu showing the four service groups, desktop">
+        <figcaption>The menu open — four groups, not 36, desktop — <a href="https://omarmardanov.github.io/litera-prototype/">live demo</a></figcaption>
+      </figure>
+
+      <div class="ids__space S"></div>
+      <figure class="mockup-phone" style="margin-left:auto;margin-right:auto;max-width:260px;">
+        <div class="ids__rounded mockup-video-frame" style="--ids__radius:56px;">
+          <video class="ids__rounded" style="--ids__radius:50px;"
+            src="../assets/img/litera/menu-mobile-demo.mp4" poster="../assets/img/litera/menu-mobile-poster.jpg"
+            autoplay muted loop playsinline></video>
+        </div>
+        <figcaption>Same menu, mobile — <a href="https://omarmardanov.github.io/litera-prototype/">live demo</a></figcaption>
+      </figure>
 
       <p><strong>Form redesign.</strong> Mobile is 58% of traffic and converts a quarter worse than
       desktop (2.22% vs 2.77%) — the argument for keeping the form short. Phone required,
@@ -125,6 +153,41 @@
       recommend something bad" now lives on the page in the studio's own words, without
       the clinic framing.</p>
 
+      <p><strong>Three desktop hero directions, built live, not mocked up.</strong> A —
+      typographic: no photo at all, the sale carried by a full-width headline, the product
+      photo pushed down to the next screen at its own proportion. B — the dark panel that
+      shipped: headline and photo share one panel, half the screen each. C — a plain 50/50
+      split, full-height photo on the right. C was cut on a measurement: at full screen
+      height the certificate photo filled only 41% of its column at 1.89&times; zoom &mdash;
+      enough upscaling for the diagonal fold in the paper to visibly fall apart &mdash; and
+      fixing that for every service would mean reshooting each one vertical, from 1200px, a
+      production cost the studio can't carry. Between A and B it was closer: A made the
+      stronger case on paper (a studio that sells typography should lead with typography),
+      but B kept the headline's weight and still gave the photo a place to prove the product
+      is real. B stuck as the base for every screen since.</p>
+
+      <p><strong>Composition — a bigger photo that still stays tidy.</strong> The product photo got
+      bigger on purpose: full-bleed from the top of the panel to the bottom, no top or bottom padding
+      like the first pass had (that read as "a picture dropped in, not part of the layout"), zoomed
+      until 82% of the frame is product — the best ratio out of every crop tested. Bigger only stayed
+      tidy because of the seam it needed next: the dark hero panel meets a product photo on every
+      service page; the certificate photo used to build it is dark and even, so a real problem stayed
+      hidden until the client sent
+      a lighter, busier one (event tickets). Compared nine ways to join panel and photo — dissolve to
+      black, to the photo's dominant color, to a color sampled off its edge, to white, an alpha mask
+      instead of painted color, a perforated edge, a full accent tint, an accent in the header, an
+      accent-colored veil — against a "muddiness" metric (mean brightness at low saturation), after a
+      first metric (gradient smoothness alone) scored the sharp hard-edge version worst even though it
+      looked best by eye — wrong metric, rewrote it. Paint color turned out not to matter: black versus
+      a color sampled off the photo's own edge differed by 0.7 percentage points — the mud comes from
+      translucent color sitting over a busy photo, not from hue (blue tested worse than black, mixing
+      with an orange ticket into brown), and an alpha mask turned out to be arithmetically the same
+      operation as painted color, same result. Shipped as a CMS toggle instead of one rule forced onto
+      all 226 products — dissolve by default, hard edge as an editor override for photos that don't
+      dissolve well. On mobile, the separate seam where the page scrolls up over that first screen gets
+      a perforated edge instead — a tear-off-stub reference specific to print, chosen over a generic
+      wave.</p>
+
       <div class="ids__space M"></div>
       <h2 class="XS">What I refused to build, and why</h2>
 
@@ -137,6 +200,10 @@
         setting people leave on around the clock, not a night-specific choice.</li>
         <li><strong>No per-card "file requirements" block</strong> — bleed and CMYK specs are identical
         across every service; one shared page beats a hundred places to keep in sync.</li>
+        <li><strong>No perforated header to match the scroll-layer edge</strong> — tested it; the product
+        photo between two zigzag edges came out visibly smaller (198px high against 249px), doubling the
+        decorative pattern on screen for a one-time snap-together moment instead of the perforation's
+        usual persistent effect.</li>
       </ul>
 
       <div class="ids__space M"></div>
@@ -157,8 +224,15 @@
           <img src="../assets/img/litera/prototype-card-mobile.png" alt="Litera.Studio prototype — gift certificate service card, mobile">
           <figcaption>Service card, mobile — <a href="https://omarmardanov.github.io/litera-prototype/">live demo</a></figcaption>
         </figure>
+        <figure class="mockup-phone">
+          <div class="ids__rounded mockup-video-frame" style="--ids__radius:56px;">
+            <video class="ids__rounded" style="--ids__radius:50px;"
+              src="../assets/img/litera/card-scroll-demo.mp4" poster="../assets/img/litera/card-scroll-poster.jpg"
+              autoplay muted loop playsinline></video>
+          </div>
+          <figcaption>Scrolling the same page — <a href="https://omarmardanov.github.io/litera-prototype/">live demo</a></figcaption>
+        </figure>
       </div>
-      <!-- MOCKUP SLOT 2b: before/after weight comparison still open. See TZ. -->
 
       <p>Verification rule for the whole project: visual changes get checked by render, never
       by reading code. That surfaced real bugs an emulator wouldn't have — over a third of
@@ -184,5 +258,6 @@
   </div>
 </main>
 
+<script src="../assets/ba-slider.js" defer></script>
 </body>
 </html>
