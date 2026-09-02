@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Galifanov, Malkov &amp; Partners — information architecture and a design system — Omar Mardanov</title>
+<link rel="stylesheet" href="../assets/ids/css/tokens/palette.css">
+<link rel="stylesheet" href="../assets/ids/css/tokens/colors.css">
+<link rel="stylesheet" href="../assets/ids/css/reset.css">
+<link rel="stylesheet" href="../assets/ids/css/tokens/scales.css">
+<link rel="stylesheet" href="../assets/ids/css/settings.css">
+<link rel="stylesheet" href="../assets/ids/css/page-composition/layout.css">
+<link rel="stylesheet" href="../assets/ids/css/components/ids.css">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="ids">
+
+<main>
+  <div class="ids__wrapper">
+    <div class="ids__space L"></div>
+
+    <div class="ids__text-width">
+      <p><a href="../index.html">&larr; Omar Mardanov</a></p>
+
+      <div class="ids__space S"></div>
+
+      <h1>Galifanov, Malkov &amp; Partners — information architecture and a design system</h1>
+
+      <p class="dek">Static handoff, mid-build — passed to the client's WordPress developer.
+      Preview: <a href="https://omarmardanov.github.io/1tm/">live demo</a>.</p>
+
+      <p>Patent and law firm, Moscow and Tyumen offices, in business since 2014. The old site
+      positioned the firm narrowly, as a "Federal Patent Bureau" — intellectual property only.
+      The practice had since grown into a full-service firm — tax, corporate disputes,
+      bankruptcy, government procurement, antitrust defense, business outsourcing — and the
+      site hadn't caught up: 18 services, flat, no grouping.</p>
+
+      <p>Deliverable: a full set of static HTML/CSS/JS page templates, no framework or build
+      step, self-contained files pulling shared assets — built to be handed to a WordPress
+      developer who implements the CMS layer separately. 18 templates cover the whole site;
+      about 80 individual service pages get generated from one of them once the client's
+      content team fills in copy.</p>
+
+      <div class="ids__space S"></div>
+      <figure class="ba-slider">
+        <div class="ba-frame">
+          <img class="ba-img ba-after" src="../assets/img/1tm/hero-after.jpg" alt="Rebuilt homepage hero, desktop">
+          <img class="ba-img ba-before" src="../assets/img/1tm/hero-before.jpg" alt="Old 1-tm.ru homepage hero, desktop">
+          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Compare the old 1-tm.ru homepage with the rebuild">
+          <div class="ba-handle" aria-hidden="true"></div>
+        </div>
+        <figcaption>Same header, new headline &mdash; drag to compare.
+        "Federal Patent Bureau" narrowed to IP &rarr; "Partner in complex matters, from Rospatent to the Supreme Court."</figcaption>
+      </figure>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">18 services, one list &rarr; 4 directions</h2>
+
+      <p>The old site's service menu was a single ungrouped list. Proposed a 4-direction
+      structure and mapped all 18 existing services into it — nothing dropped, unlike Litera
+      where two categories got cut outright:</p>
+
+      <div class="table-scroll">
+      <table>
+        <thead><tr><th>Direction</th><th>URL</th><th>Groups it covers</th></tr></thead>
+        <tbody>
+        <tr><td>Intellectual Property</td><td><code>/uslugi/intellektualnaya-sobstvennost/</code></td>
+        <td>Trademarks, Patents, Copyright, Software &amp; databases, Geographical indications,
+        Appellations of origin, Franchise</td></tr>
+        <tr><td>Contracts &amp; Deals</td><td><code>/uslugi/dogovory-i-sdelki/</code></td>
+        <td>License agreements, Assignment agreements, Pledge agreements, Trade secrets / NDA,
+        Work-for-hire, Franchise concession</td></tr>
+        <tr><td>Litigation &amp; Defense</td><td><code>/uslugi/spory-i-zashchita/</code></td>
+        <td>Arbitration, Corporate disputes, Tax disputes, Antitrust (FAS), Counterfeit defense,
+        Bankruptcy</td></tr>
+        <tr><td>Business Support</td><td><code>/uslugi/soprovozhdenie-biznesa/</code></td>
+        <td>Legal support, Government procurement (44/223-FZ), Business outsourcing
+        (accounting, translation), Business defense</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <p>The URL for Litigation &amp; Defense stayed <code>spory-i-zashchita</code> even though
+      the on-site label changed from the old catch-all to "Судебная практика" (Litigation
+      Practice) — kept for SEO stability and backward compatibility, decoupling the address
+      from the label the visitor reads.</p>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">A specialization layer the brief didn't ask for</h2>
+
+      <p>The firm's real strength is industry-specific patent work and court representation —
+      buried in the flat service list, not visible anywhere on the old site. Added a second
+      rail below the four-column mega-menu, under its own eyebrow ("Специализация") set in the
+      accent color rather than the usual muted tone, to flag it as a strength rather than a
+      fifth direction competing with the other four:</p>
+
+      <ul>
+        <li><strong>Patents by industry:</strong> Agriculture, Medicine, Pharmaceuticals, Oil
+        &amp; Gas, Industrial equipment</li>
+        <li><strong>Court representation:</strong> IP Court (SIP), Arbitration Court, FAS
+        (antitrust), Patent Disputes Chamber, Supreme Court</li>
+      </ul>
+
+      <div class="ids__space S"></div>
+      <figure class="mockup-wide">
+        <img src="../assets/img/1tm/mega-desktop.jpg" alt="Mega-menu open, desktop, showing the four service directions plus the specialization rail below" style="border:1px solid var(--ids__border);">
+        <figcaption>Four directions, plus the specialization rail that didn't exist on the old site — desktop.</figcaption>
+      </figure>
+
+      <p>Same 10 links reproduced in two more places without writing new logic: the mobile
+      drill-down menu, because its <code>data-go</code> handler was already written generically
+      — two new panels slotted in and worked with zero JS changes — and the footer, which grew
+      a fourth sitemap column (Brand / Directions / Specialization / Bureau) using the identical
+      subhead-plus-links pattern from the mega-menu.</p>
+
+      <div class="ids__space S"></div>
+      <figure class="mockup-phone" style="margin-left:auto;margin-right:auto;max-width:260px;">
+        <img src="../assets/img/1tm/mobile-drilldown.png" alt="Mobile menu drilled down into Patents by industry" style="border:1px solid var(--ids__border);">
+        <figcaption>Same rail, mobile drill-down &mdash; same ten links, zero new JS.</figcaption>
+      </figure>
+
+      <p>All 10 links currently 404 — the pages don't exist yet. Deliberate: the client
+      confirmed the pattern (one landing page per low-frequency industry or court query,
+      WordPress developer builds each from the <code>uslugi-shablon/</code> template), and the
+      slugs are fixed in the HTML now so building them later can't break a URL.</p>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">A system enforced by scripts, not memory</h2>
+
+      <p>One token file, one accent color (<code>#5a3b25</code>, brightened mid-project from
+      an initial <code>#453125</code>), Cormorant for display type against DM Sans for
+      everything else, no shadows or gradients, rounded corners only on buttons and inputs —
+      an editorial restraint that had to hold across 18 different page templates without
+      drifting.</p>
+
+      <p>It held partly because duplicate CSS kept getting caught and merged: the filter-chip
+      pattern used on the journal, the case list, and search results existed as three near-copies
+      before being consolidated into one grouped selector in <code>components.css</code>; the
+      quote/callout block used on service pages and journal articles got the same treatment.
+      Both times the fix was deleting the page-specific duplicates, not writing something new.</p>
+
+      <p>The harder consistency problem was mechanical, not visual — keeping 18 self-contained
+      HTML files in sync without a templating engine. Solved with small scripts instead of
+      manual copy-paste discipline:</p>
+
+      <ul>
+        <li><strong><code>sync-partials.py</code></strong> — header, footer, modal, mobile-menu
+        (and later the cookie banner) live once in <code>partials/</code> and get pushed into
+        all 18 inline copies, supporting an <code>&lt;!-- @include name --&gt;</code>
+        placeholder and regex replacement of existing blocks.</li>
+        <li><strong><code>sync-cta.py</code></strong> — unifies the final call-to-action's
+        buttons and contact row across 10 pages without touching each page's own headline or
+        lead copy.</li>
+        <li><strong><code>add-meta.py</code></strong> — OG, Twitter Card, and canonical tags
+        across all 18 pages, idempotent via <code>&lt;!-- :og:start --&gt;</code> /
+        <code>&lt;!-- :og:end --&gt;</code> markers, so re-running it after a content edit
+        doesn't duplicate anything.</li>
+        <li><strong><code>add-img-dims.py</code></strong> — added explicit
+        <code>width</code>/<code>height</code>/<code>loading="lazy"</code>/<code>decoding="async"</code>
+        to all 36 <code>&lt;img&gt;</code> tags at once, reading real dimensions automatically
+        (<code>sips</code> for JPG, <code>viewBox</code> for SVG) rather than 36 pairs of numbers
+        typed and eyeballed by hand — the actual CLS fix.</li>
+      </ul>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">Refused: writing a CMS from scratch</h2>
+
+      <p>Mid-project, the director rejected WordPress outright — too slow, too complex for
+      what the firm needs — and asked whether I could just build a custom engine instead.
+      I refused that specific version of the request: a hand-rolled CMS means one person
+      becomes the site's bus factor, carries its own security surface, and costs real time to
+      keep alive indefinitely — none of which this firm's scale justifies. Recommended an
+      Astro static-site build with a lightweight headless CMS behind it: static output keeps
+      the current speed, the existing 18 templates port across nearly 1:1, and Astro's built-in
+      i18n happens to solve a second requirement that landed the same week — three languages
+      (RU/EN/ES), added after the fact. A visual-only language switcher (RU active, EN/ES as
+      stub links) went into the header now, so the real switch lands later without touching
+      that component again. The engine choice itself, and how much of the site actually needs
+      translating, are still the director's decision to make.</p>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">Compliance caught mid-project</h2>
+
+      <p>Rebuilt the cookie banner because the existing consent wording — "continuing to use
+      the site without changing your settings" counts as consent — was already out of date
+      under Russian law (152-FZ): Roskomnadzor has required explicit opt-in since 2022–2023,
+      not implied consent. Replaced it with a bottom-fixed banner offering essential-only or
+      accept-all, storing the choice in <code>localStorage</code>, and exposed a global
+      <code>window.hasAnalyticsConsent()</code> check for whenever Yandex Metrika gets wired
+      in — synced to all 18 pages through the same partials pipeline as the header and footer,
+      not a one-off addition.</p>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">Status</h2>
+
+      <p>Handed to an external developer as of July 12, 2026 — my role here is passive now,
+      source and history in the repo. The preview now lives at
+      <a href="https://omarmardanov.github.io/1tm/">omarmardanov.github.io/1tm</a>; the root
+      domain went to this portfolio instead, and the site itself stays closed to search
+      indexing (<code>robots.txt</code>) since it isn't the client's real domain. Open on the
+      client's side: the engine decision (Astro vs. the headless CMS they're separately
+      evaluating), how much of the site gets translated, and roughly 80 individual service
+      pages the content team is filling from templates handed over through Yandex Documents.</p>
+    </div>
+
+    <div class="ids__space XL"></div>
+  </div>
+</main>
+
+<script src="../assets/ba-slider.js" defer></script>
+</body>
+</html>
