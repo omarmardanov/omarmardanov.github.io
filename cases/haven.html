@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Haven — an iOS app for the documents a household actually loses — Omar Mardanov</title>
+<link rel="stylesheet" href="../assets/ids/css/tokens/palette.css">
+<link rel="stylesheet" href="../assets/ids/css/tokens/colors.css">
+<link rel="stylesheet" href="../assets/ids/css/reset.css">
+<link rel="stylesheet" href="../assets/ids/css/tokens/scales.css">
+<link rel="stylesheet" href="../assets/ids/css/settings.css">
+<link rel="stylesheet" href="../assets/ids/css/page-composition/layout.css">
+<link rel="stylesheet" href="../assets/ids/css/components/ids.css">
+<link rel="stylesheet" href="../assets/style.css?v=3">
+</head>
+<body class="ids">
+
+<main>
+  <div class="ids__wrapper">
+    <div class="ids__space L"></div>
+
+    <div class="ids__text-width">
+      <p><a href="../index.html">&larr; Omar Mardanov</a></p>
+
+      <div class="ids__space S"></div>
+
+      <h1>Haven &mdash; an iOS app for the documents a household actually loses</h1>
+
+      <p class="dek">Personal project. Product, design and SwiftUI build, solo.
+      Runs on device; not released to the App Store, on purpose.</p>
+
+      <p>This one started as my own problem. I have moved countries several times, and each
+      move adds a layer: a residence permit here, a tax number there, a birth certificate that
+      matters in one country and is a curiosity in the next, an expiry date nobody warns you
+      about. The documents were not lost, exactly. They were in the phone gallery, in a Telegram
+      saved-messages thread, in a folder somewhere in the flat, and in an email attachment from
+      2021 &mdash; and finding the right one always happened at the worst possible moment.</p>
+
+      <p>The interesting question was whether that is an immigrant problem or a general one.
+      So before designing anything, I went and checked.</p>
+
+      <!-- Скриншоты: ждём скринкаст с реального телефона (симулятор не принимает тапы).
+           Сюда — онбординг, витрина объектов, карточка документа с местом хранения оригинала. -->
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">What the research said, and how it changed the product</h2>
+
+      <p>It is general. 75% of people admit their important information is not organized, and
+      92% have had the experience of not finding a document exactly when they needed it. Only
+      about 30% of households are prepared, document-wise, for an emergency. Those numbers
+      describe people who have never emigrated anywhere.</p>
+
+      <p>The more useful finding was what people actually lose. It is not the file. Scanner
+      apps &mdash; Genius Scan, CamScanner, Adobe Scan &mdash; already solve capture, and solve
+      it well. What none of them solve is where to look six months later: they organize by
+      capture date, not by meaning. And password managers, which people reach for by analogy,
+      are built for credentials and have nothing to say about a will, a lease, or the
+      instructions for the person who feeds the cat.</p>
+
+      <p><strong>What gets lost is the link between a document and its context:</strong> where
+      the paper original physically is, when it expires, and whose document it is. That
+      reframing is the whole product.</p>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">The blue folder on the top shelf</h2>
+
+      <p>The digital copy and the paper original live in two separate worlds that never meet.
+      Every guide tells you to keep originals somewhere safe, and not one of them connects that
+      location back to the scan you took. So a document in Haven carries where its paper version
+      is kept, in plain words &mdash; "blue folder, top shelf" &mdash; alongside the scan, the
+      expiry date, and the person it belongs to.</p>
+
+      <p>It is a small field. It is also the answer to the actual question people ask themselves,
+      which is never "where is the PDF" but "where is the original, and do I need to bring it".</p>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">Organized by who and what, not by folder</h2>
+
+      <p>Documents hang off objects: family members, property, pets. There is no folder tree.
+      A category taxonomy exists underneath (identity, medical,
+      financial, property, travel), drawn from where external sources agree and adapted to a
+      post-Soviet plus international reality where a residence permit, a visa, a tax number and
+      a pension number are all normal things to own. But the surface people navigate is the
+      household, because that is how they remember: not "financial documents", but "the car" and
+      "my daughter".</p>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">Refused: appliances</h2>
+
+      <p>I added an "appliances" object type and removed it the same day. It failed exactly the
+      test that had rejected bills and insurance policies an hour earlier: too few documents per
+      object &mdash; a receipt and a warranty, often just the receipt &mdash; so the shelf of
+      objects fills up with cards reading "1 document". And the pain is not there. A laptop does
+      not have a piece of paper that goes missing in a drawer.</p>
+
+      <p>It got in because in my original notes "appliances" sat next to "purchases" and
+      described <em>a category of documents</em>, not <em>an object</em>. I lifted it out without
+      re-applying the filter I had just written down. There was even an indirect signal I ignored:
+      there was no reasonable system icon for it, and I ended up using a plug adapter.</p>
+
+      <p>Filed as a rule, not a one-off: when a candidate object arrives from a list of
+      document categories, run the object test on it again.</p>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">Refused: a "custom name" row in onboarding</h2>
+
+      <p>Onboarding asks you to tick objects off a checklist. I noticed the main screen lets you
+      create an object with a free-form name while the checklist only offers presets, and nearly
+      added a "custom name" row to close the gap.</p>
+
+      <p>It turned out the gap wasn't real: a preset only sets the object type and the hint text,
+      and the name itself is typed freely on the next step. Tick "other property", call it "boat".
+      The two paths already meet.</p>
+
+      <p>So the row stayed out, for three reasons. The checklist is a checklist &mdash; a tap
+      means a tick, and a row that opens a text field breaks that pattern and slows down the
+      fastest path through the screen. Onboarding's job is not to inventory a household but to
+      create one object and demonstrate the model, then let go. And the asymmetry: adding an item
+      later is cheap, removing one people have got used to is not.</p>
+
+      <p>The same pass did find a real hole and closed it: pets had no escape hatch at all, so a
+      parrot or a tortoise could not be entered in onboarding by any route.</p>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">Native by default</h2>
+
+      <p>One rule governed the interface: everything is built from what the platform gives &mdash;
+      system containers, transitions, materials, spacing, animations &mdash; and customization is
+      a separate, deliberate decision made only after the native version has been seen on screen
+      and judged insufficient. Not the other way round.</p>
+
+      <p>It is a cheap rule that pays twice. The app inherits accessibility, dynamic type and
+      every future OS refinement for free, and design attention goes to the parts that are
+      actually this product's problem, not to re-drawing a navigation bar.</p>
+
+      <div class="ids__space M"></div>
+      <h2 class="XS">Status</h2>
+
+      <p>Built and running on device, developed with AI-assisted workflows and verified by
+      testing on a real iPhone instead of by reading code. Not on the App Store: paying Apple's
+      developer fee was declined at the start as a decision, not an oversight &mdash; the app is
+      for my household, and a store listing adds review, screenshots, a privacy questionnaire and
+      an annual bill to a product that has exactly one user.</p>
+
+      <p>What I would want before that changes: someone outside my household putting their own
+      documents in it, which is a different kind of work from building it.</p>
+    </div>
+
+    <div class="ids__space XL"></div>
+  </div>
+</main>
+
+</body>
+</html>

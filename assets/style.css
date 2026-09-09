@@ -43,7 +43,8 @@
   background: #000;
   padding: 1.8%;
 }
-.mockup-video-frame video {
+.mockup-video-frame video,
+.mockup-video-frame img {
   display: block;
   width: 100%;
 }
@@ -104,4 +105,27 @@
 .ba-stat.is-active {
   opacity: 1;
   font-weight: 600;
+}
+
+/* Тёмная тема. IDS поставляет класс .dark со всеми токенами, но не связывает его
+   с настройкой системы. Здесь те же значения применяются по prefers-color-scheme —
+   вендорный tokens/colors.css не трогаем. --ids__border пересчитается сам:
+   он объявлен через var(--ids__text). */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --ids__text: var(--ids__color-gray-200);
+    --ids__text-caption: var(--ids__color-gray-400);
+    --ids__link: var(--ids__color-blue-450);
+    --ids__hover: var(--ids__color-green-450);
+    --ids__accent: var(--ids__color-red-450);
+    --ids__code: var(--ids__color-gray-400);
+    --ids__mark: var(--ids__color-yellow-500);
+    --ids__surface: var(--ids__color-gray-800);
+    --ids__background: var(--ids__color-gray-900);
+
+    --ids__error: var(--ids__color-red-450);
+    --ids__success: var(--ids__color-green-450);
+  }
 }
